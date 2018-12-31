@@ -1,0 +1,1887 @@
+;var plugins = ((function() {
+    var jmz = {};
+    jmz.GetLength = function(str) {
+        return str.replace(/[^\x00-\xff]/g,"aa").length;
+    };
+    var getPic = function(src, width, height, model){
+        if(!src || !width)
+            return src;
+        if(!height)
+            height = width;
+        if(!!model){
+            if(model == "force")
+                src = src.replace("/m/", "/force/");
+            else if(model == "m")
+                src = src.replace("/force/", "/m/");
+        }
+        if(src.match(/_\d+_\d+\.(jpg|png|gif|bmp)/i))
+            return src.replace(/_\d+_\d+\.(jpg|png|gif|bmp)/i, "_" + width + "_" + height + ".$1");
+        else
+            return src.replace(/\.(jpg|png|gif|bmp)/i,  "_" + width + "_" + height + ".$1");
+    };
+    $.tips = function(msg, delay, reload){
+        var style = '<style>.show_public_tips{ position:fixed; _position:absolute; top:30%; left:50%; width:360px; margin:0 0 0 -200px;'
+            + ' background:#000; font-size:18px; font-family:\'Microsoft Yahei\',微软雅黑; text-align:center; line-height:40px; '
+            + 'padding:20px; z-index:21000; _top:expression(documentElement.scrollTop + 150); border:1px solid #555; color:#fff;} '
+            + '.show_public_tips_text{ color:#fff;}</style><!--[if (gt IE 9)|!(IE)]><!--><style> div.show_public_tips{ background:rgba(0, 0, 0, 0.7);'
+            + 'border-radius:8px;}</style><!--<![endif]-->';
+//        var style = '<style>.show_public_tips{ position:fixed; _position:absolute; top:30%; left:50%; width:400px; margin:0 0 0 -200px;'
+//            +' background:#000; background:rgba(0, 0, 0, 0.7); font-size:18px; font-family:\'Microsoft Yahei\',微软雅黑;'
+//            +' text-align:center; line-height:80px; height:80px; z-index:21000;filter:Alpha(opacity=70); border-radius:8px;'
+//            +' _top:expression(documentElement.scrollTop + 150); display:none; border:1px solid #555;} .show_public_tips_text{ color:#fff;}</style>';
+        var html = '<div class="show_public_tips"><p class="show_public_tips_text"></p></div>';
+        var tipsObj = $(".show_public_tips");
+        if(tipsObj.length <= 0)
+        {
+            $("body").append(style + html);
+            tipsObj = $(".show_public_tips");
+        }
+        tipsObj.stop().hide();
+        if(Object.prototype.toString.call((delay)) != '[object Array]' || delay.length != 3)
+            delay = [500, 1000, 500];
+        tipsObj.css("opacity", 0).show().find(".show_public_tips_text").html(msg).parent().stop(true, true).animate({"opacity": 1}, delay[0], function(){
+            tipsObj.stop(true, true).animate({"opacity": 1}, delay[1], function(){
+                tipsObj.stop(true, true).animate({"opacity": 0}, delay[2], function(){
+                    tipsObj.hide();
+                    if(reload === true){
+                        window.location.reload();
+                    }
+                    else if(!!reload){
+                        window.location.href = reload;
+                    }
+                });
+            });
+        });
+    };
+    $.login = function(callback){
+        var self = this;
+        var style = '<style>html{_background-image:url(about:blank);_background-attachment:fixed;}'
+            +'.pop_lo_bg_bg{background:rgba(0, 0, 0, 0); background:#000\\9;opacity:0\\0;position:fixed; width:100%; height:100%; top:0; left:0; display:block; filter:Alpha(opacity=0); z-index:11000;_position:absolute; _height:expression(document.body.clientHeight+\'px\');}'
+            +'.pop_lo_bg{position:absolute; left:20%; z-index:11001; top:20%; background:#fff; overflow:hidden; -webkit-box-shadow:0 0 5px rgba(0,0,0,0.3); -moz-box-shadow:0 0 5px rgba(0,0,0,0.3); box-shadow:0 0 5px rgba(0,0,0,0.3); width:540px;}'
+            +'.pop_lo_bg .rt{ float:right;}'
+            +'.pop_lo_bg .lt{float:left}'
+            +'ul.pop_lo_list{position:relative; overflow:hidden; padding:20px 0 0 0;}'
+            +'ul.pop_lo_list li{padding:10px 100px; line-height:20px; overflow:hidden; zoom:1;}'
+            +'ul.pop_lo_list li.spot_item{display:none;}'
+            +'ul.pop_lo_list li input.us_name,ul.pop_lo_list li input.us_pwd,ul.pop_lo_list li input.us_pwd_panel,ul.pop_lo_list li input.us_spot{border:#d9d9d9 solid 1px; width:318px; padding:8px 10px; color:#666;}'
+            +'ul.pop_lo_list li input.us_spot{width:130px;}'
+            +'ul.pop_lo_list li a.lo_bnt{display:block; width:150px; height:40px; line-height:40px; text-align:center; color:#fff; background:#70c404; font-size:14px; text-decoration:none;}'
+            +'ul.pop_lo_list li a.lo_bnt:hover{background:#6DB823;}'
+            +'ul.pop_lo_list li a.close_btn{background:url(http://static.5sing.kugou.com/images/sns_icons.png) 0 -32px no-repeat; position:absolute; right:10px; top:10px; width:28px; height:28px; text-indent:-999px; overflow:hidden;}'
+            +'ul.pop_lo_list li a.close_btn:hover{background-position:-32px -32px;}'
+            +'ul.pop_lo_list li a.forget{color:#30aa00;}'
+            +'ul.pop_lo_list li a.free_join{line-height:40px; color:#30aa00;}'
+            +'ul.pop_lo_list li input.IsSave{margin-top:4px; _margin-top:0px; float:left;}'
+            +'ul.pop_lo_list li span.errotip{position:absolute; left:100px; top:5px; color:#ff3000;}'
+            +'ul.pop_lo_list li a.identifier{position:absolute; right:100px; cursor: hand; top:149px; width:140px; height:52px; overflow:hidden;}'
+            +'ul.pop_lo_list li.pop_lo_copt{background:#f5f5f5; padding:30px 100px; margin-top:15px; line-height:32px; font-size:14px;}'
+            +'ul.pop_lo_list li.pop_lo_copt a{width:32px; height:32px; background:url(http://static.5sing.kugou.com/images/sns_icons.png) no-repeat; text-indent:-999px; overflow:hidden; margin-left:10px; display:inline;}'
+            +'ul.pop_lo_list li.pop_lo_copt a.kaixin{background-position:-128px 0;}'
+            +'ul.pop_lo_list li.pop_lo_copt a.renren{background-position:-96px 0;}'
+            +'ul.pop_lo_list li.pop_lo_copt a.tencent{background-position:-64px 0;}'
+            +'ul.pop_lo_list li.pop_lo_copt a.weibo{background-position:-32px 0;}'
+            +'ul.pop_lo_list li.pop_lo_copt a.qq{background-position:0 0;}</style>';
+        var html = '<div class="pop_lo_bg">'
+            + '<ul class="pop_lo_list">'
+            + '<li><input type="text" class="us_name" value="通行证/邮箱/手机号码" onfocus="if(value==defaultValue){value=\'\';}" onBlur="if(!value){value=defaultValue;}"/></li>'
+            + '<li><input type="text" class="us_pwd_panel" value="密码" onfocus="this.style.display=\'none\';this.parentElement.children.item(1).style.display=\'block\';this.parentElement.children.item(1).focus()"/>'
+            +'<input type="password" class="us_pwd" value="" style="display:none;" onBlur="if(!value){this.style.display=\'none\';this.parentElement.children.item(0).style.display=\'block\';}" /></li>'
+            + '<li class="spot_item">'
+            + '<input type="text" class="us_spot" value="验证码" onfocus="if(value==defaultValue){value=\'\';}" onBlur="if(!value){value=defaultValue;}"/>'
+            + '<a class="identifier" title="看不清楚？点击换一张"><img alt="" src="http://5sing.kugou.com/code"/></a>'
+            + '</li>'
+            + '<li>'
+            + '<span class="lt"><input type="checkbox" class="IsSave" id="IsSave"/><label for="IsSave">记住我</label></span>'
+            + '<em style="color:#FF0000; display: none;">&nbsp;&nbsp;建议在网吧或公共电脑上取消该选项。</em>'
+            + '<a class="forget rt" href="http://5sing.kugou.com/getpass/" target="_blank" title="忘记密码">忘记密码</a>'
+            + '<a href="javascript:;" class="close_btn" title="关闭">关闭</a>'
+            + '<span class="errotip"></span>'
+            + '</li>'
+            + '<li>'
+            + '<a class="lo_bnt lt" href="###" title="登录">登录</a>'
+            + '<a class="free_join rt" href="http://5sing.kugou.com/reg/" target="_blank" title="注册">注册</a>'
+            + '</li>'
+            + '<li class="pop_lo_copt">'
+            + '<span class="lt">使用合作账号登录</span>'
+            + '<a class="kaixin rt" target="_blank" href="http://5sing.kugou.com/login?do=2&refUrl='+window.location.href+'" title="开心网">开心网</a>'
+            + '<a class="renren rt" target="_blank" href="http://5sing.kugou.com/login?do=3&refUrl='+window.location.href+'" title="人人网">人人网</a>'
+            + '<a class="tencent rt" target="_blank" href="http://5sing.kugou.com/login?do=4&refUrl='+window.location.href+'" title="腾讯微博">腾讯微博</a>'
+            + '<a class="weibo rt" target="_blank" href="http://5sing.kugou.com/login?do=1&refUrl='+window.location.href+'" title="新浪微博">新浪微博</a>'
+            + '<a class="qq rt" target="_blank" href="http://5sing.kugou.com/login?do=5&refUrl='+window.location.href+'" title="QQ">QQ</a>'
+            + '</li>'
+            + '</ul>'
+            + '</div>';
+        var loginBox = $(".pop_lo_bg");
+        var loginBox_bg = $(".pop_lo_bg_bg");
+        var logining = false;
+        if(loginBox.length <= 0)
+        {
+            $("body").append(style + html);
+            loginBox = $(".pop_lo_bg");
+            $("body").append('<div class="pop_lo_bg_bg"></div>');
+            loginBox_bg = $(".pop_lo_bg_bg");
+            loginBox.hide();
+            loginBox.find(".close_btn").click(function(){
+                loginBox.animate({"opacity": 0}, 200,function(){
+                    loginBox.hide();
+                    loginBox_bg.hide();
+                });
+            });
+            $(document).keydown(function(e){
+                var key = (e.keyCode) || (e.which) || (e.charCode);
+                if(key == 27)
+                {
+                    loginBox.animate({"opacity": 0}, 200,function(){
+                        loginBox.hide();
+                        loginBox_bg.hide();
+                    });
+                }
+            });
+            loginBox.find(".pop_lo_list > li > span.lt").hover(function(){
+                $(this).next("em").show();
+            },function(){
+                $(this).next("em").hide();
+            });
+            loginBox.find(".identifier").click(function(){
+                $(this).find("img").attr("src", "http://5sing.kugou.com/code?" + (new Date()).getTime());
+            });
+            var us_name = loginBox.find(".us_name");
+            var us_pwd = loginBox.find(".us_pwd");
+            var us_spot = loginBox.find(".us_spot");
+            var IsSave = loginBox.find(".IsSave");
+            var errotip = loginBox.find(".errotip");
+            loginBox.find(".lo_bnt").click(function(){
+                if(!logining)
+                {
+                    logining = true;
+                    var us_name_txt = us_name.val();
+                    var us_pwd_txt = us_pwd.val();
+                    var us_spot_txt = us_spot.val();
+                    var isSave_val = IsSave.is(":checked") ? 1 : 0;
+                    if(us_name_txt.length <=0)
+                    {
+                        errotip.html("请输入用户名");
+                        logining = false;
+                        return;
+                    }
+                    if(us_pwd_txt.length <=0)
+                    {
+                        errotip.html("请输入密码");
+                        logining = false;
+                        return;
+                    }
+                    var url = "http://service.5sing.kugou.com/user/login?jsoncallback=?";
+                    $.getJSON(url, {username: us_name_txt, password: us_pwd_txt, code: us_spot_txt, isRemember: isSave_val}, function(res){
+                        logining = false;
+                        if(res.isSuccess)
+                        {
+                            if(typeof(callback) == "function")
+                                callback(res.data);
+                            loginBox.animate({"opacity": 0}, 200,function(){
+                                loginBox.hide();
+                                loginBox_bg.hide();
+                            });
+                        }
+                        else
+                        {
+                            if(res.data.overLimit >= 3)
+                                us_spot.parent().show();
+                            errotip.html(res.message);
+                        }
+                    })
+                }
+            });
+        }
+        $.getJSON("http://service.5sing.kugou.com/user/limitTimes?jsoncallback=?", {}, function(res){
+            if(res.limit >= 3)
+                loginBox.find(".us_spot").parent().show();
+            var height = $(window).height();
+            var width = $(window).width();
+            var top = parseInt((height - loginBox.height()) / 2) + $(window).scrollTop();
+            var left = parseInt((width - loginBox.width()) / 2) + $(window).scrollLeft();
+            loginBox_bg.show();
+            loginBox.css({"opacity": 0, "top": top + "px", "left": left + "px"}).show().animate({"opacity": 1}, 200)
+        });
+    };
+    $.userCard = function(cls){
+        var sources = {
+            "findUser": "http://service.5sing.kugou.com/user/find?jsonCallback=?",
+            "addFriend": "http://service.5sing.kugou.com/relation/addFriend?jsonCallback=?",
+            "removeFriend": "http://service.5sing.kugou.com/relation/removeFriend?jsonCallback=?"
+        };
+        var self = this;
+        var loadingTemp = '<div class="sp_card_loading">'
+            + '<img src="http://static.5sing.kugou.com/images/v2012/loading.gif" width="32" height="32" alt="正在加载中..." />'
+            + '</div>' + '<b class="sp_caret sp_caret_out"></b><b class="sp_caret sp_caret_in"></b>';
+        var userTemp = '<dl class="sp_card_view">' +
+            '<dt><a href="http://5sing.kugou.com/{user.id}" target="_blank"><img src="{user.avatar}" border="0" width="48" height="48" /></a></dt>' +
+            '<dd>' +
+            '<a target="_blank" href="http://5sing.kugou.com/{user.id}">{user.nickname}</a><br />关注&nbsp;' +
+            '<a target="_blank" href="http://5sing.kugou.com/{user.id}/friend/1.html">{user.totalfriends}</a>&nbsp;&nbsp;|&nbsp;&nbsp;粉丝&nbsp;' +
+            '<a target="_blank" href="http://5sing.kugou.com/{user.id}/fans/1.html">{user.totalfans}</a>&nbsp;&nbsp;|&nbsp;&nbsp;人气&nbsp;{user.totalrq}</dd>' +
+            '</dl>' +
+            '<div class="sp_card_intro">{user.memo}</div>' +
+            '<div class="sp_card_medal">' +
+            '<ul>{user.special}</ul>' +
+            '</div>' +
+            '<div class="sp_card_follow"><span></span><a href="###" uid="{user.id}" class="sp_follow_bnt {user.follow}">{user.followText}</a></div>' +
+            '<b class="sp_caret sp_caret_out"></b>' +
+            '<b class="sp_caret sp_caret_in"></b>';
+        var notFoundTemp = '<div class="sp_card_null"><p>没有找到相关信息</p><a target="_blank" href="http://sou.5sing.kugou.com/smember.aspx?key={user.search}">搜索该会员</a></div>' + '<b class="sp_caret sp_caret_out"></b><b class="sp_caret sp_caret_in"></b>';
+
+        var closeTimer = null;
+        var showTimer = null;
+
+        var cardBg = $(".sp_card_bg");
+        var cardContainer = $(".sp_card_bg > .sp_card");
+
+        var init = function(){
+            if ($(".sp_card_bg").length <= 0) {
+                var style = '<style>' +
+                    '.sp_card_bg{ position:absolute; top:0px; left:0px; color: #666666; font:12px/1.5 Tahoma,Helvetica,Arial,sans-serif; z-index:13010;}' +
+                    '.sp_card_bg img{ border-style:none;}' +
+                    '.sp_card_bg ul,.sp_card_bg li, .sp_card_bg dt, .sp_card_bg dd, .sp_card_bg dl { margin: 0; padding: 0; list-style:none;}' +
+                    '.sp_card{text-align:left; border:1px solid #CFCFCF;background:white;position:relative;box-shadow:0px 0px 2px 2px rgba(0, 0, 0, 0.1); width:330px; padding:15px; height:148px;}' +
+                    '.sp_card::after{content:".";height:0;display:block;visibility:hidden;clear:both;font-size:0;}' +
+                    '.sp_card a:link,.sp_card a:visited{ color:#6DB823;}' +
+                    '.sp_card_view{ height:52px; overflow:hidden;}' +
+                    '.sp_card_view dt{ float:left; width:48px; margin:4px 11px 0 0;}' +
+                    '.sp_card_view dd{ float:left; color:#aaa; line-height:2.3;}' +
+                    '.sp_card_intro{ width:330px;word-wrap:break-word;word-break:normal;overflow:hidden; padding:15px 0 12px; height:18px; line-height:18px;}' +
+                    '.sp_card_intro em{color:#aaa;}' +
+                    '.sp_card_medal{ height:20px; overflow:hidden; padding-bottom:5px;}' +
+                    '.sp_card_medal ul{ overflow:hidden; zoom:1;}' +
+                    '.sp_card_medal ul li{ float:left; margin-right:5px;}' +
+                    '.sp_card_follow{ overflow:hidden; zoom:1;}' +
+                    '.sp_card_bg .sp_follow_bnt{ line-height:24px; background:#6DB823; height:24px; padding:0 15px; display:block; float:right;}' +
+                    '.sp_card_bg .sp_card .sp_follow_bnt:link,.sp_card_bg .sp_card .sp_follow_bnt:visited{ color:#fff;}' +
+                    '.sp_card_bg .sp_follow_bnt:hover{ background:#73C325; text-decoration:none;}' +
+                    '.sp_caret_in,.sp_caret_out{ position:absolute;border-style:solid dashed dashed dashed; display:block;font-family:simsun;width:0px;height:0px;_line-height:0;font-size:0;}' +
+                    '.sp_caret_in{left:29px;top:auto;bottom:-7px;border-width:7px 6px 0 6px;border-color:#fff transparent transparent transparent; z-index:2;}' +
+                    '.sp_caret_out{ z-index:1;border-width:8px 7px 0 7px;border-color:#CFCFCF transparent transparent transparent;bottom:-8px; left:28px;}' +
+                    '.sp_card_loading{ width:32px; margin:0 auto; text-align:center; padding:60px 0 0 0;}' +
+                    '.sp_card_bg .sp_unfollow_bnt{ background:#aaa;}' +
+                    '.show_userCard_link img{display:block;}' +
+                    '.sp_card_null{ text-align:center; color:#666; padding-top:40px;}' +
+                    '.sp_card_null p{font-size:18px; font-family:"Microsoft Yahei",微软雅黑 ; padding-bottom:10px;}' +
+                    '.sp_card_null a{ display:block; width:120px; height:36px; line-height:36px; margin:0 auto; font-size:14px;}' +
+                    '.sp_card_null a:link,.sp_card_null a:visited{ color:#fff; background:#74bd53;}' +
+                    '.sp_card_null a:hover{ background:#4a9f24; text-decoration:none;}' +
+                    '</style>';
+                $(style).appendTo("body");
+                var html = '<div class="sp_card_bg" style="display:none; height:180px;">' +
+                    '<div class="sp_card">' +
+                    '</div>' +
+                    '</div>';
+                $(html).appendTo("body");
+                cardBg = $(".sp_card_bg");
+                cardContainer = $(".sp_card_bg > .sp_card");
+            }
+            $(cls).die().live({
+                "mouseover": function(){
+                    if (closeTimer != null) {
+                        clearTimeout(closeTimer);
+                        closeTimer = null;
+                    }
+                    if (showTimer != null) {
+                        clearTimeout(showTimer);
+                        showTimer = null;
+                    }
+                    var THIS = this;
+                    showTimer = setTimeout(function () {
+                        cardContainer.html(loadingTemp);
+                        var ct = $(THIS).height();
+                        var ucH = 180;
+                        var offset = $(THIS).offset();
+                        var st = 0;
+                        var sl = 0;
+                        if (document.documentElement) {
+                            st = parseInt(document.documentElement.scrollTop);
+                            sl = parseInt(document.documentElement.scrollLeft);
+                        }
+                        if (st <= 0 && document.body) {
+                            st = parseInt(document.body.scrollTop);
+                        }
+                        if (sl <= 0 && document.body) {
+                            sl = parseInt(document.body.scrollLeft);
+                        }
+                        var tt = offset.top - st;
+                        var bt = $(window).height() - offset.top + st - $(THIS).height();
+                        var ll = offset.left;
+                        var rl = $(window).width() + sl - offset.left;
+                        var fixed = 0;
+                        if (rl < 362) {
+                            fixed = 362 - rl;
+                        }
+                        var halfW = parseInt($(THIS).width() / 2);
+                        if (isNaN(halfW))
+                            halfW = 28;
+                        if (tt < ucH && bt >= ucH) {
+                            $(".sp_card_bg .sp_caret").eq(0).css({ "border-width": "0 8px 7px 7px", "bottom": (ucH - 2) + "px", "left": (halfW - 8 + fixed) + "px", "border-color": "transparent transparent #CFCFCF transparent", "border-style": "dashed dashed solid dashed" });
+                            $(".sp_card_bg .sp_caret").eq(1).css({ "border-width": "0 6px 7px 6px", "bottom": (ucH - 2) + "px", "left": (halfW - 7 + fixed) + "px", "border-color": "transparent transparent #fff transparent", "border-style": "dashed dashed solid dashed" });
+                            cardBg.css({ left: offset.left - fixed, top: offset.top + ct + 8 }).show();
+                        }
+                        else {
+                            $(".sp_card_bg .sp_caret").eq(0).css({ "border-width": "8px 7px 0 7px", "bottom": "-8px", "left": (halfW - 8 + fixed) + "px", "border-color": "#CFCFCF transparent transparent transparent", "border-style": "solid dashed dashed dashed" });
+                            $(".sp_card_bg .sp_caret").eq(1).css({ "border-width": "7px 6px 0 6px", "bottom": "-7px", "left": (halfW - 7 + fixed) + "px", "border-color": "#fff transparent transparent transparent", "border-style": "solid dashed dashed dashed" });
+                            cardBg.css({ left: offset.left - fixed, top: offset.top - ucH - 8 }).show();
+                        }
+                        var nnOrId = $(THIS).attr("uid");
+                        if (typeof nnOrId == "undefined" || $("body").data("html_" + nnOrId) == undefined) {
+                            var href = decodeURIComponent($(THIS).attr("href"));
+                            nnOrId = parseInt(nnOrId);
+                            if(isNaN(nnOrId) || nnOrId <=0){
+                                var nnIndex = href.indexOf("?nickname=");
+                                if (nnIndex == -1) {
+                                    nnIndex = href.indexOf("http://5sing.kugou.com/");
+                                    if(nnIndex != -1)
+                                    {
+                                        href = href.replace("http://5sing.kugou.com/", "");
+                                        var endIndex = href.indexOf(".");
+                                        if (endIndex != -1) {
+                                            nnOrId = href.substring(0, endIndex);
+                                        }
+                                        else
+                                            nnOrId = href;
+                                    }
+                                    else
+                                        nnOrId = $(THIS).text();
+                                }
+                                else{
+                                    nnOrId = href.substring(nnIndex + 11);
+                                    nnOrId = nnOrId.replace("+", " ");
+                                }
+                            }
+                            $.getJSON(sources.findUser, { userArg: nnOrId, special: 1, withLi: 1}, function (res) {
+                                var resHtml = "";
+                                if(res.isSuccess)
+                                {
+                                    $(THIS).attr("uid", res.data.userid);
+                                    var memo = res.data.memo != null && res.data.memo.length > 0 ? (res.data.memo.length <= 25 ? res.data.memo : (res.data.memo.substring(0, 25) + "...")) : "<em>暂无介绍</em>";
+                                    var followText = "+&nbsp;关注";
+                                    if(res.data.follow == 1)
+                                        followText = "已关注&nbsp;|&nbsp;取消";
+                                    else if(res.data.follow == 2)
+                                        followText = "相互关注&nbsp;|&nbsp;取消";
+                                    resHtml = userTemp.replace(/{user.id}/g, res.data.userid)
+                                        .replace(/{user.avatar}/g, res.data.avatar.replace(/(\.jpg|\.jpeg|\.png|\.gif)$/i, "_48_48$1"))
+                                        .replace(/{user.nickname}/g, res.data.nickname)
+                                        .replace(/{user.totalfriends}/g, res.data.totalfriend)
+                                        .replace(/{user.totalfans}/g, res.data.totalfans)
+                                        .replace(/{user.totalrq}/g, res.data.totalrq)
+                                        .replace(/{user.memo}/g, memo).replace(/{user.special}/g, res.data.special)
+                                        .replace(/{user.follow}/g, res.data.follow >= 1 ? " sp_unfollow_bnt" : "")
+                                        .replace(/{user.followText}/g, followText);
+                                    $("body").data("html_" + res.data.userid, resHtml);
+                                }
+                                else{
+                                    $(THIS).attr("uid", nnOrId);
+                                    resHtml = notFoundTemp.replace("{user.search}", encodeURIComponent(nnOrId));
+                                    $("body").data("html_" + nnOrId, resHtml);
+                                }
+                                cardContainer.html(resHtml);
+                                if (tt < ucH && bt >= ucH) {
+                                    $(".sp_card_bg .sp_caret").eq(0).css({ "border-width": "0 8px 7px 7px", "bottom": (ucH - 2) + "px", "left": (halfW - 8 + fixed) + "px", "border-color": "transparent transparent #CFCFCF transparent", "border-style": "dashed dashed solid dashed" });
+                                    $(".sp_card_bg .sp_caret").eq(1).css({ "border-width": "0 6px 7px 6px", "bottom": (ucH - 2) + "px", "left": (halfW - 7 + fixed) + "px", "border-color": "transparent transparent #fff transparent", "border-style": "dashed dashed solid dashed" });
+                                    cardBg.css({ left: offset.left - fixed, top: offset.top + ct + 8 }).show();
+                                }
+                                else {
+                                    $(".sp_card_bg .sp_caret").eq(0).css({ "border-width": "8px 7px 0 7px", "bottom": "-8px", "left": (halfW - 8 + fixed) + "px", "border-color": "#CFCFCF transparent transparent transparent", "border-style": "solid dashed dashed dashed" });
+                                    $(".sp_card_bg .sp_caret").eq(1).css({ "border-width": "7px 6px 0 6px", "bottom": "-7px", "left": (halfW - 7 + fixed) + "px", "border-color": "#fff transparent transparent transparent", "border-style": "solid dashed dashed dashed" });
+                                    cardBg.css({ left: offset.left - fixed, top: offset.top - ucH - 8 }).show();
+                                }
+                            });
+                        }
+                        else{
+                            cardContainer.html($("body").data("html_" + nnOrId));
+                            if (tt < ucH && bt >= ucH) {
+                                $(".sp_card_bg .sp_caret").eq(0).css({ "border-width": "0 8px 7px 7px", "bottom": (ucH - 2) + "px", "left": (halfW - 8 + fixed) + "px", "border-color": "transparent transparent #CFCFCF transparent", "border-style": "dashed dashed solid dashed" });
+                                $(".sp_card_bg .sp_caret").eq(1).css({ "border-width": "0 6px 7px 6px", "bottom": (ucH - 2) + "px", "left": (halfW - 7 + fixed) + "px", "border-color": "transparent transparent #fff transparent", "border-style": "dashed dashed solid dashed" });
+                                cardBg.css({ left: offset.left - fixed, top: offset.top + ct + 8 }).show();
+                            }
+                            else {
+                                $(".sp_card_bg .sp_caret").eq(0).css({ "border-width": "8px 7px 0 7px", "bottom": "-8px", "left": (halfW - 8 + fixed) + "px", "border-color": "#CFCFCF transparent transparent transparent", "border-style": "solid dashed dashed dashed" });
+                                $(".sp_card_bg .sp_caret").eq(1).css({ "border-width": "7px 6px 0 6px", "bottom": "-7px", "left": (halfW - 7 + fixed) + "px", "border-color": "#fff transparent transparent transparent", "border-style": "solid dashed dashed dashed" });
+                                cardBg.css({ left: offset.left - fixed, top: offset.top - ucH - 8 }).show();
+                            }
+                        }
+                    }, 500);
+                },
+                "mouseout": function(){
+                    closeTimer = setTimeout(function () {
+                        cardBg.hide();
+                        if (showTimer != null) {
+                            clearTimeout(showTimer);
+                            showTimer = null;
+                        }
+                    }, 400);
+                }
+            });
+            cardBg.hover(function () {
+                if (closeTimer != null) {
+                    clearTimeout(closeTimer);
+                    closeTimer = null;
+                }
+            }, function () {
+                closeTimer = setTimeout(function () {
+                    cardBg.hide();
+                    if (showTimer != null) {
+                        clearTimeout(showTimer);
+                        showTimer = null;
+                    }
+                }, 400);
+            });
+            $(".sp_card_bg .sp_card_follow a").die().live("click", function(){
+                var callback = function () {
+                };
+                var source = "";
+                var TTHis = this;
+                var userid = $(TTHis).attr("uid");
+                if($(this).hasClass("sp_unfollow_bnt"))
+                {
+                    source = sources.removeFriend;
+                    callback = function () {
+                        $(TTHis).removeClass("sp_unfollow_bnt").html("+&nbsp;关注");
+                        $("body").data("html_" + userid, cardContainer.html());
+                    };
+                }
+                else{
+                    source = sources.addFriend;
+                    callback = function (res) {
+                        if(res.isSuccess)
+                        {
+                            $(TTHis).addClass("sp_unfollow_bnt").html("已关注&nbsp;|&nbsp;取消");
+                            $("body").data("html_" + userid, cardContainer.html());
+                        }
+                        else
+                        {
+                            $(TTHis).siblings("span").html(res.message).show();
+                        }
+                    };
+                }
+                $.getJSON(source, { UserID: userid }, callback);
+            });
+        };
+        init();
+    };
+    $.fn.autoResize = function(options) {
+        var settings = $.extend({
+            onResize : function(){},
+            animate : true,
+            animateDuration : 150,
+            animateCallback : function(){},
+            extraSpace : 20,
+            limit: 10000
+        }, options);
+
+        this.filter('textarea').each(function(){
+            var textarea = $(this).css({resize:'none','overflow-y':'hidden'}),
+                origHeight = textarea.height(),
+                clone = (function(){
+                    var props = ['height','width','lineHeight','textDecoration','letterSpacing'],
+                        propOb = {};
+                    $.each(props, function(i, prop){
+                        propOb[prop] = textarea.css(prop);
+                    });
+                    return textarea.clone().removeAttr('id').removeAttr('name').css({
+                        position: 'absolute',
+                        top: 0,
+                        left: -9999
+                    }).css(propOb).attr('tabIndex','-1').insertBefore(textarea);
+
+                })(),
+                lastScrollTop = null,
+                updateSize = function() {
+                    clone.height(0).val($(this).val()).scrollTop(10000);
+                    var scrollTop = Math.max(clone.scrollTop(), origHeight) + settings.extraSpace,
+                        toChange = $(this).add(clone);
+                    if (lastScrollTop === scrollTop) { return; }
+                    lastScrollTop = scrollTop;
+                    if ( scrollTop >= settings.limit ) {
+                        $(this).css('overflow-y','hidden');
+                        return;
+                    }
+                    settings.onResize.call(this);
+                    settings.animate && textarea.css('display') === 'block' ?
+                        toChange.stop().animate({height:scrollTop}, settings.animateDuration, settings.animateCallback)
+                        : toChange.height(scrollTop);
+                };
+            textarea
+                .unbind('.dynSiz')
+                .bind('keyup.dynSiz', updateSize)
+                .bind('keydown.dynSiz', updateSize)
+                .bind('change.dynSiz', updateSize);
+
+        });
+        return this;
+    };
+    $.fn.textareaCur = function(){
+        var range = null;
+        var textareaCur = {
+            'getInputSelection': function (el, range) {
+
+                var start = 0,
+                    end = 0,
+                    normalizedValue,
+                    textInputRange,
+                    len,
+                    endRange;
+
+                if (typeof el.selectionStart === "number" && typeof el.selectionEnd === "number") {
+                    start = el.selectionStart;
+                    end = el.selectionEnd;
+                }
+                else {
+                    !range && (range = document.selection.createRange());
+                    if (range && range.parentElement() === el) {
+                        len = el.value.length;
+                        normalizedValue = el.value.replace(/\r\n/g, "\n");
+
+                        textInputRange = el.createTextRange();
+                        textInputRange.moveToBookmark(range.getBookmark());
+
+                        endRange = el.createTextRange();
+                        endRange.collapse(false);
+
+                        if (textInputRange.compareEndPoints("StartToEnd", endRange) > -1) {
+                            start = end = len;
+                        } else {
+                            start = -textInputRange.moveStart("character", -len);
+                            start += normalizedValue.slice(0, start).split("\n").length - 1;
+
+                            if (textInputRange.compareEndPoints("EndToEnd", endRange) > -1) {
+                                end = len;
+                            } else {
+                                end = -textInputRange.moveEnd("character", -len);
+                                end += normalizedValue.slice(0, end).split("\n").length - 1;
+                            }
+                        }
+                    }
+                }
+
+                return {
+                    start: start,
+                    end: end
+                };
+            },
+
+            'setInputSelection': function (el, startOffset, endOffset) {
+                if (typeof el.selectionStart === "number" && typeof el.selectionEnd === "number") {
+                    el.selectionStart = startOffset;
+                    el.selectionEnd = endOffset;
+                } else {
+                    var range = el.createTextRange();
+                    var startCharMove = this.offsetTo(el, startOffset);
+                    range.collapse(true);
+                    if (startOffset === endOffset) {
+                        range.move("character", startCharMove);
+                    } else {
+                        range.moveEnd("character", this.offsetTo(el, endOffset));
+                        range.moveStart("character", startCharMove);
+                    }
+                    range.select();
+                }
+            },
+
+            'offsetTo': function (el, offset) {
+                return offset - (el.value.slice(0, offset).split("\r\n").length - 1);
+            },
+            'getContentPrex':function(textBox) {
+                var text = textBox.value;
+                var matches = text.match(/^(回复\s.+[:：]{1})/);
+                if (!!matches) {
+                    return matches[1];
+                }
+                return "";
+            }
+        };
+        var textareaEvents = {
+            "focus": function(){
+                var prex = textareaCur.getContentPrex(this);
+                if (!!prex)
+                    textareaCur.setInputSelection(this, prex.length, $(this).val().length)
+            },
+            "key":function(e){
+                var keyCode = 0;
+                var prex = textareaCur.getContentPrex(this);
+                if (!!prex) {
+                    var pos = textareaCur.getInputSelection(this, range);
+                    if (window.event)
+                        keyCode = e.keyCode;
+                    else
+                        keyCode = e.which;
+                    if (keyCode == 8) {
+                        if (prex == $(this).val() || pos.start == prex.length)
+                            return false;
+                    }
+                    if (pos.start < prex.length) {
+                        var start = prex.length;
+                        var end = pos.end;
+                        if (end < start)
+                            end = start;
+                        textareaCur.setInputSelection(this, start, end);
+                    }
+                }
+            },
+            "mouse":function(){
+                var prex = textareaCur.getContentPrex(this);
+                if (!!prex) {
+                    var pos = textareaCur.getInputSelection(this, range);
+                    var start = pos.start, end = pos.end;
+                    if (start < prex.length && end < prex.length)
+                        start = end = $(this).val().length;
+                    else if (start < prex.length)
+                        start = prex.length;
+                    else if (end < prex.length)
+                        end = prex.length;
+                    if (start > end)
+                        start = end;
+                    textareaCur.setInputSelection(this, start, end);
+                }
+            }
+        };
+        $(this).unbind(".textareacur")
+            .bind("focus.textareacur", textareaEvents.focus)
+            .bind("mousedown.textareacur", textareaEvents.mouse)
+            .bind("mouseup.textareacur", textareaEvents.mouse)
+            .bind("keydown.textareacur", textareaEvents.key)
+            .bind("keyup.textareacur", textareaEvents.key);
+        return this;
+    };
+    $.fn.iframePostForm = function (options) {
+        var response,
+            returnReponse,
+            element,
+            status = true,
+            iframe;
+
+        options = $.extend({}, $.fn.iframePostForm.defaults, options);
+
+        // Add the iframe.
+        if (!$('#' + options.iframeID).length) {
+            $('body').append('<iframe id="' + options.iframeID + '" name="' + options.iframeID + '" style="display:none" />');
+        }
+
+        return $(this).each(function () {
+            element = $(this);
+
+            // Target the iframe.
+            element.attr('target', options.iframeID);
+
+            // Submit listener.
+            element.submit(function () {
+                // If status is false then abort.
+                status = options.post.apply(this);
+
+                if (status === false) {
+                    return status;
+                }
+
+                iframe = $('#' + options.iframeID).load(function () {
+                    response = iframe.contents().find('body');
+                    returnReponse = response.html().replace(/<pre.*>(.*)<\/pre>/igm, "$1");
+                    // alert(returnReponse);
+                    if (options.json) {
+                        returnReponse = $.parseJSON(returnReponse);
+                    }
+
+                    options.complete.apply(this, [returnReponse]);
+
+                    iframe.unbind('load');
+
+                    setTimeout(function () {
+                        response.html('');
+                    }, 1);
+                });
+            });
+        });
+    };
+    $.fn.iframePostForm.defaults = {
+        iframeID: 'iframe-post-form',       // Iframe ID.
+        json: false,                        // Parse server response as a json object.
+        post: function () { },               // Form onsubmit.
+        complete: function (response) { }    // After response from the server has been received.
+    };
+
+
+    $.ksPlugin = {
+        alert:function(options,callback) {
+            var id = 'ksPlugin-alert-' + new Date().getTime();
+            var defaults = {title : '温馨提示',yes:'确认',icon:'',yesClass:''};
+            options = $.extend(true, {}, defaults, options);
+            $.ksPlugin.showBackGround();
+
+            var html ='<div class="tip_box '+ (options.icon=='' ? 'w400_box' : 's_icon') +  '"  id="'+id+'">'
+                +'<div class="pop_tit">'
+                +'<span class="lt">'+options.title+'</span>'
+                +'<a href="javascript:;" class="rt a_btn btn_close" title="关闭"><b class="m_btn">关闭</b></a>'
+                +'</div>'
+                +'<dl class="c_wap ct_com">'
+                +'<dt>'
+                +'<table cellpadding="0" cellspacing="0" border="0">'
+                +'<tbody><tr><td class="tips ' + options.icon + '"><i></i></td>'
+                +'<td>'+options.content+'</td>'
+                +'</tr></tbody></table>'
+                +'</dt>'
+                +'<dd class="c_wap act_btns">'
+                +'<a class="a_btn btn_yes ' + options.yesClass + '" href="javascript:;">'+options.yes+'</a>'
+                +'</dd>'
+                +'</dl>'
+                +'</div>';
+            $('body').append(html);
+            $('#'+id).find('.btn_yes').click(function(){
+                $('#'+id).remove();
+                $.ksPlugin.hideBackGround();
+                if(callback)
+                    callback();
+            });
+            $('#'+id).find('.btn_close').click(function(){
+                $('#'+id).remove();
+                $.ksPlugin.hideBackGround();
+                if(callback)
+                    callback();
+            });
+        },
+        confirm:function(options,callback,callbackno)
+        {
+            var id = 'mb-' + new Date().getTime();
+            var defaults = {title : '温馨提示',yes:'确认',no:'取消',icon:'',yesClass:'',noClass:'', containerClass: '' };
+            options = $.extend(true, {}, defaults, options);
+            $.ksPlugin.showBackGround();
+            var html='';
+
+            html='<div class="tip_box  '+ (options.icon=='' ? 'w400_box ' : 's_icon ') + (!!options.containerClass ? options.containerClass : '') +  '" id="'+id+'" style="display:;">'+
+                '<div class="pop_tit">'+
+                '<span class="lt">'+options.title+'</span>'+
+                '<a href="javascript:;" class="rt a_btn btn_close" title="关闭"><b class="m_btn">关闭</b></a>'+
+                '</div>'+
+                '<dl class="c_wap ct_com">'+
+                '<dt>'
+                +'<table cellpadding="0" cellspacing="0" border="0">'
+                +'<tbody><tr><td class="tips ' + options.icon + '"><i></i></td>'
+                +'<td>'+options.content+'</td>'
+                +'</tr></tbody></table>'
+
+                +'</dt>'+
+                '<dd class="c_wap act_btns confirm">'+
+                '<a href="javascript:;" class="a_btn btn_yes ' + options.yesClass + '">'+options.yes+'</a>'+
+                '<a href="javascript:;" class="a_btn btn_no ' + options.noClass + '">'+options.no+'</a>'+
+                '</dd>'+
+                '</dl>'+
+                '</div>';
+
+
+            $('body').append(html);
+
+            $('#'+id).find('.btn_yes').click(function(){
+                //options.callback;
+                $('#'+id).remove();
+                $.ksPlugin.hideBackGround();
+                if(callback)
+                    callback();
+            });
+            $('#'+id).find('.btn_no').click(function(){
+                $('#'+id).remove();
+                $.ksPlugin.hideBackGround();
+                if(callbackno)
+                    callbackno();
+            });
+            $('#'+id).find('.btn_close').click(function(){
+                $('#'+id).remove();
+                $.ksPlugin.hideBackGround();
+                if(callbackno)
+                    callbackno();
+            });
+        },
+        success:function(message, delay, reload)
+        {
+            var id = 'ksPlugin-success-' + new Date().getTime();
+            var html = '<div class="tip_box tip_com" id="'+id+'">'
+                +'<table cellpadding="0" cellspacing="0" border="0" width="100%"><tbody><tr><td class="t_icon"><i></i></td><td class="t_cons">'+message+'</td></tr></tbody></table>'
+                +'</div>';
+
+            $('body').append(html);
+            delay = delay==undefined?2000:delay;
+            setTimeout(function(){
+                $("#"+id).remove();
+                if(reload === true){
+                    window.location.reload();
+                }
+                else if(!!reload){
+                    window.location.href = reload;
+                }
+            },delay);
+        },
+        showLoading:function(id,message,delay){
+            delay = delay == undefined?500:delay;
+
+            var obj = setTimeout(function(){
+                var html = '<div class="tip_box tip_loding" id="'+id+'">'
+                    +'<table cellpadding="0" cellspacing="0" border="0" width="100%"><tbody><tr><td class="t_icon"><i></i></td><td class="t_cons">'+message+'</td></tr></tbody></table></div>'
+                    +'</div>';
+                $('body').append(html);
+            },delay);
+            return obj;
+        },
+        hideLoading:function(id,obj)
+        {
+            if(obj!=null)
+                clearTimeout(obj);
+            if($('#'+id).length>0)
+                $('#'+id).remove();
+        },
+        faild:function(message, delay, reload){
+            var id = 'ksPlugin-faild-' + new Date().getTime();
+            var html = '<div class="tip_box tip_del" id="'+id+'">'
+                +'<table cellpadding="0" cellspacing="0" border="0" width="100%"><tbody><tr><td class="t_icon"><i></i></td><td class="t_cons">'+message+'</td></tr></tbody></table></div>'
+                +'</div>';
+            $('body').append(html);
+            delay = delay==undefined?2000:delay;
+            setTimeout(function(){
+                $("#"+id).remove();
+                if(reload === true){
+                    window.location.reload();
+                }
+                else if(!!reload){
+                    window.location.href = reload;
+                }
+            },delay);
+        },
+        tips:function(message, delay, reload){
+            var id = 'ksPlugin-normal-' + new Date().getTime();
+            var html = '<div class="tip_box tip_normal" id="'+id+'">'
+                +'<table cellpadding="0" cellspacing="0" border="0" width="100%"><tbody><tr><td class="t_icon"></td><td class="t_cons">'+message+'</td></tr></tbody></table>'
+                +'</div>';
+            $('body').append(html);
+            delay = delay==undefined?2000:delay;
+            $("#"+id).animate();
+            setTimeout(function(){
+                $("#"+id).remove();
+                if(reload === true){
+                    window.location.reload();
+                }
+                else if(!!reload){
+                    window.location.href = reload;
+                }
+            },delay);
+        },
+        showBackGround:function()
+        {
+            if($('.pop_lo_bg_bg').length==0)
+            {
+                var style = "<style>.pop_lo_bg_bg {background:rgba(0, 0, 0, 0); background:#000\9; opacity:0\0;position:fixed;width:100%;height:100%;top:0;left: 0;display:block;filter: Alpha(opacity=0);z-index: 11000;_position: absolute;_height: expression(document.body.clientHeight+'px');}"
+                    +".tip_confirm{position:fixed; top:50%; left:50%; margin-left:-200px; margin-top:-75px; width:400px; background:#fff; z-index:11001; _top:expression(documentElement.scrollTop+190);_position:absolute; _bottom:auto;}"
+                    +"*html{background-image:url(about:blank);background-attachment:fixed;}"
+                    +".tip_confirm .tip_tit{height:40px; line-height:40px; background:#74bd52; border-bottom:#5eb13f solid 1px; color:#fff; font-size:16px; padding:0 10px;}"
+                    +".tip_confirm .tip_conbox{border:#e4e4e4 solid 1px; border-top:none; padding:10px; zoom:1;}"
+                    +".tip_confirm .tip_conbox p{font-weight:bold; text-align:center; font-size:14px; height:60px; line-height:40px;}"
+                    +".tip_confirm .tip_conbox a.lt:link,.tip_confirm .tip_conbox a.lt:visited{width:82px; height:30px; line-height:30px; text-align:center; text-decoration:none; color:#fff; display:inline;}"
+                    +".tip_confirm .tip_conbox a.cf_btn{margin-left:95px; background:#74bd54;}"
+                    +".tip_confirm .tip_conbox a.back_btn{margin-left:20px; background:#bfc1cd;}"
+                    +".tip_confirm .tip_conbox a.cf_btn:hover{background:#ff3000;}"
+                    +".tip_confirm .tip_conbox a.back_btn:hover{background:#a6a8b3;}</style>";
+                $('head').append(style);
+                $('body').append('<div class="pop_lo_bg_bg" style="display: none;"></div>');
+            }
+            $('.pop_lo_bg_bg').show();
+        },
+        hideBackGround:function()
+        {
+            $('.pop_lo_bg_bg').hide();
+        },
+        isPicUrl:function(url){
+            var reg = /^(http:\/\/|https:\/\/).+(\.jpg|\.png|\.gif)$/i;
+            if(url.match(reg))
+                return true;
+            return false;
+        },
+        isUrl:function(url){
+            var reg = /^(http:\/\/|https:\/\/).+/i;
+            if(url.match(reg))
+                return true;
+            return false;
+        },
+        getSubString:function(str,length){
+            if(jmz.GetLength(str)<=length)
+                return str;
+            var lenTemp = 0;
+            var strTemp='';
+            for(var i=0;i<str.length;i++)
+            {
+                if(lenTemp>=length)
+                    return strTemp+'...';
+                else
+                {
+                    strTemp+=str[i];
+                    if(str.charCodeAt(i)>255)
+                        lenTemp +=2;
+                    else
+                        lenTemp++;
+                }
+            }
+        }
+    };
+    $.ksPlugin.form = function(options, callback, callback_no){
+        var id = 'mb-' + new Date().getTime();
+        var defaults = {title : '温馨提示',yes:'确认',no:'取消',yesClass:'',noClass:'', containerClass: '' };
+        options = $.extend(true, {}, defaults, options);
+        $.ksPlugin.showBackGround();
+        var html='';
+
+        html='<div class="tip_box  '+ (!!options.containerClass ? options.containerClass : '') +  '" id="'+id+'" style="display:;">'+
+            '<div class="pop_tit">'+
+            '<span class="lt">'+options.title+'</span>'+
+            '<a href="javascript:;" class="rt a_btn btn_close" title="关闭"><b class="m_btn">关闭</b></a>'+
+            '</div>'+
+            '<dl class="c_wap ct_com">'+
+            '<dt>'
+            +'<table cellpadding="0" cellspacing="0" border="0">'
+            +'<tbody><tr><td class="tips ' + options.icon + '"><i></i></td>'
+            +'<td>'+options.content+'</td>'
+            +'</tr></tbody></table>'
+
+            +'</dt>'+
+            '<dd class="c_wap act_btns confirm">'+
+            '<a href="javascript:;" class="a_btn btn_yes ' + options.yesClass + '">'+options.yes+'</a>'+
+            '<a href="javascript:;" class="a_btn btn_no ' + options.noClass + '">'+options.no+'</a>'+
+            '</dd>'+
+            '</dl>'+
+            '</div>';
+
+
+        $('body').append(html);
+
+        $('#'+id).find('.btn_yes').click(function(){
+            if(typeof callback == "function"){
+                callback(function(isSuccess){
+                    if(!!isSuccess){
+                        $('#'+id).remove();
+                        $.ksPlugin.hideBackGround();
+                    }
+                });
+            }
+        });
+        $('#'+id).find('.btn_no').click(function(){
+            $('#'+id).remove();
+            $.ksPlugin.hideBackGround();
+            if(callback_no)
+                callback_no();
+        });
+        $('#'+id).find('.btn_close').click(function(){
+            $('#'+id).remove();
+            $.ksPlugin.hideBackGround();
+            if(callback_no)
+                callback_no();
+        });
+    };
+    var albumServer = 'http://service.5sing.kugou.com/album/';
+    var albumSongListPage=1;
+    var albumSongListType=1;
+    var canLoadSongListType = true;
+    var albumSongListIndex = 1;
+    var pad = function(num, n) {
+        return Array(n>(''+num).length?(n-(''+num).length+1):0).join(0)+num;
+    };
+    $.ksPlugin.album={
+        add:function(album)
+        {
+            var msg = album==undefined?'创建专辑':'修改专辑';
+            if($(".addAlbum").length==0)
+            {
+                var html ='<div class="new_album addAlbum" style=""><input type="hidden" name="album_id" id="album_id"><input type="hidden" name="album_pic" id="album_pic">';
+                html +='<div class="pop_tit">';
+                html +='<span class="lt">'+msg+'</span>';
+                html +='<a href="javascript:;" class="rt a_btn close" title="关闭"><b class="m_btn">关闭</b></a>';
+                html +='</div>';
+                html +='<dl class="c_wap">';
+                html +='<dt>专辑名：</dt>';
+                html +='<dd class="w252 up_v">';
+                html +='<input onfocus="$.ksPlugin.album.titleTips(this)" onblur="$.ksPlugin.album.titleCheck(this)" name="album_title" id="album_title" placeholder="专辑名" type="text"><br /><span class="add_main_tips">&nbsp;</span>';
+                html +='<div class="w160"><form id="albumAddPicUpload" action="http://service.5sing.kugou.com/upload/pic?back=http://5sing.kugou.com/my/handler/getimg&tm=force&type=album" enctype="multipart/form-data" method="post">';
+                html +='<p><img id="album_img" alt="" src="http://static.5sing.kugou.com/my/20140227/images/album.gif" width="160" height="160">';
+                html +='<a href="###" class="a_btn">上传封面</a>';
+                html +='</p>';
+                html +='<input id="album_fileUpload" class="album_add_pic" type="file" name="album_fileUpload" /></form></div>';
+                html +='</dd>';
+                html +='<dt>标&nbsp;&nbsp;&nbsp;签：</dt>';
+                html +='<dd class="w252"><textarea onfocus="$.ksPlugin.album.labelTips(this)" onblur="$.ksPlugin.album.labelCheck(this)" rows="3" name="album_lable" id="album_label"></textarea><br><span class="add_main_tips">&nbsp;</span></dd>';
+                html +='<dt>简&nbsp;&nbsp;&nbsp;介：</dt>';
+                html +='<dd class="w432"><textarea rows="5" name="album_content" id="album_content"></textarea><p><cite>0/200</cite></p></dd>';
+                html +='<dd class="w482"><a href="javascript:;" class="a_btn submit">确定</a></dd>';
+                html +='</dl>';
+                html +='</div>';
+                $("body").append(html);
+                if(album!=undefined)
+                {
+                    $("#album_id").val(album.ID);
+                    $("#album_title").val(album.Title);
+                    $("#album_pic").val(album.Pic);
+                    $("#album_img").attr('src',album.Pic!='http://static.5sing.kugou.com/my/images/album3_03.png'||album.Pic!='http://static.5sing.kugou.com/images/nophoto_130.jpg'?getPic(album.Pic,160,160):album.Pic);
+                    $("#album_content").val(album.Content);
+                    $("#album_label").val(album.Label);
+                    $.ksPlugin.album.checkTextareaLen($("#album_content"));
+                }
+                $("#albumAddPicUpload").iframePostForm({
+                    iframeID: 'iframe-post-albumAdd',
+                    json: true,
+                    post: function () {
+                        $("#album_img").attr("src", "http://static.5sing.kugou.com/images/loading_120.gif");
+                    },
+                    complete: function (response) {
+                        if (response.isSuccess) {
+                            $("#album_img").attr("src", getPic(response.data.file,120,120));
+                            $("#album_pic").val(response.data.file);
+                        } else {
+                            $("#album_img").attr("src", "http://static.5sing.kugou.com/my/images/album3_03.png");
+                            //$.html(response.message);
+                        }
+                    }
+                });
+                $("#album_fileUpload").bind("change", function () {
+                    $("#albumAddPicUpload").submit();
+                });
+                $(".addAlbum .close").click(function(){
+                    $(".addAlbum").hide();
+                    $.ksPlugin.hideBackGround();
+                });
+
+                $("#album_content").keyup(function(){
+                    $.ksPlugin.album.checkTextareaLen(this);
+                });
+
+                $(".new_album .submit").click(function(){
+                    var sub = $.ksPlugin.album.titleCheck($("#album_title"))+$.ksPlugin.album.labelCheck($("#album_label"))+ $.ksPlugin.album.checkTextareaLen($("#album_content"));
+                    if(sub>0)
+                        return false;
+                    var msg1 = album==undefined?'专辑创建中':'专辑编辑中';
+                    var id = 'ksPlugin-loading-' + new Date().getTime();
+                    var loadingidobj = $.ksPlugin.showLoading(id,msg1);
+                    $.getJSON(albumServer + 'albumadd?jsoncallback=?',{title:$("#album_title").val(),pic:$("#album_pic").val(),content:$("#album_content").val(),label:$("#album_label").val(),id:$("#album_id").val()},function(data){
+                        $.ksPlugin.hideLoading(id,loadingidobj);
+                        if(data.code == 0)
+                        {
+                            $(".addAlbum").hide();
+                            $.ksPlugin.hideBackGround();
+                            if(album!=undefined)
+                            {
+                                $.ksPlugin.tips('专辑 <cite>' +getSubString($("#album_title").val(),16)  + '</cite> 修改成功',2000,window.location.href.replace('###update',''));
+                                //window.location.href =  window.location.href.replace('###update','');
+                            }
+                            else
+                            {
+                                $.ksPlugin.confirm({title:'创建成功',yes:'是',no:'否',icon:'tip',content:'专辑 <cite>' +$("#album_title").val() + '</cite> 创建成功<br />是否马上添加歌曲到这个专辑？'},function(){
+                                    window.location.href='/my/writing/albuminfo?id='+data.id;
+                                },function(){
+                                    window.location.reload();
+                                });
+                            }
+                        }
+                        else
+                            $.ksPlugin.tips(data.msg);
+                    });
+                })
+
+                $.ksPlugin.showBackGround();
+                $(".addAlbum").show();
+            }
+            else
+            {
+                if(album==undefined&&$("#album_id").val()!='')
+                {
+                    $("#album_id").val('');
+                    $("#album_title").val('');
+                    $("#album_pic").val('');
+                    $("#album_img").attr('src','http://static.5sing.kugou.com/my/images/album3_03.png');
+                    $("#album_content").val('');
+                    $("#album_label").val('');
+                    $.ksPlugin.album.checkTextareaLen($("#album_content"));
+                }
+                else if(album!=undefined)
+                {
+                    $("#album_id").val(album.ID);
+                    $("#album_title").val(album.Title);
+                    $("#album_pic").val(album.Pic);
+                    $("#album_img").attr('src',album.Pic!='http://static.5sing.kugou.com/my/images/album3_03.png'||album.Pic!='http://static.5sing.kugou.com/images/nophoto_130.jpg'?getPic(album.Pic,160,160):album.Pic);
+                    $("#album_content").val(album.Content);
+                    $("#album_label").val(album.Label);
+                    $.ksPlugin.album.checkTextareaLen($("#album_content"));
+                }
+                $.ksPlugin.showBackGround();
+                $(".addAlbum").show();
+            }
+
+        },
+        update:function(id){
+            if(id!=undefined)
+            {
+                $.getJSON(albumServer + 'albuminit?jsoncallback=?',{id:id},function(data){
+                    if(!data.IsNull)
+                    {
+                        $.ksPlugin.album.add(data);
+                    }
+                    else
+                    {
+                        $.ksPlugin.tips('专辑不存在或者获取失败');
+                    }
+                });
+            }
+        },
+        remove:function(id,obj){
+            $.ksPlugin.confirm({content:'确定删除专辑？'},function(){
+                $.getJSON(albumServer + 'albumdelete?' + 'jsoncallback=?',{id:id},function(data){
+                    if(data.code == 0){
+                        if(obj!=undefined)
+                            $(obj).hide();
+                        else
+                            $.ksPlugin.success('删除成功');
+                    }
+                    else
+                        $.ksPlugin.tips(data.msg);
+                });
+            })
+        },
+        addSong:function(id,obj){
+            if($(".add_song").length==0)
+            {
+                var html = '<div class="new_album add_song" style="display: none;"><div class="pop_tit"><span class="lt">添加歌曲</span><a href="javascript:;" class="rt a_btn close" title="关闭"><b class="m_btn">关闭</b></a></div>';
+                html+='<div class="add_con c_wap"><p class="add_type c_wap"><a href="javascript:;" class="a_btn a_btn_sel">原创</a><a href="javascript:;" class="a_btn">翻唱</a><a href="javascript:;" class="a_btn">伴奏</a></p>';
+                html+='<ul class="s_lists"></ul>';
+                html+='<div class="act_box c_wap">';
+                html+='<span class="lt"><input type="hidden" id="albumsonghidden"><input name="albumcheckbox" type="checkbox" id="t_010"></span><span class="lt"><label for="t_010">全选</label>&nbsp;&nbsp;&nbsp;&nbsp;已选&nbsp;<em class="albumsongchecksum">0</em>&nbsp;首</span><a href="javascript:;" class="a_btn rt doAddSongToAlbum">完成</a></div>';
+                html+='</div></div>';
+
+                $("body").append(html);
+                $.ksPlugin.album.getSongList(1);
+                $(".add_song .close").click(function(){
+                    $(".add_song").hide();
+                    $.ksPlugin.hideBackGround();
+                });
+                $("input[name=albumcheckbox]").click(function(){
+                    $.ksPlugin.album.checkAll();
+                });
+                $(".add_song .add_type a").click(function(){
+                    $(".add_song .add_type a").removeClass('a_btn_sel');
+                    $(this).addClass('a_btn_sel');
+                    document.getElementById("albumsonghidden").value = "";
+                    canLoadSongListType = true;
+                    albumSongListIndex = 1;
+                    albumSongListPage = 1;
+                    albumSongListType = $(".add_song .add_type a").index($(this)) + 1;
+                    $(".albumsongchecksum").text(0);
+                    $(".add_song .s_lists").html('');
+                    $.ksPlugin.album.getSongList();
+                });
+
+                $(".add_song .s_lists").scroll(function(){
+                    if($(".add_song .s_lists").prop("scrollHeight") - $(".add_song .s_lists").prop("scrollTop") <= $(".add_song .s_lists").height()+10)
+                    {
+                        $.ksPlugin.album.getSongList();
+                    }
+                });
+                $(".doAddSongToAlbum").click(function(){
+                    if($("#albumsonghidden").val()==''||$("#albumsonghidden").val()==',')
+                        $.ksPlugin.tips('请选择歌曲');
+                    else
+                    {
+                        var loadingid = 'ksPlugin-loading-' + new Date().getTime();
+                        var loadingidobj = $.ksPlugin.showLoading(loadingid,'正在添加歌曲');
+                        $.getJSON(albumServer+'addsongtoalbum?jsoncallback=?',{ZjID:id,IDType:$("#albumsonghidden").val()},function(data){
+                            $.ksPlugin.hideLoading(loadingid,loadingidobj);
+                            if(data.code == 0)
+                            {
+                                $.ksPlugin.hideBackGround();
+                                $(".add_song").hide();
+                                $.ksPlugin.success(data.msg,1000,'albuminfo?id='+id);
+                            }
+                            else
+                                $.ksPlugin.tips(data.msg,1000);
+                        });
+                    }
+                });
+                $.ksPlugin.showBackGround();
+                $(".add_song").show();
+            }
+            else
+            {
+                $.ksPlugin.showBackGround();
+                $(".add_song").show();
+            }
+        },
+        checkTextareaLen:function(obj){
+            var str = $(obj).val();
+            if(jmz.GetLength(str)>400)
+            {
+                var l = jmz.GetLength(str) / 2;
+                if((jmz.GetLength(str)-400) % 2!= 0)
+                    l++;
+                //$(".wordsTips").addClass('tips_gray_out');
+                $(obj).next().find("cite").html('<font color="red">'+parseInt(l)+'/'+200+'</font>');
+                return 1;
+            }
+            else
+            {
+                var l = jmz.GetLength(str) / 2;
+                if((jmz.GetLength(str)-400) % 2!= 0)
+                    l++;
+                //$(".wordsTips").removeClass('tips_gray_out');
+                $(obj).next().find("cite").html(parseInt(l)+'/'+200);
+                return 0;
+            }
+        },
+        getSongList:function(type)
+        {
+            if(canLoadSongListType)
+            {
+                canLoadSongListType = false;
+                $.getJSON(albumServer+'getsonglist?jsoncallback=?',{page:albumSongListPage,type:albumSongListType},function(data){
+                    if(data.code==1)
+                    {
+                        $(data.datas).each(function(){
+                            var html = '';
+                            if(albumSongListIndex%2==1)
+                                html ='<li class="arr c_wap">';
+                            else
+                                html ='<li class="c_wap">';
+                            html+='<span class="l_v0"><input name="albumsongcheckbox" value="'+this.songtype+'$'+this.songid+'" type="checkbox" id="song_'+this.songtype+'_'+this.songid+'"></span>';
+                            html+='<span class="l_v1">' + pad(albumSongListIndex,2) +'</span>';
+                            html+='<span class="l_v2"><a href="http://5sing.kugou.com/' + this.songtype + '/'+this.songid+'.html" title=""><label>'+this.songname+'</label></a></span>';
+                            html+='</li>';
+                            albumSongListIndex++;
+                            $('.add_song .s_lists').append(html);
+                            $('#song_'+this.songtype+'_'+this.songid).click(function(){
+                                $.ksPlugin.album.AddRemoveValues(this,'albumsonghidden');
+                            });
+                        });
+                        albumSongListPage++;
+                        canLoadSongListType = true;
+                    }
+                });
+            }
+        },
+        checkAll:function()
+        {
+            var checked = false;
+            if ($("input[name='albumcheckbox']").is(":checked"))
+                checked = true;
+            else
+                checked = false;
+
+            var obj = document.getElementsByName('albumsongcheckbox');
+            document.getElementById("albumsonghidden").value = "";
+            for (var i = 0; i < obj.length; i++) {
+                if (!obj[i].disabled) {
+                    obj[i].checked = checked;
+                    $.ksPlugin.album.AddRemoveValues(obj[i], "albumsonghidden");
+                }
+            }
+        },
+        AddRemoveValues:function(oChk, hdnValues) {
+            var objhdn = document.getElementById(hdnValues);
+            if (oChk.checked) {
+                objhdn.value += "," + oChk.value;
+            }
+            else {
+                objhdn.value = objhdn.value.replace("," + oChk.value, "");
+            }
+            $(".albumsongchecksum").text(document.getElementById("albumsonghidden").value.split(',').length-1);
+        },
+        labelTips:function(obj)
+        {
+            $(obj).parent().removeClass('tip_error');
+            $(obj).parent().find('.add_main_tips').html('50个字符以内，不包含*￥%#等特殊字符，最多4个标签（用空格隔开）');
+        },
+        labelCheck:function(obj)
+        {
+            if($(obj).val()=='')
+            {
+                $(obj).parent().addClass('tip_error');
+                $(obj).parent().find('.add_main_tips').html('标签不能为空');
+                return 1;
+            }
+            if(jmz.GetLength($(obj).val())>50)
+            {
+                $(obj).parent().addClass('tip_error');
+                $(obj).parent().find('.add_main_tips').html('专辑标签不能超过50个字符');
+                return 1;
+            }
+
+            if($(obj).val().split(' ').length > 4)
+            {
+                $(obj).parent().addClass('tip_error');
+                $(obj).parent().find('.add_main_tips').html('标签数量不能超过4个');
+                return 1;
+            }
+            $(obj).parent().removeClass('tip_error');
+            $(obj).parent().find('.add_main_tips').html('&nbsp;');
+            return 0;
+        },
+        titleTips:function(obj)
+        {
+            $(obj).parent().removeClass('tip_error');
+            $(obj).parent().find('.add_main_tips').html('30个字符以内，不包含*￥%#等特殊字符');
+        },
+        titleCheck:function(obj)
+        {
+            if($(obj).val()=='')
+            {
+                $(obj).parent().addClass('tip_error');
+                $(obj).parent().find('.add_main_tips').html('专辑名不能为空');
+                return 1;
+            }
+            if(jmz.GetLength($(obj).val())>30)
+            {
+                $(obj).parent().addClass('tip_error');
+                $(obj).parent().find('.add_main_tips').html('专辑名不能超过30个字符');
+                return 1;
+            }
+            $(obj).parent().removeClass('tip_error');
+            $(obj).parent().find('.add_main_tips').html('&nbsp;');
+            return 0;
+        }
+    };
+
+    var albumServer2 = 'http://service.5sing.kugou.com/songlist/';
+    var albumSongListPage=1;
+    var albumSongListType=1;
+    var canLoadSongListType = true;
+    var albumSongListIndex = 1;
+    var pad = function(num, n) {
+        return Array(n>(''+num).length?(n-(''+num).length+1):0).join(0)+num;
+    };
+    $.ksPlugin.songlist={
+        add:function(album)
+        {
+            var msg = album==undefined?'创建歌单':'修改歌单';
+            if($(".addAlbum").length==0)
+            {
+                var html ='<div class="new_album addAlbum" style=""><input type="hidden" name="album_id" id="album_id"><input type="hidden" name="album_pic" id="album_pic">';
+                html +='<div class="pop_tit">';
+                html +='<span class="lt">'+msg+'</span>';
+                html +='<a href="javascript:;" class="rt a_btn close" title="关闭"><b class="m_btn">关闭</b></a>';
+                html +='</div>';
+                html +='<dl class="c_ft">';
+                html +='<dt>歌单名：</dt>';
+                html +='<dd class="w252 up_v">';
+                html +='<input onfocus="$.ksPlugin.songlist.titleTips(this)" onblur="$.ksPlugin.songlist.titleCheck(this)" name="album_title" id="album_title" placeholder="歌单名" type="text"><br /><span class="add_main_tips">&nbsp;</span>';
+                html +='<div class="w160"><form id="albumAddPicUpload" action="http://service.5sing.kugou.com/upload/pic?back=http://5sing.kugou.com/my/handler/getimgwithaccess&tm=force&type=album" enctype="multipart/form-data" method="post">';
+                html +='<p><img id="album_img" alt="" src="http://static.5sing.kugou.com/images/nophoto.jpg" width="150" height="150">';
+                html +='<a href="###" class="a_btn">上传封面</a>';
+                html +='</p>';
+                html +='<input id="album_fileUpload" class="album_add_pic" type="file" name="album_fileUpload" /></form></div>';
+                html +='</dd>';
+                html +='<dt>标&nbsp;&nbsp;&nbsp;签：</dt>';
+                html +='<dd class="w252 tag_box">';
+                html +='<div class="tag_items c_ft">';
+                html +='</div>';
+                html +='<a href="javascript:;" class="a_btn show_btn"><i></i></a>';
+                html +='<span class="add_main_tips">最多可添加5个标签</span>';
+                html +='<div class="op_tagsbox" style="display: none;">';
+                html +='<div class="tags_tit"><a href="javascript:;" class="a_btn rt"><i></i></a><select>' +
+                    '<option value="0">风格</option>' +
+                    '<option value="1">情感</option>' +
+                    '<option value="2">场景</option>' +
+                    '<option value="3">语种</option>' +
+                    '<option value="4">其他</option>' +
+                    '</select></div>';
+                html +='<div class="tag_cons c_ft">';
+                html +='<div class="tag_tip"><span class="r">下一页</span><span class="l">上一页</span>你还可以选择<strong>5</strong>个标签</div>';
+                html +='<div class="tag_lists">';
+                html +='</div>';
+                html +='</div>';
+                html +='</div>';
+                html +='<input type="hidden" name="album_lable" id="album_label" /></dd>';
+                html +='<dt>简&nbsp;&nbsp;&nbsp;介：</dt>';
+                html +='<dd class="w432"><textarea rows="5" name="album_content" id="album_content"></textarea><p><cite>0/300</cite></p></dd>';
+                html +='<dd class="w482"><a href="javascript:;" class="a_btn submit">确定</a></dd>';
+                html +='</dl>';
+                html +='</div>';
+                $("body").append(html);
+                if(album!=undefined)
+                {
+                    $("#album_id").val(album.ID);
+                    $("#album_title").val(album.Title);
+                    $("#album_pic").val(album.Pic);
+                    $("#album_img").attr('src',album.Pic!='http://static.5sing.kugou.com/my/images/album3_03.png'&& album.Pic!='http://static.5sing.kugou.com/images/nophoto.jpg'?getPic(album.Pic,150,150):album.Pic);
+                    $("#album_content").val(album.Content);
+                    $("#album_label").val(album.Label);
+                    $.ksPlugin.songlist.checkTextareaLen($("#album_content"));
+                    $.each($("#album_label").val().split(' '),function(key, val){
+                        if(val!='')
+                        {
+                            $(".tag_items").html($(".tag_items").html()+'<span class="lt tag"><a href="javascript:;" class="a_btn rt"></a>' + val + '</span>');
+                        }
+                    });
+                }
+                $(".tags_tit a").click(function(){
+                    $(".op_tagsbox").hide();
+                    $(".show_btn").removeClass("colse_btn");
+                });
+                $(".show_btn").click(function(){
+                    $(".op_tagsbox").toggle();
+                    $(".show_btn").toggleClass("colse_btn");
+                });
+                $(".tag_items").click(function(){
+                    $(".op_tagsbox").toggle();
+                    $(".show_btn").toggleClass("colse_btn");
+                });
+
+                $(".tag_items").find("span").live("mouseover",function(){
+                    $(".tag_items").unbind("click");
+                });
+
+                $(".tag_items").find("span").live("mouseout",function(){
+                    $(".tag_items").click(function(){
+                        $(".op_tagsbox").toggle();
+                        $(".show_btn").toggleClass("colse_btn");
+                    });
+                });
+                $(".tag_items").find("a").live("click",function(){
+                    $(".tag_items").click(function(){
+                        $(".op_tagsbox").toggle();
+                        $(".show_btn").toggleClass("colse_btn");
+                    });
+                });
+                $(".tags_tit select").change(function(){
+                    $.ksPlugin.songlist.labelLoad(1);
+                });
+
+
+                $(".tag_lists a").die().live('click',function(){
+                    if($(this).hasClass('coll'))
+                    {
+                        $(this).removeClass('coll');
+                        var tagText =  $(this).text();
+                        $(".tag_items span").each(function(){
+                            if($(this).text()==tagText)
+                                $(this).remove();
+                        });
+                        $("#album_label").val('');
+                        $(".tag_items span").each(function(){
+                            if($("#album_label").val()=='')
+                                $("#album_label").val($(this).text());
+                            else
+                                $("#album_label").val($("#album_label").val() + ' ' + $(this).text());
+                        });
+                        $.ksPlugin.songlist.labelLoad(parseInt($(".tag_lists").data("page")));
+                    }
+                    else
+                    {
+                        if($("#album_label").val().split(' ').length<5&&$("#album_label").val().indexOf($(this).text())==-1)
+                        {
+                            if($("#album_label").val()=='')
+                                $("#album_label").val($(this).text());
+                            else
+                                $("#album_label").val($("#album_label").val() + ' ' + $(this).text());
+
+                            $(this).addClass('coll');
+                            $.ksPlugin.songlist.labelCount();
+                            $(".tag_items").html($(".tag_items").html()+'<span class="lt tag"><a href="javascript:;" class="a_btn rt"></a>' + $(this).text() + '</span>');
+                        }
+                    }
+                });
+
+                $(".tag_items a").die().live('click',function(){
+                    $(this).parent().remove();
+                    $("#album_label").val('');
+                    $(".tag_items span").each(function(){
+                        if($("#album_label").val()=='')
+                            $("#album_label").val($(this).text());
+                        else
+                            $("#album_label").val($("#album_label").val() + ' ' + $(this).text());
+                    });
+                    $.ksPlugin.songlist.labelLoad(parseInt($(".tag_lists").data("page")));
+                });
+
+
+                $(".tag_tip .l a").die().live('click',function(){
+                    $.ksPlugin.songlist.labelLoad(parseInt($(".tag_lists").data("page")) - 1);
+
+                });
+
+                $(".tag_tip .r a").die().live('click',function(){
+                    $.ksPlugin.songlist.labelLoad(parseInt($(".tag_lists").data("page")) + 1);
+                });
+
+                $.ksPlugin.songlist.labelLoad(1);
+
+                $("#album_fileUpload").bind("click", function () {
+                    $("#albumAddPicUpload").iframePostForm({
+                        iframeID: 'iframe-post-albumAdd',
+                        json: true,
+                        post: function () {
+                            $("#album_img").attr("src", "http://static.5sing.kugou.com/images/loading_120.gif");
+                        },
+                        complete: function (response) {
+                            if (response.isSuccess) {
+                                $("#album_img").attr("src", getPic(response.data.file,120,120));
+                                $("#album_pic").val(response.data.file);
+                            } else {
+                                $("#album_img").attr("src", "http://static.5sing.kugou.com/my/images/album3_03.png");
+                                //$.html(response.message);
+                            }
+                        }
+                    });
+                });
+
+                $("#album_fileUpload").bind("change", function () {
+                    $("#albumAddPicUpload").submit();
+                });
+                $(".addAlbum .close").click(function(){
+                    $(".addAlbum").hide();
+                    page = 1;
+                    $(".addAlbum").remove();
+                    $.ksPlugin.hideBackGround();
+                });
+
+                $("#album_content").keyup(function(){
+                    $.ksPlugin.songlist.checkTextareaLen(this);
+                });
+
+                $(".new_album .submit").click(function(){
+                    var sub = $.ksPlugin.songlist.titleCheck($("#album_title"))+$.ksPlugin.songlist.labelCheck($("#album_label"))+ $.ksPlugin.songlist.checkTextareaLen($("#album_content"));
+                    if(sub>0)
+                        return false;
+                    var msg1 = album==undefined?'歌单创建中':'歌单编辑中';
+                    var id = 'ksPlugin-loading-' + new Date().getTime();
+                    var loadingidobj = $.ksPlugin.showLoading(id,msg1);
+                    $.getJSON(albumServer2 + 'songlistadd?jsoncallback=?',{title:$("#album_title").val(),pic:$("#album_pic").val(),content:$("#album_content").val(),label:$("#album_label").val(),id:$("#album_id").val()},function(data){
+                        $.ksPlugin.hideLoading(id,loadingidobj);
+                        if(data.code == 0)
+                        {
+                            var title = $.ksPlugin.getSubString($("#album_title").val(),16);
+                            $(".addAlbum").remove();
+                            $.ksPlugin.hideBackGround();
+                            if(album!=undefined)
+                            {
+                                $.ksPlugin.tips('歌单 <cite>' + title  + '</cite> 修改成功',2000,window.location.href.replace('###update','').replace('###',''));
+                                //window.location.href =  window.location.href.replace('###update','');
+                            }
+                            else
+                            {
+                                $.ksPlugin.confirm({title:'创建成功',yes:'是',no:'否',icon:'tip',content:'歌单 <cite>' + title + '</cite> 创建成功<br />是否马上添加歌曲到这个歌单辑？'},function(){
+                                    window.location.href='http://5sing.kugou.com/my/writing/songlistinfo?id='+data.id;
+                                },function(){
+                                    window.location.reload();
+                                });
+                            }
+                        }
+                        else
+                            $.ksPlugin.tips(data.msg);
+                    });
+                })
+
+                $.ksPlugin.showBackGround();
+                $(".addAlbum").show();
+            }
+            else
+            {
+                if(album==undefined&&$("#album_id").val()!='')
+                {
+                    $("#album_id").val('');
+                    $("#album_title").val('');
+                    $("#album_pic").val('');
+                    $("#album_img").attr('src','http://static.5sing.kugou.com/my/images/album3_03.png');
+                    $("#album_content").val('');
+                    $("#album_label").val('');
+                    $.ksPlugin.songlist.checkTextareaLen($("#album_content"));
+                }
+                else if(album!=undefined)
+                {
+                    $("#album_id").val(album.ID);
+                    $("#album_title").val(album.Title);
+                    $("#album_pic").val(album.Pic);
+                    $("#album_img").attr('src',album.Pic!='http://static.5sing.kugou.com/my/images/album3_03.png'||album.Pic!='http://static.5sing.kugou.com/images/nophoto.jpg'?getPic(album.Pic,160,160):album.Pic);
+                    $("#album_content").val(album.Content);
+                    $("#album_label").val(album.Label);
+                    $.ksPlugin.songlist.checkTextareaLen($("#album_content"));
+                }
+                $.ksPlugin.showBackGround();
+                $(".addAlbum").show();
+            }
+
+        },
+        update:function(id){
+            if(id!=undefined)
+            {
+                $.getJSON(albumServer2 + 'songlistinit?jsoncallback=?',{id:id},function(data){
+                    if(!data.IsNull)
+                    {
+                        $.ksPlugin.songlist.add(data);
+                    }
+                    else
+                    {
+                        $.ksPlugin.tips('歌单不存在或者获取失败');
+                    }
+                });
+            }
+        },
+        remove:function(id,obj){
+            $.ksPlugin.confirm({content:'确定删除歌单？'},function(){
+                $.getJSON(albumServer2 + 'songlistdelete?' + 'jsoncallback=?',{id:id},function(data){
+                    if(data.code == 0){
+                        if(obj!=undefined)
+                            $(obj).hide();
+                        else
+                            $.ksPlugin.success('删除成功',1000,true);
+                    }
+                    else
+                        $.ksPlugin.tips(data.msg);
+                });
+            })
+        },
+        addSong:function(id,obj){
+            if($(".add_song").length==0)
+            {
+                var html = '<div class="new_album add_song" style="display: none;"><div class="pop_tit"><span class="lt">添加歌曲</span><a href="javascript:;" class="rt a_btn close" title="关闭"><b class="m_btn">关闭</b></a></div>';
+                html+='<div class="add_con c_ft"><p class="add_type c_ft">' +
+                    '<a href="javascript:;" class="a_btn a_btn_sel">音乐收藏</a>' +
+                    '<a href="javascript:;" class="a_btn">最近在听</a>' +
+                    //'<a href="javascript:;" class="a_btn">原创</a>' +
+                    //'<a href="javascript:;" class="a_btn">翻唱</a>' +
+                    //'<a href="javascript:;" class="a_btn">伴奏</a>' +
+                    '</p>';
+                html+='<ul class="s_lists"></ul>';
+                html+='<div class="act_box c_ft">';
+                html+='<span class="lt"><input type="hidden" id="albumsonghidden"><input name="albumcheckbox" type="checkbox" id="t_010"></span><span class="lt"><label for="t_010">全选</label>&nbsp;&nbsp;|&nbsp;&nbsp;上限&nbsp;20&nbsp;首&nbsp;/&nbsp;已选&nbsp;<span id="songlistelements">'+songlistelements+'</span>&nbsp;首</span><a href="javascript:;" class="a_btn rt doAddSongToAlbum">完成</a></div>';
+                html+='</div></div>';
+                $("body").append(html);
+                $.ksPlugin.songlist.getSongList(1);
+                $(".add_song .close").click(function(){
+                    $(".add_song").hide();
+                    $.ksPlugin.hideBackGround();
+                });
+                $("input[name=albumcheckbox]").click(function(){
+                    $.ksPlugin.songlist.checkAll();
+                });
+                $(".add_song .add_type a").click(function(){
+                    $(".add_song .add_type a").removeClass('a_btn_sel');
+                    $(this).addClass('a_btn_sel');
+                    document.getElementById("albumsonghidden").value = "";
+                    canLoadSongListType = true;
+                    albumSongListIndex = 1;
+                    albumSongListPage = 1;
+                    albumSongListType = $(".add_song .add_type a").index($(this)) + 1;
+                    $(".albumsongchecksum").text(0);
+                    $(".add_song .s_lists").html('');
+                    $.ksPlugin.songlist.getSongList();
+                });
+
+                $(".add_song .s_lists").scroll(function(){
+                    if($(".add_song .s_lists").prop("scrollHeight") - $(".add_song .s_lists").prop("scrollTop") <= $(".add_song .s_lists").height()+10)
+                    {
+                        $.ksPlugin.songlist.getSongList();
+                    }
+                });
+                $(".doAddSongToAlbum").click(function(){
+                    if(document.getElementById("albumsonghidden").value.split(',').length-1+songlistelements>20)
+                        $.ksPlugin.tips('歌曲上限20首');
+                    else
+                    {
+                        if($("#albumsonghidden").val()==''||$("#albumsonghidden").val()==',')
+                            $.ksPlugin.tips('请选择歌曲');
+                        else
+                        {
+                            var loadingid = 'ksPlugin-loading-' + new Date().getTime();
+                            var loadingidobj = $.ksPlugin.showLoading(loadingid,'正在添加歌曲');
+                            $.getJSON(albumServer2 +'addsongtolist?jsoncallback=?',{ZjID:id,IDType:$("#albumsonghidden").val()},function(data){
+                                $.ksPlugin.hideLoading(loadingid,loadingidobj);
+                                if(data.code == 0)
+                                {
+                                    $.ksPlugin.hideBackGround();
+                                    $(".add_song").hide();
+                                    $.ksPlugin.success(data.msg,1000,'songlistinfo?id='+id);
+                                }
+                                else
+                                    $.ksPlugin.tips(data.msg,1000);
+                            });
+                        }
+                    }
+                });
+                $.ksPlugin.showBackGround();
+                $(".add_song").show();
+            }
+            else
+            {
+                $.ksPlugin.showBackGround();
+                $(".add_song").show();
+            }
+        },
+        checkTextareaLen:function(obj){
+            var str = $(obj).val();
+            if(jmz.GetLength(str)>600)
+            {
+                var l = jmz.GetLength(str) / 2;
+                if((jmz.GetLength(str)-600) % 2!= 0)
+                    l++;
+                //$(".wordsTips").addClass('tips_gray_out');
+                $(obj).next().find("cite").html('<font color="red">'+parseInt(l)+'/'+300+'</font>');
+                return 1;
+            }
+            else
+            {
+                var l = jmz.GetLength(str) / 2;
+                if((jmz.GetLength(str)-600) % 2!= 0)
+                    l++;
+                //$(".wordsTips").removeClass('tips_gray_out');
+                $(obj).next().find("cite").html(parseInt(l)+'/'+300);
+                return 0;
+            }
+        },
+        getSongList:function(type)
+        {
+            if(canLoadSongListType)
+            {
+                canLoadSongListType = false;
+                $.getJSON(albumServer2+'getsonglist?jsoncallback=?',{page:albumSongListPage,type:albumSongListType},function(data){
+                    if(data.code==1)
+                    {
+                        $(data.datas).each(function(){
+                            var html = '';
+                            if(albumSongListIndex%2==1)
+                                html ='<li class="arr c_ft">';
+                            else
+                                html ='<li class="c_ft">';
+                            if($('input[song="'+this.songtype+'$'+this.songid+'"]').length>0)
+                                html+='<span class="l_v0"><input checked="checked" disabled="disabled" value="'+this.songtype+'$'+this.songid+'" type="checkbox" id="song_'+this.songtype+'_'+this.songid+'"></span>';
+                            else
+                                html+='<span class="l_v0"><input name="albumsongcheckbox" value="'+this.songtype+'$'+this.songid+'" type="checkbox" id="song_'+this.songtype+'_'+this.songid+'"></span>';
+                            html+='<span class="l_v1">' + pad(albumSongListIndex,2) +'</span>';
+                            html+='<span class="l_v2"><a href="http://5sing.kugou.com/'+this.songtype+'/'+this.songid+'.html" target="_blank" title=""><label>'+this.songname+'</label></a></span>';
+                            html+='</li>';
+                            albumSongListIndex++;
+                            $('.add_song .s_lists').append(html);
+                            $('#song_'+this.songtype+'_'+this.songid).click(function(){
+                                $.ksPlugin.songlist.AddRemoveValues(this,'albumsonghidden');
+                            });
+                        });
+                        albumSongListPage++;
+                        canLoadSongListType = true;
+                    }
+                });
+            }
+        },
+        checkAll:function()
+        {
+            var checked = false;
+            if ($("input[name='albumcheckbox']").is(":checked"))
+                checked = true;
+            else
+                checked = false;
+
+            var obj = document.getElementsByName('albumsongcheckbox');
+            document.getElementById("albumsonghidden").value = "";
+            for (var i = 0; i < obj.length; i++) {
+                if (!obj[i].disabled) {
+                    obj[i].checked = checked;
+                    $.ksPlugin.songlist.AddRemoveValues(obj[i], "albumsonghidden");
+                }
+            }
+        },
+        AddRemoveValues:function(oChk, hdnValues) {
+            var objhdn = document.getElementById(hdnValues);
+            if (oChk.checked) {
+                objhdn.value += "," + oChk.value;
+            }
+            else {
+                objhdn.value = objhdn.value.replace("," + oChk.value, "");
+            }
+            $("#songlistelements").text(document.getElementById("albumsonghidden").value.split(',').length-1+songlistelements);
+            if(document.getElementById("albumsonghidden").value.split(',').length-1+songlistelements>20)
+                $("#songlistelements").addClass("adderror");
+            else
+                $("#songlistelements").removeClass("adderror");
+        },
+        labelTips:function(obj)
+        {
+            $(obj).parent().removeClass('tip_error');
+            $(obj).parent().find('.add_main_tips').html('50个字符以内，不包含*￥%#等特殊字符，最多4个标签（用空格隔开）');
+        },
+        labelCheck:function(obj)
+        {
+            if(jmz.GetLength($(obj).val())>50)
+            {
+                $(obj).parent().addClass('tip_error');
+                $(obj).parent().find('.add_main_tips').html('歌单标签不能超过50个字符(25个汉字)');
+                return 1;
+            }
+
+            if($(obj).val().split(' ').length > 5)
+            {
+                $(obj).parent().addClass('tip_error');
+                $(obj).parent().find('.add_main_tips').html('标签数量不能超过4个');
+                return 1;
+            }
+            $(obj).parent().removeClass('tip_error');
+            $(obj).parent().find('.add_main_tips').html('&nbsp;');
+            return 0;
+        },
+        labelLoad:function(page)
+        {
+            var tags=['流行 爵士 小清新 轻音乐 中国风 摇滚 DJ 古风 武侠 钢琴曲 广场舞 民谣 乡村','感动 寂寞 安静 温暖 浪漫 治愈 伤感 想念 激情 喜悦 失恋 怀念','夜晚 咖啡厅 夜店 旅行 车载 阅读 一个人 KTV','国语 英文 韩文 日文 粤语 德语 西班牙语 闽南语 法语','原创 翻唱 毕业 情歌 经典 怀旧 爱情 励志 儿歌 影视 男女对唱 歌词控 动漫'] ;
+            var index = $(".tags_tit select").val();
+            var tagList = tags[index].split(' ');
+            var strLabel='';
+            page = page==undefined?1:page;
+            $(".tag_lists").data("page",page);
+            for(var i=(page-1)*9;i<=page*9-1&&i<tagList.length;i++)
+            {
+                var data = tagList[i];
+                if($("#album_label").val().indexOf(data)>=0)
+                {
+                    strLabel+='<a class="lt tag coll" href="javascript:;">' + data + '</a>';
+                }
+                else
+                {
+                    strLabel+='<a class="lt tag" href="javascript:;">' + data + '</a>';
+                }
+            }
+            $(".tag_lists").html(strLabel);
+            if(page>1)
+                $(".tag_tip .l").html("<a class='rt' href='javascript:;'>上一页</a>");
+            else
+                $(".tag_tip .l").html("");
+            if(tagList.length>page*9)
+                $(".tag_tip .r").html("<a class='rt' href='javascript:;'>下一页</a>");
+            else
+                $(".tag_tip .r").html("");
+            $.ksPlugin.songlist.labelCount();
+        },
+        labelCount:function(){
+            if($("#album_label").val()=="")
+                $(".tag_tip strong").text(5);
+            else
+                $(".tag_tip strong").text(5-$("#album_label").val().split(' ').length);
+        },
+        titleTips:function(obj)
+        {
+            $(obj).parent().removeClass('tip_error');
+            $(obj).parent().find('.add_main_tips').html('30个字符以内，不包含*￥%#等特殊字符');
+        },
+        titleCheck:function(obj)
+        {
+            if($(obj).val()=='' || jmz.GetLength($.trim($(obj).val())) == 0)
+            {
+                $(obj).parent().addClass('tip_error');
+                $(obj).parent().find('.add_main_tips').html('歌单名不能为空');
+                return 1;
+            }
+            if(jmz.GetLength($(obj).val())>30)
+            {
+                $(obj).parent().addClass('tip_error');
+                $(obj).parent().find('.add_main_tips').html('歌单名不能超过30个字符（15个汉字）');
+                return 1;
+            }
+            var titleVal = $(obj).val();
+            if (titleVal.indexOf('#') != -1 || titleVal.indexOf('%') != -1 || titleVal.indexOf('*') != -1 || titleVal.indexOf('￥') != -1) {
+                $(obj).parent().addClass('tip_error');
+                $(obj).parent().find('.add_main_tips').html('歌单名不能包含*￥%#等特殊字符');
+                return 1;
+            };
+            $(obj).parent().removeClass('tip_error');
+            $(obj).parent().find('.add_main_tips').html('&nbsp;');
+            return 0;
+        }
+    }
+
+    return $;
+})());

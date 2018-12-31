@@ -1,0 +1,1209 @@
+var n = 0;
+var IsLogin = false;
+String.prototype.format = function(args){
+    if (arguments.length > 0) {
+        var result = this;
+        if (arguments.length == 2 && typeof (args) == "object") {
+            for (var key in args) {
+                var reg = new RegExp("({" + key + "})", "g");
+                var reg1 = new RegExp("({_" + key + "})", "g");
+                result = result.replace(reg, args[key]);
+                result = result.replace(reg1, encodeURIComponent(args[key]));
+            }
+        }
+        else {
+            for (var i = 0; i < arguments.length; i++) {
+                if (arguments[i] == undefined) {
+                    return "";
+                }
+                else {
+                    var reg = new RegExp("({[" + i + "]})", "g");
+                    var reg1 = new RegExp("({_[" + i + "]})", "g");
+                    result = result.replace(reg, arguments[i]);
+                    result = result.replace(reg1, encodeURIComponent(arguments[i]));
+                }
+            }
+        }
+        return result;
+    }
+    else
+        return this;
+};
+if (!Array.prototype.indexOf) {
+    Array.prototype.indexOf = function (el, index) {
+        var n = this.length >>> 0, i = ~ ~index;
+        if (i < 0) i += n;
+        for (; i < n; i++)
+            if (i in this && this[i] === el)
+                return i;
+        return -1;
+    }
+}
+var globals = {};
+globals.replaceAT = function(str, temple) {
+    var matches = str.match(/@[^:：]+/igm);
+    if (matches != null) {
+        for (var i = 0; i < matches.length; i++) {
+            str = str.replace(matches[i], temple.format(matches[i]));
+        }
+    }
+    return str;
+};
+globals.$ = jQuery;
+var Interceptstring = function (str, len) {
+    if (!str || !len) return '';
+    var a = 0;
+    var i = 0;
+    var temp = '';
+    var string = '';
+
+    for (i = 0; i < str.length; i++) {
+        if (str.charCodeAt(i) > 255)
+            a += 2;
+        else
+            a++;
+        if (a > len) {
+            string = temp + '...';
+            return string;
+        }
+        temp += str.charAt(i);
+    }
+    return str;
+};
+var UserStatus = function() {
+    var reffer = window.location.href;
+    //var moreInfo = globals.$(".user_login > .user_infos");
+    // isMore = moreInfo.length > 0 ? 1 : 0;
+    globals.$.getJSON("http://service.5sing.kugou.com/user/checkStatus?jsoncallback=?", { url: reffer}, function (obj) {
+        if (obj.isLogin) {
+            IsLogin = true;
+            if(typeof version!= 'undefined' && version == 2)
+            {
+                var html = '<ul class="top_nav_join" style="display:;">';
+                html +='<li><a href="http://5sing.kugou.com/my/">个人中心</a></li>';
+                html +='<li><a href="http://5sing.kugou.com/' + obj.id + '">我的主页</a></li>';
+                html +='<li class="top_nav_user h_nav_box">';
+                html +='<a href="http://5sing.kugou.com/' + obj.id + '" class="h_nav_clo">' + Interceptstring(obj.nickname,10) + '<b class="arrows"></b></a>';
+                html +='<div class="nav_box" style="display:none;">';
+                html +='<a href="http://5sing.kugou.com/my/set/photo">个人资料</a>';
+                html +='<a href="http://member.5sing.kugou.com">管理中心</a>';
+                html +='<a href="http://5sing.kugou.com/logout">安全退出</a>';
+                html +='</div>';
+                html +='</li>';
+                html +='<li class="ctop cnav_note"><a href="http://5sing.kugou.com/my/message/note">' + (obj.totalmessage > 0 ? '<b class="top_nav_new"></b>' : '') + '<span>消息</span></a></li>';
+                html +='<li class="ctop cnav_dress"><a href="http://5sing.kugou.com/my/set/skin"><span>装扮</span></a></li>';
+                html +='<li class="ctop cnav_pay"><a href="http://5sing.kugou.com/my/pay/vip"><span>支付</span></a></li>';
+                html +='</ul>';
+                globals.$(".top_nav").html(html);
+
+                globals.$(".top_nav").find(".top_nav_user").hover(function(){
+                    $(this).find(".h_nav_clo").addClass("h_nav_pull").parent().find(".nav_box").show();
+                }, function(){
+                    $(this).find(".h_nav_clo").removeClass("h_nav_pull").parent().find(".nav_box").hide();
+                });
+            }
+            else if(typeof version!= 'undefined' && version == 3)
+            {
+                var html = '<ul class="top_nav_join"><li><a href="http://5sing.kugou.com/my/">个人中心</a></li>';
+                html += '<li class="top_nav_user h_nav_box"><a href="http://5sing.kugou.com/'
+                    + obj.id +'" class="h_nav_clo">' + Interceptstring(obj.nickname,10) + '</a></li>';
+                html += '<li class="top_nav_user quit"><a href="http://5sing.kugou.com/logout">[退出]</a></ li>';
+                html += '<li class="ctop cnav_note"><a href="http://5sing.kugou.com/my/message/note" title="消息">' + (obj.totalmessage > 0 ? '<b class="top_nav_new"></b>' : '') + '<span>消息</span></a></li>';
+                html += '<li class="ctop cnav_dress"><a href="http://5sing.kugou.com/my/set/photo" title="设置"><span>设置</span></a></li></ul>';
+                globals.$(".top_nav").html(html);
+            }
+            else
+            {
+                globals.$(".t_login_list").hide();
+                var isLogins = globals.$(".t_header .isLogin");
+                var spaceFishLogin = globals.$(".header_bg > .header > .top_nav");
+                var isSongDetail = false;
+                if(isLogins.length <= 0)
+                {
+                    isLogins = globals.$(".p_header .isLogin");
+                    //isSongDetail = true;
+                }
+                isLogins.hide();
+                var html = "";
+                var msgLink = "http://5sing.kugou.com/my/message/note";
+                if(!!spaceFishLogin && spaceFishLogin.length > 0 && typeof TempID != "undefined" && TempID == 23){
+                    html += '<ul class="top_nav_join">' +
+                        '<li><a href="http://5sing.kugou.com/my/">个人中心</a></li>' +
+                        '<li><a href="http://5sing.kugou.com/' + obj.id + '">我的主页</a></li>';
+                    html += '<li class="top_nav_note"><a href="'+msgLink+'" onclick="javascript:this.innerHTML=\'消息(0)\'; return true;">'+
+                        (obj.totalmessage > 0 ? '<b class="top_nav_new"></b>' : '') + '消息(' + obj.totalmessage + ')</a></li>';
+                    html +=     '<li class="top_nav_user h_nav_box">' +
+                        '<a href="http://5sing.kugou.com/' + obj.id + '" class="h_nav_clo" target="_blank">' + Interceptstring(obj.nickname,10) + '<b class="arrows"></b></a>' +
+                        '<div class="nav_box" style="display:none;">' +
+                        '<a href="http://5sing.kugou.com/my/set/photo" rel="nofollow" target="_blank">个人资料</a>' +
+                        '<a href="http://member.5sing.kugou.com/" rel="nofollow" target="_blank">管理中心</a>' +
+                        '<a href="http://5sing.kugou.com/logout">安全退出</a>' +
+                        '</div>' +
+                        '</li>' +
+                        '</ul>';
+                    spaceFishLogin.html(html);
+                    spaceFishLogin.find(".top_nav_user").hover(function(){
+                        globals.$(this).find(".h_nav_clo").addClass("h_nav_pull").parent().find(".nav_box").show();
+                    }, function(){
+                        globals.$(this).find(".h_nav_clo").removeClass("h_nav_pull").parent().find(".nav_box").hide();
+                    });
+                }
+                else if(isSongDetail)
+                {
+                    html = '<dl>';
+                    html += ' <dd><span>欢迎，</span></dd>';
+                    html += '<dd>';
+                    html += '<a href=\"http://5sing.kugou.com/' + obj.id + '" class="cgreen" target="_blank">' + Interceptstring(obj.nickname,10) + '<b class="arrow"></b></a>';
+                    html += '<div class="p_menubd" style="display:none"><a href="http://5sing.kugou.com/my/" rel="nofollow" target="_blank">个人中心</a>';
+                    html += ' <a href="http://5sing.kugou.com/my/writing/ycadd" target="_blank">上传作品</a>';
+                    html += '<a href="http://5sing.kugou.com/logout" rel="nofollow">安全退出</a>';
+                    html += '</div>';
+                    html += '</dd> ';
+                    html += '<dd>';
+                    if (obj.totalmessage > 0) {
+                        html += '<a href=\"'+msgLink+'\" rel="nofollow" class="new_msg" target="_blank">消息(' + obj.totalmessage + ')<img src="http://static.5sing.kugou.com/images/new_icon.gif" width="23" height="11"></a>';
+                    }
+                    html += '</dd>';
+                    html += '</dl>';
+                    globals.$(".join_in").bind("mousemove", function () { globals.$(".p_menubd").show(); }).bind("mouseleave", function () { globals.$(".p_menubd").hide(); });
+                }
+                else
+                {
+                    html += '<li class="user"><a href="http://5sing.kugou.com/my/"><span class="headpic_s"><img width="36" height="36" alt="' + obj.nickname + '" src="' + obj.img + '"></span>' + Interceptstring(obj.nickname,10) + '</a>';
+                    html += '<ul class="head_box">';
+
+                    html += '<li class="head_box_top">';
+                    html += '<div class="item">';
+                    if ('已签到' == obj.checkstatus) {
+                        html += '<div class="sign_box">已签到<span class="day">'+obj.checkdays +'</span>天<a class="signBtn signBtned clock_in_txt">签到</a></div>';
+                    } else {
+                        html += '<div class="sign_box">已签到<span class="day">'+obj.checkdays +'</span>天<a href="javascript:;" onclick="new_sign(this)" class="signBtn clock_in_txt">签到</a></div>';
+                    }
+
+                    html += '<div class="coin_box"><i></i>金豆<span class="coin">'+obj.gd +'</span>颗</div>';
+                    html += '</div></div>';
+                    html += '<div class="item clearfix" id="usertags">';
+                    html += obj.usertags;
+                    html += '</div></li>';
+
+                    html += '<li class="head_box_ct"><ul class="clearfix">';
+                    html += '<li><a href="http://5sing.kugou.com/my/" class="grzx"><i class="icon_grzx"></i>个人中心</a></li>';
+                    html += '<li><a href="http://5sing.kugou.com/' + obj.id + '" class="home"><i class="icon_wdzy"></i>我的主页</a></li>';
+                    html += '<li><a href="http://5sing.kugou.com/my/writing/yc" class="gqgl"><i class="icon_gqgl"></i>作品管理</a></li>';
+                    html += '<li><a href="http://5sing.kugou.com/my/pay/vip" class="wdhy"><i class="icon_wdhy"></i>我的会员</a></li>';
+                    html += '<li><a href="http://5sing.kugou.com/my/wealth" class="wdcf"><i class="icon_wdcf"></i>我的财富</a></li>';
+                    html += '<li><a href="http://5sing.kugou.com/my/set/info" class="zhsz"><i class="icon_zhsz"></i>账号设置</a></li>';
+                    html += '<li><a href="http://5sing.kugou.com/my/set/artists" class="yyr"><i class="icon_yyr"></i>申请音乐人</a></li>';
+                    html += '<li><a href="http://5sing.kugou.com/my/set/cert" class="cert"><i class="icon_cert"></i>实名认证</a></li>';
+                    html += '<li><a href="http://5sing.kugou.com/fm/m/" target="_blank" class="box"><i class="icon_box"></i>我的音乐盒</a></li>';
+                    html += '</ul></li><li><a href="http://5sing.kugou.com/logout" class="logout">退出登录</a></li><li class="arr"></li></ul></li>';
+                }
+                globals.$("#userinfoshow").html(html);
+                $("#usertags").children('a').addClass('icon');
+                globals.$(".top_nav_login").hide();
+                $('.top_nav>ul>li').each(function(index, domEle) {
+                    var mouseoverTimer = null,
+                        mouseoutTimer = null,
+                        delay = 200;
+
+                    $(domEle).hover(function() {
+                        mouseoutTimer && clearTimeout(mouseoutTimer);
+
+                        var $self = $(this);
+                        mouseoverTimer = setTimeout(function () {
+                            $self.find('ul').show();
+                        }, delay);
+                    }, function() {
+                        mouseoverTimer && clearTimeout(mouseoverTimer);
+
+                        var $self = $(this);
+                        mouseoutTimer = setTimeout(function() {
+                            $self.find('ul').hide();
+                        }, delay);
+                    });
+                });
+                //globals.$(".join_in").html(html);
+                InitMessage();
+                globals.initMessage();
+                setInterval(function(){
+                    globals.initMessage();
+                }, 60000);
+                globals.$(".login_nav li").eq(0).html('欢迎您：<a href="http://5sing.kugou.com/'+obj.id+'" target="_blank">' + obj.nickname  + '</a> | <a href="http://5sing.kugou.com/my/">个人中心</a> | <a href="http://5sing.kugou.com/logout.aspx">安全退出</a>');
+                globals.$(".new_login_nav li").eq(0).html('欢迎您：<a href="http://5sing.kugou.com/'+obj.id+'" target="_blank">' + obj.nickname  + '</a> | <a href="http://5sing.kugou.com/my/">个人中心</a> | <a href="http://5sing.kugou.com/logout.aspx">安全退出</a>');
+                /* if(isMore > 0)
+                 {
+                 moreInfo.parent().find(".login_panel").hide();
+                 moreInfo.show();
+                 moreInfo.find(".head a").attr("href", "http://5sing.kugou.com/" + obj.id + "").html('<img alt="' + obj.nickname + '" src="' + obj.img + '" />' + obj.nickname);
+                 moreInfo.find("dl > dt > a").html(obj.totalfriend).attr("href", "http://5sing.kugou.com/" + obj.id + "/friend/1.html");
+                 var moreInfo_dd =  moreInfo.find("dl > dd > a");
+                 moreInfo_dd.eq(0).html(obj.totalfans).attr("href", "http://5sing.kugou.com/" + obj.id + "/fans/1.html");
+                 moreInfo_dd.eq(1).html(obj.totalmessage).attr("href", "http://5sing.kugou.com/my/message/note");
+                 moreInfo.find(".btn_panel > a.home").attr("href", "http://5sing.kugou.com/" + obj.id );
+                 moreInfo.find(".btn_panel > a.mg_center").attr("href", "http://5sing.kugou.com/my/");
+                 }*/
+            }
+        }
+    });
+};
+
+function new_sign(obj)
+{
+    $.getJSON('http://service.5sing.kugou.com/user/sign?jsoncallback=?',function(data){
+        if(data[0]==0)
+        {
+            $(obj).removeAttr('href').removeAttr('onclick');
+            var result = eval("("+data[1]+")");
+            var day = $('.day').text();
+            $('.day').text(parseInt(day) + 1);
+            $(obj).addClass('signBtned');
+            $.ksPlugin.success('签到成功，获得' + result.dd + '颗豆豆！');
+        }
+        else if(data[0]==36033)
+        {
+            $(obj).removeAttr('href').removeAttr('onclick');
+            var result = eval("("+data[1]+")");
+            var day = $('.day').text();
+            $('.day').text(parseInt(day) + 1);
+            $(obj).addClass('signBtned');
+            $.ksPlugin.success('签到成功，获得' + result.dd + '颗豆豆！');
+        }
+        else
+            $.ksPlugin.tips('您已签到！');
+    })
+}
+
+$.ksPlugin = {
+        alert:function(options,callback) {
+            var id = 'ksPlugin-alert-' + new Date().getTime();
+            var defaults = {title : '温馨提示',yes:'确认',icon:'',yesClass:''};
+            options = $.extend(true, {}, defaults, options);
+            $.ksPlugin.showBackGround();
+
+            var html ='<div class="tip_box '+ (options.icon=='' ? 'w400_box' : 's_icon') +  '"  id="'+id+'">'
+                +'<div class="pop_tit">'
+                +'<span class="lt">'+options.title+'</span>'
+                +'<a href="javascript:;" class="rt a_btn btn_close" title="关闭"><b class="m_btn">关闭</b></a>'
+                +'</div>'
+                +'<dl class="c_wap ct_com">'
+                +'<dt>'
+                +'<table cellpadding="0" cellspacing="0" border="0">'
+                +'<tbody><tr><td class="tips ' + options.icon + '"><i></i></td>'
+                +'<td>'+options.content+'</td>'
+                +'</tr></tbody></table>'
+                +'</dt>'
+                +'<dd class="c_wap act_btns">'
+                +'<a class="a_btn btn_yes ' + options.yesClass + '" href="javascript:;">'+options.yes+'</a>'
+                +'</dd>'
+                +'</dl>'
+                +'</div>';
+            $('body').append(html);
+            $('#'+id).find('.btn_yes').click(function(){
+                $('#'+id).remove();
+                $.ksPlugin.hideBackGround();
+                if(callback)
+                    callback();
+            });
+            $('#'+id).find('.btn_close').click(function(){
+                $('#'+id).remove();
+                $.ksPlugin.hideBackGround();
+                if(callback)
+                    callback();
+            });
+        },
+        confirm:function(options,callback,callbackno)
+        {
+            var id = 'mb-' + new Date().getTime();
+            var defaults = {title : '温馨提示',yes:'确认',no:'取消',icon:'',yesClass:'',noClass:'',width:''};
+            options = $.extend(true, {}, defaults, options);
+            $.ksPlugin.showBackGround();
+            var html='';
+
+            html='<div class="tip_box  '+ (options.icon=='' ? 'w400_box' : 's_icon') +  '" id="'+id+'" style="display:;' + (options.width!=''? 'width:'+options.width:'') + '">'+
+                '<div class="pop_tit">'+
+                '<span class="lt">'+options.title+'</span>'+
+                '<a href="javascript:;" class="rt a_btn btn_close" title="关闭"><b class="m_btn">关闭</b></a>'+
+                '</div>'+
+                '<dl class="c_wap ct_com">'+
+                '<dt>'
+                +'<table cellpadding="0" cellspacing="0" border="0">'
+                +'<tbody><tr><td class="tips ' + options.icon + '"><i></i></td>'
+                +'<td>'+options.content+'</td>'
+                +'</tr></tbody></table>'
+
+                +'</dt>'+
+                '<dd class="c_wap act_btns confirm">'+
+                '<a href="javascript:;" class="a_btn btn_yes ' + options.yesClass + '">'+options.yes+'</a>'+
+                '<a href="javascript:;" class="a_btn btn_no ' + options.noClass + '">'+options.no+'</a>'+
+                '</dd>'+
+                '</dl>'+
+                '</div>';
+
+
+            $('body').append(html);
+
+            $('#'+id).find('.btn_yes').click(function(){
+                //options.callback;
+                $('#'+id).remove();
+                $.ksPlugin.hideBackGround();
+                if(callback)
+                    callback();
+            });
+            $('#'+id).find('.btn_no').click(function(){
+                $('#'+id).remove();
+                $.ksPlugin.hideBackGround();
+                if(callbackno)
+                    callbackno();
+            });
+            $('#'+id).find('.btn_close').click(function(){
+                $('#'+id).remove();
+                $.ksPlugin.hideBackGround();
+                if(callbackno)
+                    callbackno();
+            });
+        },
+        success:function(message, delay, reload)
+        {
+            var id = 'ksPlugin-success-' + new Date().getTime();
+            var html = '<div class="tip_box tip_com" id="'+id+'">'
+                +'<table cellpadding="0" cellspacing="0" border="0" width="100%"><tbody><tr><td class="t_icon"><i></i></td><td class="t_cons">'+message+'</td></tr></tbody></table>'
+                +'</div>';
+
+            $('body').append(html);
+            delay = delay==undefined?2000:delay;
+            setTimeout(function(){
+                $("#"+id).remove();
+                if(reload === true){
+                    window.location.reload();
+                }
+                else if(!!reload){
+                    window.location.href = reload;
+                }
+            },delay);
+        },
+        showLoading:function(id,message,delay){
+            delay = delay == undefined?500:delay;
+
+            var obj = setTimeout(function(){
+                var html = '<div class="tip_box tip_loding" id="'+id+'">'
+                    +'<table cellpadding="0" cellspacing="0" border="0" width="100%"><tbody><tr><td class="t_icon"><i></i></td><td class="t_cons">'+message+'</td></tr></tbody></table></div>'
+                    +'</div>';
+                $('body').append(html);
+            },delay);
+            return obj;
+        },
+        hideLoading:function(id,obj)
+        {
+            if(obj!=null)
+                clearTimeout(obj);
+            if($('#'+id).length>0)
+                $('#'+id).remove();
+        },
+        faild:function(message, delay, reload){
+            var id = 'ksPlugin-faild-' + new Date().getTime();
+            var html = '<div class="tip_box tip_del" id="'+id+'">'
+                +'<table cellpadding="0" cellspacing="0" border="0" width="100%"><tbody><tr><td class="t_icon"><i></i></td><td class="t_cons">'+message+'</td></tr></tbody></table></div>'
+                +'</div>';
+            $('body').append(html);
+            delay = delay==undefined?2000:delay;
+            setTimeout(function(){
+                $("#"+id).remove();
+                if(reload === true){
+                    window.location.reload();
+                }
+                else if(!!reload){
+                    window.location.href = reload;
+                }
+            },delay);
+        },
+        tips:function(message, delay, reload){
+            var id = 'ksPlugin-normal-' + new Date().getTime();
+            var html = '<div class="tip_box tip_normal" id="'+id+'">'
+                +'<table cellpadding="0" cellspacing="0" border="0" width="100%"><tbody><tr><td class="t_icon"></td><td class="t_cons">'+message+'</td></tr></tbody></table>'
+                +'</div>';
+            $('body').append(html);
+            delay = delay==undefined?2000:delay;
+            $("#"+id).animate();
+            setTimeout(function(){
+                $("#"+id).remove();
+                if(reload === true){
+                    window.location.reload();
+                }
+                else if(!!reload){
+                    window.location.href = reload;
+                }
+            },delay);
+        },
+        showBackGround:function()
+        {
+            if($('.pop_lo_bg_bg').length==0)
+            {
+                var style = "<style>.pop_lo_bg_bg {background:rgba(0, 0, 0, 0); background:#000\9; opacity:0\0;position:fixed;width:100%;height:100%;top:0;left: 0;display:block;filter: Alpha(opacity=0);z-index: 11000;_position: absolute;_height: expression(document.body.clientHeight+'px');}"
+                    +".tip_confirm{position:fixed; top:50%; left:50%; margin-left:-200px; margin-top:-75px; width:400px; background:#fff; z-index:11001; _top:expression(documentElement.scrollTop+190);_position:absolute; _bottom:auto;}"
+                    +"*html{background-image:url(about:blank);background-attachment:fixed;}"
+                    +".tip_confirm .tip_tit{height:40px; line-height:40px; background:#74bd52; border-bottom:#5eb13f solid 1px; color:#fff; font-size:16px; padding:0 10px;}"
+                    +".tip_confirm .tip_conbox{border:#e4e4e4 solid 1px; border-top:none; padding:10px; zoom:1;}"
+                    +".tip_confirm .tip_conbox p{font-weight:bold; text-align:center; font-size:14px; height:60px; line-height:40px;}"
+                    +".tip_confirm .tip_conbox a.lt:link,.tip_confirm .tip_conbox a.lt:visited{width:82px; height:30px; line-height:30px; text-align:center; text-decoration:none; color:#fff; display:inline;}"
+                    +".tip_confirm .tip_conbox a.cf_btn{margin-left:95px; background:#74bd54;}"
+                    +".tip_confirm .tip_conbox a.back_btn{margin-left:20px; background:#bfc1cd;}"
+                    +".tip_confirm .tip_conbox a.cf_btn:hover{background:#ff3000;}"
+                    +".tip_confirm .tip_conbox a.back_btn:hover{background:#a6a8b3;}</style>";
+                $('head').append(style);
+                $('body').append('<div class="pop_lo_bg_bg" style="display: none;"></div>');
+            }
+            $('.pop_lo_bg_bg').show();
+        },
+        hideBackGround:function()
+        {
+            $('.pop_lo_bg_bg').hide();
+        },
+        isPicUrl:function(url){
+            var reg = /^(http:\/\/|https:\/\/).+(\.jpg|\.png|\.gif)$/i;
+            if(url.match(reg))
+                return true;
+            return false;
+        },
+        isUrl:function(url){
+            var reg = /^(http:\/\/|https:\/\/).+/i;
+            if(url.match(reg))
+                return true;
+            return false;
+        }
+    };
+
+var InitMessage = function() {
+    globals.$.getJSON('http://service.5sing.kugou.com/message/tips?jsoncallback=?',function(data){
+        var totalmsg = data.Comment + data.LeaveWord + data.Likes + data.Collects + data.SiteMsg + data.SysMsg + data.Fans;
+        var list = '<li>';
+        list += '<a class="nav_msg_til" href="javascript:;"><i class="icon icon_msg">';
+        if(totalmsg >0)
+        {
+            list += '<span class="msgcount">'+ (totalmsg >= 100 ? "99+" : totalmsg) +'</span>';
+        }
+        list += '</i>消息</a><ul class="msg_box"><li><a href="http://5sing.kugou.com/my/related#comment">';
+        if(data.Comment>0)
+        {
+            list += '<span class="count">'+ (data.Comment >= 100 ? "99+" : data.Comment) +'</span>' ;
+        }
+        list += '评论</a></li><li><a href="http://5sing.kugou.com/my/related#leaveword">';
+        if(data.LeaveWord>0)
+        {
+            list += ' <span class="count">'+ (data.LeaveWord >= 100 ? "99+" : data.LeaveWord) +'</span>';
+        }
+        list += '留言</a></li><li><a href="http://5sing.kugou.com/my/related#like">' ;
+        if(data.Likes>0)
+        {
+            list +='<span class="count">'+ (data.Likes >= 100 ? "99+" : data.Likes) +'</span>';
+        }
+        list += '赞</a></li><li><a href="http://5sing.kugou.com/my/related#collect">' ;
+        if(data.Collects>0)
+        {
+            list +='<span class="count">'+ (data.Collects >= 100 ? "99+" : data.Collects) +'</span>';
+        }
+        list += '收藏</a></li><li><a href="http://5sing.kugou.com/' + data.id + '/fans/1.html">' ;
+        if(data.Fans>0)
+        {
+            list +='<span class="count">'+ (data.Fans >= 100 ? "99+" : data.Fans) +'</span>';
+        }
+        list += '粉丝</a></li><li><a href="http://5sing.kugou.com/my/message/note">' ;
+        if(data.SiteMsg>0)
+        {
+            list +='<span class="count">'+ (data.SiteMsg >= 100 ? "99+" : data.SiteMsg) +'</span>';
+        }
+        list += '站内信</a></li><li><a href="http://5sing.kugou.com/my/message/sys">';
+        if(data.SysMsg>0)
+        {
+            list +='<span class="count">'+ (data.SysMsg >= 100 ? "99+" : data.SysMsg) +'</span>';
+        }
+        list += '系统消息</a></li></ul>';
+        list += '</li>';
+        globals.$("#msgshow").html(list);
+        globals.$('.top_nav>ul>li').each(function(index, domEle) {
+            var mouseoverTimer = null,
+                mouseoutTimer = null,
+                delay = 200;
+
+            $(domEle).hover(function() {
+                mouseoutTimer && clearTimeout(mouseoutTimer);
+
+                var $self = $(this);
+                mouseoverTimer = setTimeout(function () {
+                    $self.find('ul').show();
+                }, delay);
+            }, function() {
+                mouseoverTimer && clearTimeout(mouseoverTimer);
+
+                var $self = $(this);
+                mouseoutTimer = setTimeout(function() {
+                    $self.find('ul').hide();
+                }, delay);
+            });
+        });
+        globals.$('.msg_box>li').each(function(index, domEle) {
+            $(domEle).click(function() {
+                ClearHeadMsg(index,data.id);
+            });
+        });
+    });
+};
+
+globals.initMessage = function (){
+    var hasClosedTips = document.cookie.match(/msg_tips_closed=1/);
+    var targ = typeof(globals.target) == "undefined" ? "" : globals.target;
+    $.getJSON('http://service.5sing.kugou.com/message/tips?jsoncallback=?',function(data){
+        var list = '';
+        var total = data.SiteMsg + data.SysMsg;
+        if(total>0){
+            document.title = '【新消息】中国原创音乐基地 5SING';
+        }
+        if(data.RelatedMe > 0  || (data.Collects + data.Likes) > 0){
+            $('.header_bg > .header > .top_nav > .top_nav_join a.myspace').find(".top_nav_new").remove();
+            $('<b class="top_nav_new"></b>').appendTo('.header_bg > .header > .top_nav > .top_nav_join a.myspace');
+        }
+        if(data.Fans > 0 && typeof OwnerUserID  != "undefined" && OwnerUserID == globals.currentUserId){
+            var djTFS = $(".dj_content #totalfans");
+            var commonTFS = $(".banner #totalfans");
+            if(commonTFS.length > 0){
+                commonTFS.find(".p_abs").remove();
+                if(typeof Channel != "undefined" && Channel != "fans")
+                    $('<cite class="p_abs b_new">' + (data.Fans >= 100 ? "99+" : data.Fans) + '</cite>').appendTo(".banner #totalfans")
+            }
+            else if(djTFS.length > 0){
+                djTFS.find(".p_abs").remove();
+                if(typeof Channel != "undefined" && Channel != "fans")
+                    $('<em class="p_abs f_new">' + (data.Fans >= 100 ? "99+" : data.Fans) + '</em>').appendTo(".dj_content #totalfans");
+
+            }
+        }
+        else{
+            $(".banner #totalfans").find(".p_abs").remove();
+            $(".dj_content #totalfans").find(".p_abs").remove();
+        }
+        /* if(data.SiteMsg>0)
+         {
+         list += '<li>' + data.SiteMsg + '条站内信息，<a ' + targ + ' href="' + globals.urlPrefix.home + 'my/message/note">查看</a></li>';
+         $('.note_nav ul li').eq(0).find('a').find('em').removeClass('note_null').addClass('note_new').text(data.SiteMsg+'条新');
+         }
+         if(data.SysMsg>0)
+         {
+         list += '<li>' + data.SysMsg + '条系统消息，<a ' + targ + ' href="' + globals.urlPrefix.home + 'my/message/view?uid=100000">查看</a></li>';
+         $('.note_nav ul li').eq(4).find('a').find('em').removeClass('note_null').addClass('note_new').text(data.SysMsg+'条新');
+         }*/
+
+        if($('.note_tips_list').length == 0)
+            $('.header').append('<div class="note_tips_list" style="display: none;"></div>');
+        if(typeof sinaExpires != 'undefined')
+            list += '<li>新浪微博绑定已过期，<a href="' + globals.urlPrefix.home + 'login?do=1">重绑</a></li>';
+        if(typeof tencentExpires != 'undefined')
+            list += '<li>腾讯微博绑定已过期，<a href="' + globals.urlPrefix.home + 'login?do=4">重绑</a></li>';
+        if(list.length > 0 && !hasClosedTips)
+        {
+            list = '<a href="###" class="note_close">关闭</a><ul>' + list + '</ul>';
+            $(".note_tips_list").html(list).show().find(".note_close").click(function(){
+                document.cookie = "msg_tips_closed=1; domain=" + globals.urlPrefix.host + "; path=/";
+                $(".note_tips_list").hide();
+            });
+        }
+        else
+            $(".note_tips_list").html('').hide();
+        if(data.RelatedMe > 0)
+            $(".l_about").find("span").text(data.RelatedMe);
+    });
+};
+globals.base64 = {
+    _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+    encode:function(input){
+        var output = "";
+        var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+        var i = 0;
+        input = globals.base64._utf8_encode(input);
+        while (i < input.length) {
+            chr1 = input.charCodeAt(i++);
+            chr2 = input.charCodeAt(i++);
+            chr3 = input.charCodeAt(i++);
+            enc1 = chr1 >> 2;
+            enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+            enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+            enc4 = chr3 & 63;
+            if (isNaN(chr2)) {
+                enc3 = enc4 = 64;
+            } else if (isNaN(chr3)) {
+                enc4 = 64;
+            }
+            output = output +
+                globals.base64._keyStr.charAt(enc1) + globals.base64._keyStr.charAt(enc2) +
+                globals.base64._keyStr.charAt(enc3) + globals.base64._keyStr.charAt(enc4);
+        }
+        return output;
+    },
+    decode:function(input){
+        var output = "";
+        var chr1, chr2, chr3;
+        var enc1, enc2, enc3, enc4;
+        var i = 0;
+        input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+        while (i < input.length) {
+            enc1 = globals.base64._keyStr.indexOf(input.charAt(i++));
+            enc2 = globals.base64._keyStr.indexOf(input.charAt(i++));
+            enc3 = globals.base64._keyStr.indexOf(input.charAt(i++));
+            enc4 = globals.base64._keyStr.indexOf(input.charAt(i++));
+            chr1 = (enc1 << 2) | (enc2 >> 4);
+            chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+            chr3 = ((enc3 & 3) << 6) | enc4;
+            output = output + String.fromCharCode(chr1);
+            if (enc3 != 64) {
+                output = output + String.fromCharCode(chr2);
+            }
+            if (enc4 != 64) {
+                output = output + String.fromCharCode(chr3);
+            }
+        }
+        output = globals.base64._utf8_decode(output);
+        return output;
+    },
+    _utf8_encode: function (input) {
+        input = input.replace(/\r\n/g,"\n");
+        var utftext = "";
+        for (var n = 0; n < input.length; n++) {
+            var c = input.charCodeAt(n);
+            if (c < 128) {
+                utftext += String.fromCharCode(c);
+            } else if((c > 127) && (c < 2048)) {
+                utftext += String.fromCharCode((c >> 6) | 192);
+                utftext += String.fromCharCode((c & 63) | 128);
+            } else {
+                utftext += String.fromCharCode((c >> 12) | 224);
+                utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                utftext += String.fromCharCode((c & 63) | 128);
+            }
+
+        }
+        return utftext;
+    },
+    _utf8_decode: function (input) {
+        var string = "";
+        var i = 0;
+        var c = c1 = c2 = 0;
+        while ( i < input.length ) {
+            c = input.charCodeAt(i);
+            if (c < 128) {
+                string += String.fromCharCode(c);
+                i++;
+            } else if((c > 191) && (c < 224)) {
+                c2 = input.charCodeAt(i+1);
+                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                i += 2;
+            } else {
+                c2 = input.charCodeAt(i+1);
+                c3 = input.charCodeAt(i+2);
+                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                i += 3;
+            }
+        }
+        return string;
+    }
+};
+function AddFriend(userID) {
+    if (!IsLogin) {
+        globals.$.login(UserStatus);
+    } else {
+        GetJSON("http://service.5sing.kugou.com/relation/addFriend", "UserID=" + userID, AddFriendCallBack);
+    }
+}
+function AddFriendCallBack(o) {
+    if(!o.isLogin)
+        globals.$.login();
+    else
+    {
+        if(o.isSuccess)
+        {
+            globals.$.tips("关注成功");
+        }
+        else
+        {
+            globals.$.tips(o.message);
+        }
+    }
+}
+
+function ClearHeadMsg(index,userID) {
+    switch (index) {
+        case 0:
+        {
+            GetJSON('http://service.5sing.kugou.com/message/clearFansTip?jsoncallback=?', 'key=Comment&uid=' + userID);
+            break;
+        }
+        case 1:
+        {
+            GetJSON('http://service.5sing.kugou.com/message/clearFansTip?jsoncallback=?', 'key=LeaveWord&uid=' + userID);
+            break;
+        }
+        case 2:
+        {
+            GetJSON('http://service.5sing.kugou.com/message/clearFansTip?jsoncallback=?', 'key=Likes&uid=' + userID);
+            break;
+        }
+        case 3:
+        {
+            GetJSON('http://service.5sing.kugou.com/message/clearFansTip?jsoncallback=?', 'key=Collects&uid=' + userID);
+            break;
+        }
+        case 4:
+        {
+            GetJSON('http://service.5sing.kugou.com/message/clearFansTip?jsoncallback=?', 'key=Fans&uid=' + userID);
+            break;
+        }
+        case 5:
+        {
+            GetJSON('http://service.5sing.kugou.com/message/clearFansTip?jsoncallback=?', 'key=SiteMsg&uid=' + userID);
+            break;
+        }
+        case 6:
+        {
+            GetJSON('http://service.5sing.kugou.com/message/clearFansTip?jsoncallback=?', 'key=SysMsg&uid=' + userID);
+            break;
+        }
+    }
+
+}
+
+function SearchForm() {
+    var keyword = $('#txtKey').val();
+    var searchUrl= 'http://search.5sing.kugou.com/home/index' +  (keyword ? '?keyword=' + encodeURIComponent(keyword) : '');
+    window.open(searchUrl);
+    return;
+    //var url = "";
+    //switch ($(".seh_list_a").text()) {
+    //    case "原创":
+    //    {
+    //        url = globals.urlPrefix.search + "syc.aspx";
+    //        break;
+    //    }
+    //    case "翻唱":
+    //    {
+    //        url = globals.urlPrefix.search + "sfc.aspx";
+    //        break;
+    //    }
+    //    case "伴奏":
+    //    {
+    //        url = globals.urlPrefix.search + "sbz.aspx";
+    //        break;
+    //    }
+    //    case "会员":
+    //    {
+    //        url = globals.urlPrefix.search + "smember.aspx";
+    //        break;
+    //    }
+    //}
+    //if($("#souForm").length <= 0)
+    //    $('body').append('<form action="' + globals.urlPrefix.search + 'sbz.aspx" method="get" id="souForm" target="_blank"><input type="hidden" name="key" id="key" /></form>');
+    //$("#souForm").attr("action", url);
+    //$("#key").val($("#txtKey").val());
+    //$("#souForm").submit();
+}
+var newSearch = function(){
+    var replaceTmpl = function(str, data) {
+        return str.replace(/\{\$([\w\d-_]+)\}/ig, function(a, b) {
+            return typeof data[b] !== 'undefined' ? data[b] : a;
+        });
+    }
+    var clearOthers = function(name){
+        var boxs = ['ser_res_box', 'ser_history_box'];
+        for(var i = 0; i < boxs.length; i++){
+            if(!name || name != boxs[i]){
+                $('.' + boxs[i]).remove();
+            }
+        }
+    };
+
+    $('body').on('click', function(){
+        $('.ser_tips').hide();
+    });
+    //获取最近搜索词
+    var status = true;
+    $('#txtKey').live('click', function(){
+        if($(this).val() == ''){
+            $tips = $('.ser_tips');
+            $tips.show();
+            clearOthers('ser_history_box');
+            if($('.ser_history_box').length > 0){
+                $tips.show();
+            }else{
+                if(status == false && $('.ser_history_box').length > 0){
+                    return false;
+                }
+                $.ajax({
+                    url:  'http://search.5sing.kugou.com/home/GetRecentSearch'
+                }).done(function(res){
+                        if(res){
+                            //显示最近搜索词
+                            var html = '<dl class="ser_history_box"><dt><i class="ico lt"></i>搜索历史</dt>';
+                            for(var i = 0; i < res.length; i++){
+                                html += '<dd><a class="a_btn" href="http://search.5sing.kugou.com/home/index?keyword='+encodeURIComponent(res[i])+'">' + res[i] + '</a></dd>';
+                            }
+                            html += '</dl>';
+                            $tips.append(html);
+                            $tips.show();
+                        }
+                    });
+                status = false;
+            }
+        }else{
+            $('.ser_tips').show();
+        }
+    });
+    /**
+     * 搜索每次输入时去查询相关数据
+     * 为了防止用户未输完和输完后响应过快的问题
+     * 添加了150毫秒的延时
+     */
+    var t = '';
+    $('#txtKey').on('keyup', function(event) {
+        clearTimeout(t);
+
+        var $this = $(this),
+            key = $.trim($this.val());
+
+        t = setTimeout(function(){
+            if(key.length > 0){
+                $.ajax({
+                    url: 'http://search.5sing.kugou.com/home/QuickSearch',
+                    type: 'GET',
+                    dataType: 'jsonp',
+                    data: {keyword: $this.val()}
+                }).done(function(res) {
+                        if(res == ''){
+                            $('.ser_res_box').remove();
+                            return;
+                        }
+                        //删除历史搜索框
+                        clearOthers();
+                        $('.ser_tips').append('<div class="ser_res_box c_wap c_zm"><table cellpadding="0" cellspacing="0" border="0" width="100%"></table></div>');
+                        var template = '<tr><th width="18%">{$type}</th><td width="82%">{$list}</td></tr>';
+
+                        //歌曲
+                        var temp = [], list = '', picture = '';
+                        var changePic = function(picUrl){
+                            return picUrl ? (picUrl.indexOf('static.5sing') > 0 ? picUrl : picUrl.replace('5sing.com','5sing.kgimg.com').replace('.jpg', '_24_24.jpg')) : '';
+                        }
+                        if(res.songs){
+                            for (var i = 0; i < res.songs.length; i++) {
+                                list += '<a href="http://5sing.kugou.com/'+res.songs[i].type+'/'+res.songs[i].songId+'.html" class="a_btn ellipsis"><i class="ico rt"></i>'
+                                    + res.songs[i].songName;
+                                if(res.songs[i].singer){
+                                    list += ' - ' + res.songs[i].singer;
+                                }
+                                list += '</a>';
+                            };
+                            temp['type'] = '歌曲';
+                            temp['list'] = list;
+                            $('.ser_res_box table').append(replaceTmpl(template, temp));
+                        }
+                        //歌单
+                        if(res.songlists){
+                            temp = [];
+                            list = '';
+                            for (var i = 0; i < res.songlists.length; i++) {
+                                if(res.songlists[i].pictureUrl){
+                                    picture = changePic(res.songlists[i].pictureUrl);
+                                    picture = '<span class="lt u_head_img"><img alt="" src="'+ picture +'" width="24" height="24"></span>';
+                                }
+                                list += '<a href="http://5sing.kugou.com/' + res.songlists[i].userId + '/gd/'+ res.songlists[i].songListId +'.html" class="a_btn"><i class="ico rt"></i>'
+                                    + picture + res.songlists[i].title + '</a>';
+                                picture = '';
+                            };
+                            temp['type'] = '歌单';
+                            temp['list'] = list;
+                            $('.ser_res_box table').append(replaceTmpl(template, temp));
+                        }
+                        //会员
+                        if(res.member){
+                            temp = [];
+                            var list = '';
+                            picture = '';
+                            for (var i = 0; i < res.member.length; i++) {
+                                if(res.member[i].pictureUrl){
+                                    picture = changePic(res.member[i].pictureUrl);
+                                    picture = '<span class="lt u_head_img"><img alt="" src="'+ picture +'" width="24" height="24"></span>';
+                                }
+                                list += '<a href="http://5sing.kugou.com/'+ res.member[i].userId +'/default.html" class="a_btn">'
+                                    + picture + res.member[i].nickName + '</a>';
+                                picture = '';
+                            };
+                            temp['type'] = '会员';
+                            temp['list'] = list;
+                            $('.ser_res_box table').append(replaceTmpl(template, temp));
+                        }
+                        $('.ser_tips').show();
+                    });
+            }else{
+                $('.ser_res_box').remove();
+            }
+        }, 150);
+    });
+};
+
+function Submit(url, method, parameter, funCallBack) {
+    globals.$.ajax({ async: true, type: method, url: url, dataType: "json", data: parameter, success: function (responseObj) {
+        funCallBack(responseObj);
+    }
+    });
+}
+function GetJSON(url, paramete, funCallBack) {
+    globals.$.getJSON(url + "?jsoncallback=?", paramete,
+        function (data) {
+            funCallBack(data);
+        });
+}
+function getExpDate(days, hours, minutes) {
+    var expDate = new Date();
+    if (typeof (days) == "number" && typeof (hours) == "number" && typeof (hours) == "number") {
+        expDate.setDate(expDate.getDate() + parseInt(days));
+        expDate.setHours(expDate.getHours() + parseInt(hours));
+        expDate.setMinutes(expDate.getMinutes() + parseInt(minutes));
+        return expDate.toGMTString();
+    }
+}
+function getCookie(name) {
+    var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+    arr = document.cookie.match(reg);
+    if (arr) {
+        return unescape(arr[2]);
+    }
+    else {
+        return null;
+    }
+}
+function setCookie(name, value, expires, path, domain, secure) {
+    document.cookie = name + "=" + escape(value) +
+        ((expires) ? "; expires=" + expires : "") +
+        ((path) ? "; path=" + path : "") +
+        ((domain) ? "; domain=" + domain : "") +
+        ((secure) ? "; secure" : "");
+}
+globals.$(document).ready(function(){
+    globals.$('body').append('<form action="http://sou.5sing.kugou.com/sbz.aspx" method="get" id="souForm" target="_blank"><input type="hidden" name="key" id="key" /></form>');
+    globals.$(".menu_hd").each(function (index) { globals.$(this).bind("mousemove", function () { globals.$("#menu-" + (index + 1)).show(); globals.$(this).addClass("menu_hd_clo") }).parent().bind("mouseleave", function () { globals.$("#menu-" + (index + 1)).hide(); globals.$(this).find("a").first().removeClass("menu_hd_clo") }); });
+    globals.$(".seh_list").bind("mousemove", function () { globals.$(".seh_sort").show(); }).bind("mouseleave", function () { globals.$(".seh_sort").hide(); });
+    /* globals.$(".seh_sort").find("a").each(function (index) { globals.$(this).bind("click", function () { globals.$(this).parent().hide(); globals.$(".seh_list_a").html(globals.$(this).text() + '<b class="arrow"></b>') }); });*/
+    newSearch();
+    globals.$("#txtKey").bind("keydown", function (e) { if (e.keyCode == 13) { SearchForm() } });
+    globals.$(".seh_b").bind("click", function () { SearchForm(); });
+    globals.$(".sns_nav").bind("mousemove", function () { globals.$(".sns_nav_list").show(); globals.$(this).find(".sns_nav_a").addClass("sns_nav_tit") }).bind("mouseleave", function () { globals.$(".sns_nav_list").hide(); globals.$(this).find(".sns_nav_a").removeClass("sns_nav_tit") }); ;
+    globals.$(".n_header > .n_top .login_btn a").attr("target", "_self");
+
+    var timeOut1024;
+    /*globals.$(".header_bg > .header > .h_nav > ul > li").hover(function(){
+     clearTimeout(timeOut1024);
+     globals.$(this).find(".h_nav_clo").addClass("h_nav_pull").parent().find(".nav_box").show();
+     }, function(){
+     var obj = this;
+     timeOut1024 = setTimeout(function(){
+     globals.$(obj).find(".h_nav_clo").removeClass("h_nav_pull").parent().find(".nav_box").hide();
+     },500);
+     });*/
+    var icons = globals.$(".n_header .nav_wap > .rt > li");
+    icons.hover(function(){
+        icons.find(".menu_bd").hide();
+        var index = icons.index(this);
+        icons.eq(index).find(".menu_bd").show();
+        icons.find(".icon").removeClass("m_clo").eq(index).addClass("m_clo");
+    },function(){
+        icons.find(".menu_bd").hide();
+        icons.find(".icon").removeClass("m_clo");
+    });
+    setTimeout(UserStatus, 500);
+    setInterval(function(){
+        InitMessage;
+    }, 60000);
+});
+(function($){
+    $.tips = function(msg, delay, reload){
+        var style = '<style>.show_public_tips{ position:fixed; _position:absolute; top:30%; left:50%; width:360px; margin:0 0 0 -200px;'
+            + ' background:#000; font-size:18px; font-family:\'Microsoft Yahei\',微软雅黑; text-align:center; line-height:40px; '
+            + 'padding:20px; z-index:21000; _top:expression(documentElement.scrollTop + 150); border:1px solid #555; color:#fff;} '
+            + '.show_public_tips_text{ color:#fff;}</style><!--[if (gt IE 9)|!(IE)]><!--><style> div.show_public_tips{ background:rgba(0, 0, 0, 0.7);'
+            + 'border-radius:8px;}</style><!--<![endif]-->';
+//        var style = '<style>.show_public_tips{ position:fixed; _position:absolute; top:30%; left:50%; width:400px; margin:0 0 0 -200px;'
+//            +' background:#000; background:rgba(0, 0, 0, 0.7); font-size:18px; font-family:\'Microsoft Yahei\',微软雅黑;'
+//            +' text-align:center; line-height:80px; height:80px; z-index:21000;filter:Alpha(opacity=70); border-radius:8px;'
+//            +' _top:expression(documentElement.scrollTop + 150); display:none; border:1px solid #555;} .show_public_tips_text{ color:#fff;}</style>';
+        var html = '<div class="show_public_tips"><p class="show_public_tips_text"></p></div>';
+        var tipsObj = globals.$(".show_public_tips");
+        if(tipsObj.length <= 0)
+        {
+            globals.$("body").append(style + html);
+            tipsObj = globals.$(".show_public_tips");
+        }
+        tipsObj.stop().hide();
+        if(Object.prototype.toString.call((delay)) != '[object Array]' || delay.length != 3)
+            delay = [500, 1000, 500];
+        tipsObj.css("opacity", 0).show().find(".show_public_tips_text").html(msg).parent().animate({"opacity": 1}, delay[0], function(){
+            tipsObj.animate({"opacity": 1}, delay[1], function(){
+                tipsObj.animate({"opacity": 0}, delay[2], function(){
+                    tipsObj.hide();
+                    if(reload === true){
+                        window.location.reload();
+                    }
+                    else if(!!reload){
+                        window.location.href = reload;
+                    }
+                });
+            });
+        });
+    };
+    $.login = function(callback){
+        var self = this;
+        var style = '<style>html{_background-image:url(about:blank);_background-attachment:fixed;}'
+            +'.pop_lo_bg_bg{background:rgba(0, 0, 0, .5); background:#000\\9;opacity:0.5\\0;position:fixed; width:100%; height:100%; top:0; left:0; display:block; filter:Alpha(opacity=50); z-index:11000;_position:absolute; _height:expression(document.body.clientHeight+\'px\');}'
+            +'.pop_lo_bg{position:absolute; left:20%; z-index:11001; top:20%; background:#fff; overflow:hidden; -webkit-box-shadow:0 0 5px rgba(0,0,0,0.3); -moz-box-shadow:0 0 5px rgba(0,0,0,0.3); box-shadow:0 0 5px rgba(0,0,0,0.3); width:540px;}'
+            +'.pop_lo_bg .rt{ float:right;}'
+            +'.pop_lo_bg .lt{float:left}'
+            +'ul.pop_lo_list{position:relative; overflow:hidden; padding:20px 0 0 0;}'
+            +'ul.pop_lo_list li{padding:10px 100px; line-height:20px; overflow:hidden; zoom:1;}'
+            +'ul.pop_lo_list li.spot_item{display:none;}'
+            +'ul.pop_lo_list li input.us_name,ul.pop_lo_list li input.us_pwd,ul.pop_lo_list li input.us_pwd_panel,ul.pop_lo_list li input.us_spot{border:#d9d9d9 solid 1px; width:318px; padding:8px 10px; color:#666;}'
+            +'ul.pop_lo_list li input.us_spot{width:130px;}'
+            +'ul.pop_lo_list li a.lo_bnt{display:block; width:150px; height:40px; line-height:40px; text-align:center; color:#fff; background:#70c404; font-size:14px; text-decoration:none;}'
+            +'ul.pop_lo_list li a.lo_bnt:hover{background:#6DB823;}'
+            +'ul.pop_lo_list li a.close_btn{background:url(http://static.5sing.kugou.com/images/sns_icons.png) 0 -32px no-repeat; position:absolute; right:10px; top:10px; width:28px; height:28px; text-indent:-999px; overflow:hidden;}'
+            +'ul.pop_lo_list li a.close_btn:hover{background-position:-32px -32px;}'
+            +'ul.pop_lo_list li a.forget{color:#30aa00;}'
+            +'ul.pop_lo_list li a.free_join{line-height:40px; color:#30aa00;}'
+            +'ul.pop_lo_list li input.IsSave{margin-top:4px; _margin-top:0px; float:left;}'
+            +'ul.pop_lo_list li span.errotip{position:absolute; left:100px; top:5px; color:#ff3000;}'
+            +'ul.pop_lo_list li a.identifier{position:absolute; right:100px; cursor: hand; top:149px; width:140px; height:52px; overflow:hidden;}'
+            +'ul.pop_lo_list li.pop_lo_copt{background:#f5f5f5; padding:30px 100px; margin-top:15px; line-height:32px; font-size:14px;}'
+            +'ul.pop_lo_list li.pop_lo_copt a{width:32px; height:32px; background:url(http://static.5sing.kugou.com/images/sns_icons.png) no-repeat; text-indent:-999px; overflow:hidden; margin-left:10px; display:inline;}'
+            +'ul.pop_lo_list li.pop_lo_copt a.kaixin{background-position:-128px 0;}'
+            +'ul.pop_lo_list li.pop_lo_copt a.renren{background-position:-96px 0;}'
+            +'ul.pop_lo_list li.pop_lo_copt a.tencent{background-position:-64px 0;}'
+            +'ul.pop_lo_list li.pop_lo_copt a.weibo{background-position:-32px 0;}'
+            +'ul.pop_lo_list li.pop_lo_copt a.kugou{background-position:0 -60px;}'
+            +'ul.pop_lo_list li.pop_lo_copt a.qq{background-position:0 0;}</style>';
+        var html = '<div class="pop_lo_bg">'
+            + '<ul class="pop_lo_list">'
+            + '<li><input type="text" class="us_name" value="通行证" onfocus="if(value==defaultValue){value=\'\';}" onBlur="if(!value){value=defaultValue;}"/></li>'
+            + '<li><input type="text" class="us_pwd_panel" value="密码" onfocus="this.style.display=\'none\';this.parentElement.children.item(1).style.display=\'block\';this.parentElement.children.item(1).focus()"/>'
+            +'<input type="password" class="us_pwd" value="" style="display:none;" onBlur="if(!value){this.style.display=\'none\';this.parentElement.children.item(0).style.display=\'block\';}" /></li>'
+            + '<li class="spot_item">'
+            + '<input type="text" class="us_spot" value="验证码" onfocus="if(value==defaultValue){value=\'\';}" onBlur="if(!value){value=defaultValue;}"/>'
+            + '<a class="identifier" title="看不清楚？点击换一张"><img alt="" src="http://5sing.kugou.com/code"/></a>'
+            + '</li>'
+            + '<li>'
+            + '<span class="lt"><input type="checkbox" class="IsSave" id="IsSave"/><label for="IsSave">记住我</label></span>'
+            + '<em style="color:#FF0000; display: none;">&nbsp;&nbsp;建议在网吧或公共电脑上取消该选项。</em>'
+            + '<a class="forget rt" href="http://5sing.kugou.com/getpass/" target="_blank" title="忘记密码">忘记密码</a>'
+            + '<a href="javascript:;" class="close_btn" title="关闭">关闭</a>'
+            + '<span class="errotip"></span>'
+            + '</li>'
+            + '<li>'
+            + '<a class="lo_bnt lt" href="###" title="登录">登录</a>'
+            + '<a class="free_join rt" href="http://5sing.kugou.com/reg/" target="_blank" title="注册">注册</a>'
+            + '</li>'
+            + '<li class="pop_lo_copt">'
+            + '<span class="lt">使用合作账号登录</span>'
+            // + '<a class="kaixin rt" target="_blank" href="http://5sing.kugou.com/login?do=2&refUrl='+window.location.href+'" title="开心网">开心网</a>'
+            + '<a class="renren rt" target="_blank" href="http://5sing.kugou.com/login?do=3&refUrl='+window.location.href+'" title="人人网">人人网</a>'
+            // + '<a class="tencent rt" target="_blank" href="http://5sing.kugou.com/login?do=4&refUrl='+window.location.href+'" title="腾讯微博">腾讯微博</a>'
+            + '<a class="weibo rt" target="_blank" href="http://5sing.kugou.com/login?do=1&refUrl='+window.location.href+'" title="新浪微博">新浪微博</a>'
+            + '<a class="qq rt" target="_blank" href="http://5sing.kugou.com/login?do=5&refUrl='+window.location.href+'" title="QQ">QQ</a>'
+            + '<a class="kugou rt" href="http://5sing.kugou.com/login?do=6&refUrl='+window.location.href+'" title="酷狗">酷狗</a>'
+            + '</li>'
+            + '</ul>'
+            + '</div>';
+        var loginBox = $(".pop_lo_bg");
+        var loginBox_bg = $(".pop_lo_bg_bg");
+        var logining = false;
+        if(loginBox.length <= 0)
+        {
+            $("body").append(style + html);
+            loginBox = $(".pop_lo_bg");
+            $("body").append('<div class="pop_lo_bg_bg"></div>');
+            loginBox_bg = $(".pop_lo_bg_bg");
+            loginBox.hide();
+            loginBox.find(".close_btn").click(function(){
+                loginBox.animate({"opacity": 0}, 200,function(){
+                    loginBox.hide();
+                    loginBox_bg.hide();
+                });
+            });
+            $(document).keydown(function(e){
+                var key = (e.keyCode) || (e.which) || (e.charCode);
+                if(key == 27)
+                {
+                    loginBox.animate({"opacity": 0}, 200,function(){
+                        loginBox.hide();
+                        loginBox_bg.hide();
+                    });
+                }
+            });
+            loginBox.find(".pop_lo_list > li > span.lt").hover(function(){
+                $(this).next("em").show();
+            },function(){
+                $(this).next("em").hide();
+            });
+            loginBox.find(".identifier").click(function(){
+                globals.$(this).find("img").attr("src", "http://5sing.kugou.com/code?" + (new Date()).getTime());
+            });
+            var us_name = loginBox.find(".us_name");
+            var us_pwd = loginBox.find(".us_pwd");
+            var us_spot = loginBox.find(".us_spot");
+            var IsSave = loginBox.find(".IsSave");
+            var errotip = loginBox.find(".errotip");
+            loginBox.find(".lo_bnt").click(function(){
+                if(!logining)
+                {
+                    logining = true;
+                    var us_name_txt = us_name.val();
+                    var us_pwd_txt = us_pwd.val();
+                    var us_spot_txt = us_spot.val();
+                    var isSave_val = IsSave.is(":checked") ? 1 : 0;
+                    if(us_name_txt.length <=0)
+                    {
+                        errotip.html("请输入用户名");
+                        logining = false;
+                        return;
+                    }
+                    if(us_pwd_txt.length <=0)
+                    {
+                        errotip.html("请输入密码");
+                        logining = false;
+                        return;
+                    }
+                    var url = "http://service.5sing.kugou.com/user/login?jsoncallback=?";
+                    $.getJSON(url, {username: us_name_txt, password: us_pwd_txt, code: us_spot_txt, isRemember: isSave_val}, function(res){
+                        logining = false;
+                        if(res.isSuccess)
+                        {
+                            if(typeof(callback) == "function")
+                                callback(res.data);
+                            loginBox.animate({"opacity": 0}, 200,function(){
+                                loginBox.hide();
+                                loginBox_bg.hide();
+                            });
+                            UserStatus();
+                        }
+                        else
+                        {
+                            if(res.data.overLimit >= 3)
+                                us_spot.parent().show();
+                            errotip.html(res.message);
+                        }
+                    })
+                }
+            });
+        }
+        $.getJSON("http://service.5sing.kugou.com/user/limitTimes?jsoncallback=?", {}, function(res){
+            if(res.limit >= 3)
+                loginBox.find(".us_spot").parent().show();
+            var height = globals.$(window).height();
+            var width = globals.$(window).width();
+            var top = parseInt((height - loginBox.height()) / 2) + globals.$(window).scrollTop();
+            var left = parseInt((width - loginBox.width()) / 2) + globals.$(window).scrollLeft();
+            loginBox_bg.show();
+            loginBox.css({"opacity": 0, "top": top + "px", "left": left + "px"}).show().animate({"opacity": 1}, 200)
+        });
+    };
+})(jQuery);

@@ -1,0 +1,1361 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="jquery-1.11.0.min.js"></script>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            text-decoration: none;
+        }
+
+
+
+
+        #top {
+            width: 100%;
+            height: 98px;
+            margin: 0 auto;
+            background: linear-gradient(#292B2C,#181A1C);
+            position :fixed ;
+            top :0px; 
+            z-index :20;
+        }
+
+        #top_zhong {
+            width: 1000px;
+            height: 60px;
+            margin: 0 auto;
+        }
+
+            #top_zhong > ul {
+                width: 200px;
+                height: 25px;
+                float: right;
+                list-style-type: none;
+                font-family: 'Microsoft YaHei';
+                font-size: 14px;
+                margin-top: 15px;
+            }
+
+                #top_zhong > ul > li {
+                    width: 30px;
+                    height: 25px;
+                    margin-left: 20px;
+                    float: left;
+                    text-align: center;
+                    line-height: 25px;
+                    cursor: pointer;
+                    color: white;
+                }
+
+                    #top_zhong > ul > li:hover {
+                        color: #66CC00;
+                    }
+
+                    #top_zhong > ul > li > ul {
+                        width: 60px;
+                        margin-left: -15px;
+                        color: #3C3C46;
+                        background-color: white;
+                        list-style-type: none;
+                        border: 1px solid #DDDDDD;
+                    }
+
+                        #top_zhong > ul > li > ul > li:hover {
+                            color: black;
+                            background-color: #F1F1F1;
+                        }
+
+        #top_xia {
+            width: 100%;
+            height: 38px;
+            border-top: 1px solid #333333;
+            background-color: #222322;
+        }
+
+        #top_xia_zhong {
+            width: 1000px;
+            height: 38px;
+            margin: 0 auto;
+        }
+
+            #top_xia_zhong > ul {
+                width: 1000px;
+                height: 38px;
+                list-style-type: none;
+            }
+
+        .daohang {
+            width: 58px;
+            height: 34px;
+            float: left;
+            text-align: center;
+            line-height: 34px;
+            font-size: 14px;
+            color: white;
+        }
+
+        #top_xia_zhong > ul > li:hover {
+            color: #66CC00;
+            cursor: pointer;
+        }
+
+
+
+
+
+        #zong {
+            height: 1300px;
+            width: 1200px;
+            margin: auto;
+           
+        }
+
+        #shang {
+            height: 100px;
+            width: 1200px;
+            
+            margin: auto;
+        }
+
+
+        .bz {
+            background-color: #f29900;
+        }
+
+        #shang ul li {
+            text-decoration: none;
+            text-align: center;
+            line-height: 25px;
+            float: left;
+            height: 25px;
+            width: 100px;
+            border: 1px solid red;
+        }
+
+            #shang ul li a {
+                text-decoration: none;
+            }
+
+        #xia {
+            height: 1200px;
+            width: 1200px;
+           
+            margin: auto;
+            float: left;
+        }
+
+
+        #zuo {
+            height: 1200px;
+            width: 680px;
+           
+            float: left;
+        }
+
+        #xz {
+            height: 80px;
+            width: 680px;
+            
+        }
+
+        .seh_bz f16 {
+            width: 100px;
+            height: 30px;
+            /*border:1px solid #120101;*/
+            margin-left: -39px;
+        }
+
+
+
+        #bz {
+            height: 1050px;
+            width: 680px;
+            /*border: 1px solid red;*/
+        }
+
+        .bz_hot ul {
+        }
+
+            .bz_hot ul li {
+                width: 85px;
+                height: 30px;
+                float: left;
+                line-height: 30px;
+                text-align: center;
+                font-size: 12px;
+                border-bottom:1px dashed #e0d8d8;
+            }
+
+        #zuo1 ul li {
+            width: 300px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 12px;
+            margin-left: 20px;
+            
+        }
+
+        #zhong ul li {
+            width: 85px;
+            height: 30px;
+            line-height: 30px;
+            margin-left: 322px;
+             
+            font-size: 12px;
+            text-align: center;
+        }
+
+        #zhong ul {
+            margin-top: -640px;
+        }
+
+        #zhomg1 ul li {
+            width: 85px;
+            height: 30px;
+            line-height: 30px;
+            margin-left: 408px;
+           
+            font-size: 12px;
+            text-align: center;
+        }
+
+        #zhomg1 ul {
+            margin-top: -640px;
+        }
+
+        #you1 ul li {
+            width: 85px;
+            height: 30px;
+            line-height: 30px;
+            margin-left: 494px;
+             
+            font-size: 12px;
+            text-align: center;
+        }
+
+        #you1 ul {
+            margin-top: -640px;
+        }
+
+        #you2 ul li {
+            width: 85px;
+            height: 30px;
+            line-height: 30px;
+            margin-left: 580px;
+           
+            font-size: 12px;
+            text-align: center;
+        }
+
+        #you2 ul {
+            margin-top: -640px;
+        }
+
+        .bz_more {
+            width: 105px;
+            height: 30px;
+            line-height: 30px;
+            margin-left: 560px;
+             
+        }
+
+        #dibu {
+            width: 646px;
+            height: 384px;
+           
+            margin-left: 20px;
+            margin-top: -220px;
+        }
+
+            #dibu #tu1 {
+                width: 104px;
+                height: 140px;
+                background-image: url(tu/T1flAjBCxT1RXrhCrK_100_100.jpg);
+                background-size: 104px 140px;
+                background-repeat: no-repeat;
+                float: left;
+                
+            }
+
+            #dibu #tu2 {
+                width: 104px;
+                height: 140px;
+                background-image: url(tu/T18jVjBgbv1RXrhCrK_100_100.jpg);
+                background-size: 104px 140px;
+                background-repeat: no-repeat;
+                float: left;
+               
+            }
+
+            #dibu #tu3 {
+                width: 104px;
+                height: 140px;
+                background-image: url(tu/T1s1bjBjZ_1RXrhCrK_100_100.jpg);
+                background-size: 104px 140px;
+                background-repeat: no-repeat;
+                float: left;
+                 
+            }
+
+            #dibu #tu4 {
+                width: 104px;
+                height: 140px;
+                background-image: url(tu/T1yIE_B4Z_1RXrhCrK_100_100.jpg);
+                background-size: 104px 140px;
+                background-repeat: no-repeat;
+                float: left;
+               
+            }
+
+            #dibu #tu5 {
+                width: 104px;
+                height: 140px;
+                background-image: url(tu/T1OjVjBTZT1RXrhCrK_100_100.jpg);
+                background-size: 104px 140px;
+                background-repeat: no-repeat;
+                float: left;
+               
+            }
+
+            #dibu #tu6 {
+                width: 104px;
+                height: 140px;
+                background-image: url(tu/T1slVjBCdT1RXrhCrK_100_100.jpg);
+                background-size: 104px 140px;
+                background-repeat: no-repeat;
+                float: left;
+                 
+            }
+
+            #dibu #tu7 {
+                width: 104px;
+                height: 140px;
+                background-image: url(tu/T1m1AjBChT1RXrhCrK_100_100.jpg);
+                background-size: 104px 140px;
+                background-repeat: no-repeat;
+                float: left;
+              
+            }
+
+            #dibu #tu8 {
+                width: 104px;
+                height: 140px;
+                background-image: url(tu/T1s1bjBjZ_1RXrhCrK_100_100.jpg);
+                background-size: 104px 140px;
+                background-repeat: no-repeat;
+                float: left;
+               
+            }
+
+            #dibu #tu9 {
+                width: 104px;
+                height: 140px;
+                background-image: url(tu/T1L1AjBCZT1RXrhCrK_100_100.jpg);
+                background-size: 104px 140px;
+                background-repeat: no-repeat;
+                float: left;
+            }
+
+            #dibu #tu10 {
+                width: 104px;
+                height: 140px;
+                background-image: url(tu/T1crVjBQJT1RXrhCrK_100_100.jpg);
+                background-size: 104px 140px;
+                background-repeat: no-repeat;
+                float: left;
+                
+            }
+
+        #you {
+            height: 1200px;
+            width: 500px;
+            
+            float: right;
+            position: absolute;
+            margin-top: -1300px;
+            margin-left: 690px;
+        }
+            #you ul li {
+              width: 85px;
+                height: 20px;
+                /*border: 1px solid #b9f326;*/
+                float: left;
+                line-height: 20px;
+                text-align: center;
+                font-size: 12px;
+                text-align:right;
+            
+            }
+
+                #you ul li:hover {
+                    background-color: #eeeaea;
+                }
+            #you a {
+                margin-top :10px;
+                text-decoration: none;
+            }
+
+        .shouzhi {
+            cursor: pointer;
+        }
+
+        .new ul li {
+            width: 300px;
+            height: 20px;
+            line-height: 20px;
+            
+            font-size: 12px;
+        }
+
+        #hou ul li {
+            width: 200px;
+            height: 20px;
+            line-height: 20px;
+           
+            text-align: center;
+            font-size: 12px;
+        }
+
+        #hou ul {
+            margin-top: -330px;
+            margin-left: 300px;
+            text-align: right;
+        }
+
+            #hou ul li {
+                text-align: right;
+            }
+
+        #z5 ul li {
+            width: 300px;
+            height: 20px;
+            line-height: 20px;
+            font-size: 12px;
+            
+        }
+
+        #banz1 ul li {
+            width: 200px;
+            height: 20px;
+            line-height: 20px;
+            
+            text-align: center;
+            font-size: 12px;
+            text-align: right;
+        }
+
+        #banz1 ul {
+            margin-top: -330px;
+            margin-left: 300px;
+        }
+
+        #zhomg1 > ul > li:hover, #zhong > ul > li:hover, #zuo1 > ul > li:hover {
+            color: red;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        #zuozuo > li:hover {
+            background-color: #eeeaea;
+        }
+        #youyou2 > li:hover {
+            background-color: #eeeaea;
+        }
+        .bianshou:hover {
+        cursor :pointer ;
+        }
+
+        #bottom {
+            width: 100%;
+            height: 116px;
+            background-color: #333333;
+        }
+
+        #bottom_zhong {
+            width: 1004px;
+            height: 116px;
+            margin: 0 auto;
+        }
+
+            #bottom_zhong > ul {
+                padding-top: 15px;
+                width: 1004px;
+                height: 25px;
+            }
+
+                #bottom_zhong > ul > li {
+                    width: 120px;
+                    height: 25px;
+                    text-align: center;
+                    line-height: 25px;
+                    float: left;
+                    font-size: 12px;
+                    list-style-type: none;
+                    color: white;
+                    font-family: 'Microsoft YaHei';
+                }
+
+        .text {
+            text-align: left;
+        }
+
+        .bottom_xia {
+            width: 1000px;
+            height: 20px;
+            margin-top: 6px;
+            font-size: 12px;
+            color: #939393;
+            line-height: 20px;
+            padding-left: 4px;
+        }
+
+        #bottom_zhong > ul > li:hover {
+            color: #62B71F;
+            cursor: pointer;
+        }
+
+        #jiaweixin {
+            width: 200px;
+            height: 220px;
+            position: absolute;
+            margin-top: -388px;
+            margin-left: 1160px;
+            background-image: url('中国原创音乐基地 5SING_files/foot_sprite.png');
+            background-position: -24px 0px;
+            display: none;
+        }
+
+        #guding {
+            width: 50px;
+            height: 162px;
+            position: fixed;
+            top: 220px;
+            left: 1280px;
+        }
+
+        #erwei {
+            width: 50px;
+            height: 53px;
+            background-image: url('../../../../../首页/中国原创音乐基地 5SING_files/side_sprite.png');
+            background-position: -50px 0px;
+            cursor: pointer;
+        }
+
+        #fankui {
+            width: 50px;
+            height: 54px;
+            background-image: url('../../../../../首页/中国原创音乐基地 5SING_files/side_sprite.png');
+            background-position: -50px -54px;
+            cursor: pointer;
+        }
+
+        #dingbu {
+            width: 50px;
+            height: 53px;
+            background-image: url('../../../../../首页/中国原创音乐基地 5SING_files/side_sprite.png');
+            background-position: -50px -109px;
+            display: none;
+            cursor: pointer;
+        }
+
+        #erwei_ma {
+            width: 170px;
+            height: 200px;
+            position: fixed;
+            top: 220px;
+            left: 1105px;
+            background-image: url('../../../../../首页/中国原创音乐基地 5SING_files/side_sprite.png');
+            background-position: -100px 0px;
+            background-repeat: no-repeat;
+            display: none;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            $(".bianshou").mouseover(function () {
+                $(this).children("span").stop(true);
+                $(this).children("span").fadeIn(250);
+                $(this).children("span").css({
+                    "display":"inline-block"
+                });
+            }).mouseout(function () {
+                $(this).children("span").fadeOut(200);
+            });
+
+            $("#qizi1").hover(function () {
+                $(this).children("ul").show();
+            }, function () {
+                $(this).children("ul").hide();
+            });
+            $("#qizi2").hover(function () {
+                $(this).children("ul").show();
+            }, function () {
+                $(this).children("ul").hide();
+            });
+
+
+
+            //固定栏
+            $(document).scroll(function () {
+                if ($(document).scrollTop() > 150) {
+                    $("#dingbu").stop(true, false);
+                    $("#dingbu").fadeIn(400);
+                }
+                else {
+                    $("#dingbu").stop(true, false);
+                    $("#dingbu").fadeOut(400);
+                }
+            });
+            //
+            $("#erwei").hover(function () {
+                $(this).css({
+                    "background-position": "0px 0px"
+                });
+                $("#erwei_ma").show();
+            }, function () {
+                $(this).css({
+                    "background-position": "-50px 0px"
+                });
+                $("#erwei_ma").hide();
+            });
+            //
+            $("#fankui").hover(function () {
+                $(this).css({
+                    "background-position": "0px -54px"
+                });
+            }, function () {
+                $(this).css({
+                    "background-position": "-50px -54px"
+                });
+            });
+            //
+            $("#dingbu").hover(function () {
+                $(this).css({
+                    "background-position": "0px -109px"
+                });
+            }, function () {
+                $(this).css({
+                    "background-position": "-50px -109px"
+                });
+            });
+
+            //回家
+            $("#dingbu").click(function () {
+                var time = setInterval(function () {
+                    window.scrollBy(0, -50);
+                    if (document.documentElement.scrollTop <= 0) {
+                        clearInterval(time);
+                    }
+                }, 10);
+            });
+
+
+            $("#fanchang").click(function () {
+                window.location("../../../../../翻唱/得飘得飘/HtmlPage.html");
+            });
+
+            $("#shouye").click(function () {
+                window.location("../../../../../首页/index.html");
+            });
+
+            $("#huodong").click(function () {
+                window.location("../../../../../活动/新建文件夹 (2)/WebApplication1/WebApplication1/HtmlPage1.html");
+            });
+            $("#zhuce").click(function () {
+                window.location("../../../../../注册/注册/shoujihao.html");
+            });
+
+
+        })
+    </script>
+</head>
+<body>
+    <div id="top">
+        <div id="top_zhong">
+            <img src="../../../../../首页/中国原创音乐基地 5SING_files/logo.png" />
+            <input type="text" style="border-radius: 25px 0px 0px 25px; padding-left: 15px; width: 180px; height: 25px; background-color: rgba(225,225,225,0); border: 1px solid #32B351; position: absolute; top: 16px; line-height: 25px; border-right: 0px; " placeholder="歌曲/歌单/会员" />
+            <a href="javascript:;" style="display: inline-block; width: 30px; height: 25px; border: 1px solid #32B351; border-left: 0px; position: relative; top: -4px; left: 196px; text-align: left; line-height: 25px; text-decoration: none; color: #32B351; border-radius: 0px 25px 25px 0px; ">|<span style="color :white;">🔎</span></a>
+            <ul>
+                <li>登录</li>
+                <li id="zhuce">注册</li>
+                <li id="qizi1" style="position :relative  ; z-index:10;">
+                    上传
+                    <ul style="display :none ;">
+                        <li>上传原创</li>
+                        <li>上传翻唱</li>
+                        <li>上传伴奏</li>
+                        <li>歌曲管理</li>
+                    </ul>
+                </li>
+                <li id="qizi2" style="z-index :10;position :relative ;">
+                    APP
+                    <ul style="display :none ;border :0px;height :20px;">
+                        <li style="height :0;"><img style="border: 1px solid #DDDDDD;" src="../../../../../首页/中国原创音乐基地 5SING_files/5singcode.png" /></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="top_xia">
+            <div id="top_xia_zhong">
+                <ul>
+                    <li class="daohang">
+                        <a id="shouye">首页</a>
+                    </li>
+                    <li class="daohang">
+                        <a>原创</a>
+                    </li>
+                    <li class="daohang">
+                        <a id="fanchang">翻唱</a>
+                    </li>
+                    <li class="daohang" style="width: 62px; border-bottom: 4px solid #32B150; ">
+                        <a style="font-size :16px;" id="shouye">伴奏</a>
+                    </li>
+                    <li class="daohang">
+                        <a>榜单</a>
+                    </li>
+                    <li class="daohang">
+                        <a>歌单</a>
+                    </li>
+                    <li class="daohang" style="width :4.31px;">
+                        <a>|</a>
+                    </li>
+                    <li class="daohang" style="width :72px;">
+                        <a>音乐人</a>
+                    </li>
+                    <li class="daohang">
+                        <a id="huodong">活动</a>
+                    </li>
+                    <li class="daohang">
+                        <a>圈子</a>
+                    </li>
+                    <li class="daohang" style="width :86px;">
+                        <a>音乐现场</a>
+                    </li>
+                    <li class="daohang">
+                        <a>众筹</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="zong" style="margin-top :20px;">
+        <div id="shang">
+            <ul>
+                <li class="bz"><a href="#" style="color: #fefbfb; display: block;">伴奏首页</a></li>
+                <li><a href="#" style="color: #0c0101;">所有伴奏 </a></li>
+            </ul>
+        </div>
+        <div id="xia">
+            <div id="zuo" style="margin-left :.40px;">
+                <div id="xz" style="width :640px;margin-left :40px;">
+                    <h3 style="margin-left: 20px; font-size: 25px; font-family: 仿宋;">免费伴奏下载</h3>
+                    <p><a style="margin-left: 20px; color: #96969a;">(上传伴奏，让更多的人一起享受音乐带来的快乐)</a></p>
+                    <div>
+                        <input class="seh_v" type="text" placeholder="请输入伴奏名" style="width: 500px; height: 30px; border: 1px solid #0c0101; margin-left: 20px;" onblur="if(this.value==&#39;&#39;)this.value=&#39;请输入伴奏名&#39;;" onfocus="if(this.value==&#39;请输入歌曲名、歌手&#39;)this.value=&#39;&#39;;" id="txtSearch" x-webkit-speech="" x-webkit-grammar="builtin:translate" />
+                        <button class="seh_bz f16" id="bzButton" style="background-color: #73C325; font-size: 20px;">伴奏搜索</button>
+                        <span class="seh_hot"></span>
+
+                    </div>
+                </div>
+                <div id="bz">
+                    <div class="bz_hot">
+                        <p style="width :640px;margin-left :40px;margin-top :20px;"><a href="#" class="green" style="color: #73c325; margin-left: 20px;">热门伴奏</a></p>
+
+                        <!--                        <p style="width: 300px; height: 30px; border: 1px solid #0d0101; line-height: 30px; margin-left: 20px;">伴奏名</p>-->
+                        <ul id="zuozuo" style="margin-left :40px;margin-top :20px;">
+
+                            <li style=" width: 628px; height: 25px; background-color: #F8F8F8;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">伴奏名</a>
+                                <a style="display: inline-block; float: left; width: 120px;">原唱</a>
+                                <a style="display: inline-block; float: left; width: 120px;">上传用户</a>
+                                <a style="display: inline-block; float: left; width: 40px;">试听</a>
+                                <a style="display: inline-block; float: left; width: 40px;">下载</a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">1<span style="margin-left: 15px;">像我这样的人</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">毛不易</a>
+                                <a style="display: inline-block; float: left; width: 120px;">荒曦</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">2<span style="margin-left: 15px;">追光者 原版伴奏</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">岑宁儿</a>
+                                <a style="display: inline-block; float: left; width: 120px;">鹿马</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">3<span style="margin-left: 15px;">消愁（毛不易版）原版伴奏</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">毛不易</a>
+                                <a style="display: inline-block; float: left; width: 120px;">夏星云</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">4<span style="margin-left: 15px;">成都 原版伴奏</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">赵雷</a>
+                                <a style="display: inline-block; float: left; width: 120px;">DoloresCythe...</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">5<span style="margin-left: 15px;">小幸运（珍藏原版伴奏）</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">田馥甄</a>
+                                <a style="display: inline-block; float: left; width: 120px;">FIRE BOY</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">6<span style="margin-left: 15px;">追光者</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">岑宁儿</a>
+                                <a style="display: inline-block; float: left; width: 120px;">深空先生</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">7<span style="margin-left: 15px;">追光者原版伴奏</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">岑宁儿</a>
+                                <a style="display: inline-block; float: left; width: 120px;">千音工作室</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">8<span style="margin-left: 15px;">告白气球 原版伴奏</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">周杰伦</a>
+                                <a style="display: inline-block; float: left; width: 120px;">管管·</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">9<span style="margin-left: 15px;">Lon-我的一个道姑朋友纯伴奏</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">Lon</a>
+                                <a style="display: inline-block; float: left; width: 120px;">清水酌茗。</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">10<span style="margin-left: 15px;">说散就散</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">JC</a>
+                                <a style="display: inline-block; float: left; width: 120px;">蓝鲸丶</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">11<span style="margin-left: 15px;">消愁</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">毛不易</a>
+                                <a style="display: inline-block; float: left; width: 120px;">荒曦</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">12<span style="margin-left: 15px;">夜空中最亮的星（原版立体声伴奏）</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">逃跑计划</a>
+                                <a style="display: inline-block; float: left; width: 120px;">奇幻唱片</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">13<span style="margin-left: 15px;">小幸运</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">田馥甄</a>
+                                <a style="display: inline-block; float: left; width: 120px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">14<span style="margin-left: 15px;">80000！伴奏(PRC巴音汗)</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">PRC巴音汗</a>
+                                <a style="display: inline-block; float: left; width: 120px;">.秋扬</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">15<span style="margin-left: 15px;">凉凉【原版伴奏】</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">张碧晨 杨宗纬</a>
+                                <a style="display: inline-block; float: left; width: 120px;">某小翳</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">16<span style="margin-left: 15px;"> 一人我饮酒醉-原版伴奏</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">MC阿亮</a>
+                                <a style="display: inline-block; float: left; width: 120px;">GP0EDIP7Y3</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">17<span style="margin-left: 15px;">房间</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">刘瑞琦</a>
+                                <a style="display: inline-block; float: left; width: 120px;">刘瑞琦</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">18<span style="margin-left: 15px;">我的一个道姑朋友</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">Lon</a>
+                                <a style="display: inline-block; float: left; width: 120px;">菠萝LM</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">19<span style="margin-left: 15px;">病名は愛だった(病名为爱）</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;">鏡音リン &鏡音レン-Neru</a>
+                                <a style="display: inline-block; float: left; width: 120px;">米栜</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                            <li style=" width: 628px; height: 35px;">
+                                <a style="display: inline-block; float: left; width: 274px; text-align: left; padding-left: 2px;">20<span style="margin-left: 15px;">理想三旬】</span></a>
+                                <a style="display: inline-block; float: left; width: 120px;">陈鸿宇</a>
+                                <a style="display: inline-block; float: left; width: 120px;">Voice Monster</a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                                <a style="display: inline-block; float: left; width: 40px;"></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="leibiao">
+                        <div id="zuo1" style="display: none;">
+                            <ul>
+                                <li>1 像我这样的人</li>
+                                <li>2 追光者 原版伴奏 </li>
+                                <li>3 消愁（毛不易版）原版伴奏</li>
+                                <li>4 成都 原版伴奏</li>
+                                <li>5 小幸运（珍藏伴奏）</li>
+                                <li>6 追光者</li>
+                                <li>7 追光者原版伴奏</li>
+                                <li>8 告白气球 原版伴奏</li>
+                                <li>9 Lon-我的一个道姑朋友纯伴奏</li>
+                                <li>10 说散就散</li>
+                                <li>11 消愁</li>
+                                <li>12 夜空中最亮的星（原版立体声伴奏）</li>
+                                <li>13 小幸运</li>
+                                <li>14 80000伴奏（PRC巴音汗）</li>
+                                <li>15 凉凉 【原版伴奏】</li>
+                                <li>16 一人我饮酒醉-原版伴奏</li>
+                                <li>17 房间</li>
+                                <li>18 我的一个道姑朋友</li>
+                                <li>19 病名为爱</li>
+                                <li>20 理想三旬</li>
+                            </ul>
+                        </div>
+                        <div id="zhong" style="display: none;">
+                            <ul>
+                                <li>毛不易</li>
+                                <li>鹿马</li>
+                                <li>毛不易</li>
+                                <li>夏星云</li>
+                                <li>赵雷</li>
+                                <li>田馥甄</li>
+                                <li>岑宁儿</li>
+                                <li>岑宁儿</li>
+                                <li>周杰伦</li>
+                                <li>Lon</li>
+                                <li>JC</li>
+                                <li>毛不易</li>
+                                <li>逃跑计划</li>
+                                <li>田馥甄</li>
+                                <li>PRC巴音汗</li>
+                                <li>张碧晨 杨宗纬</li>
+                                <li>MC阿亮</li>
+                                <li>刘瑞琦</li>
+                                <li>镜音</li>
+                                <li>陈鸿宇</li>
+                            </ul>
+                        </div>
+                        <div id="zhomg1" style="display: none;">
+                            <ul>
+                                <li>荒曦</li>
+                                <li>鹿马</li>
+                                <li>夏云星</li>
+                                <li>DoloresCythe...</li>
+                                <li>FIRE BOY</li>
+                                <li>深空先生</li>
+                                <li>千音工作室</li>
+                                <li>管管</li>
+                                <li>清水酌茗</li>
+                                <li>蓝鲸、</li>
+                                <li>荒曦</li>
+                                <li>奇幻唱片</li>
+                                <li></li>
+
+                                <li>秋扬</li>
+                                <li>某小翳</li>
+                                <li>GPOEDIP7Y3</li>
+                                <li>刘瑞琦</li>
+                                <li>菠萝LM</li>
+                                <li>米</li>
+                                <li>Voice Monste</li>
+                            </ul>
+
+                        </div>
+                        <div id="you1" style="display: none;">
+                            <ul class="shouzhi">
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" />
+                                </li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" />
+                                </li>
+
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" />
+                                </li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" />
+                                </li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" />
+                                </li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" />
+                                </li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" />
+                                </li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" />
+                                </li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" />
+                                </li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" />
+                                </li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" />
+                                </li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/试听.jpg" style="height: 19px; width: 19px" /></li>
+                            </ul>
+
+                        </div>
+                        <div id="you2" style="display: none;">
+                            <ul class="shouzhi">
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" />
+                                </li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                                <li>
+                                    <img src="tu/下载.jpg" style="height: 19px; width: 19px" /></li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <div class="bz_more" style="display: none; position: relative;"><a href="#" class="cgreen">更多伴奏&nbsp;&gt;&gt;</a></div>
+                </div>
+                <div id="dibu">
+                    <div id="tu1" class="bianshou">
+                        <span style="width: 104px; background-color: #f29900; opacity: 0.6; text-align: center; color: white; margin-top: 119px; display: none;height :21px;line-height :16px;"><a style="font-size :12px;">周杰伦</a></span>
+                    </div>
+                    <div id="tu2" class="bianshou">
+                        <span style="width: 104px; display: none; background-color: #f29900; opacity: 0.6; text-align: center; color: white; margin-top: 119px; height: 21px; line-height: 16px;"><a style="font-size :12px;">王菲</a></span>
+                    </div>
+                    <div id="tu3" class="bianshou">
+                        <span style="width: 104px; display: none; background-color: #f29900; opacity: 0.6; text-align: center; color: white; margin-top: 119px; height: 21px; line-height: 16px;"><a style="font-size :12px;">空白</a></span>
+                    </div>
+                    <div id="tu4" class="bianshou">
+                        <span style="width: 104px; display: none; background-color: #f29900; opacity: 0.6; text-align: center; color: white; margin-top: 119px; height: 21px; line-height: 16px;"><a style="font-size :12px;">不知道</a></span>
+                    </div>
+                    <div id="tu5" class="bianshou">
+                        <span style="width: 104px; display: none; background-color: #f29900; opacity: 0.6; text-align: center; color: white; margin-top: 119px; height: 21px; line-height: 16px; "><a style="font-size :12px;">不认识</a></span>
+                    </div>
+                    <div id="tu6" class="bianshou">
+                        <span style="width: 104px; display: none; background-color: #f29900; opacity: 0.6; text-align: center; color: white; margin-top: 119px; height: 21px; line-height: 16px;"><a style="font-size :12px;">薛之谦</a></span>
+                    </div>
+                    <div id="tu7" class="bianshou">
+                        <span style="width: 104px; display: none; background-color: #f29900; opacity: 0.6; text-align: center; color: white; margin-top: 119px; height: 21px; line-height: 16px; "><a style="font-size :12px;">不知道</a></span>
+                    </div>
+                    <div id="tu8" class="bianshou">
+                        <span style="width: 104px; display: none; background-color: #f29900; opacity: 0.6; text-align: center; color: white; margin-top: 119px; height: 21px; line-height: 16px;"><a style="font-size :12px;">空白</a></span>
+                    </div>
+                    <div id="tu9">
+
+                        <div id="tu10" class="bianshou">
+                            <span style="width: 103px; display: none; background-color: #f29900; opacity: 0.6; text-align: center; color: white; margin-top: 119px; height: 21px; line-height: 16px;"><a style="font-size :12px;">陈奕迅</a></span>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div id="you">
+                    <ul id="youyou" style="height :520px;width :420px;">
+                        <h3><a href="#" class="green" style="color: #73c325;">最新上传</a></h3>
+                        <hr />
+
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;">奔跑吧蜗牛 高品质伴奏 </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">余全哉</a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;"> 匆匆那年-林俊杰，张靓颖 梦想的声音伴奏 </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">管管 </a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;"> 花心-霍尊 蒙面唱将伴奏  </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">管管 </a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;">  外面的世界-郁可唯 蒙面唱将伴奏</span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">管管 </a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;"> 在水一方-马吟吟 好声音伴奏  </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">管管 </a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;">  夜景（毕建新VS缺女生）日文版  </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">管管 </a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;"> 酒徒   </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;"> 怒民小春 </a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;">  给女儿的歌 </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;"> 李俊熙-63813658  </a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;">  家乡  </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">怒民小春  </a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;">  要走的阿老表  </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">怒民小春  </a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;">  刺猬 编曲-纯音频文件-纯音频输出   </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">路人丙FX  </a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;">  我们的田野（电子琴曲）   </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">caijunguo  </a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;">  两个处女座   </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">熊小左伯-639623...  </a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;"> 新鸳鸯蝴蝶梦-许嵩 原版伴奏     </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">大钟哥哥|| </a>
+                        </li>
+                    </ul>
+                    <ul id="youyou2" style="height :580px;width :420px;">
+                    <h3 style="width :220px;"><a href="#" class="green" style="color: #73c325">下载排行</a></h3>
+                        <hr />
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;"> 像我这样的人 </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">荒曦  </a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;"> 追光者 原版伴奏  </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">  鹿马 </a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;"> 消愁（毛不易版）原版伴奏 </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">夏星云 </a>
+                        </li>
+                        <li style="width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;">   小幸运（珍藏原版伴奏）    </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;"> FIRE BOY </a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;"> 追光者    </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">  深空先生</a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;"> 成都 原版伴奏     </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;"> DoloresCythe...</a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;">    告白气球 原版伴奏   </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">管管 </a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;"> 房间     </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;"> 刘瑞琦</a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;">  说散就散     </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;"> 蓝鲸、 </a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;">    消愁  </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">  荒曦</a>
+                        </li>
+                        <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;">   追光者 原版伴奏   </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">千音工作室 </a>
+                             
+                        </li>
+                      
+                         <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;"> 小幸运   </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">  </a>
+                             
+                        </li>
+                         <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;"> 夜空中最亮的星（原版立体声伴奏）     </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;"> 奇幻唱片  </a>
+                             
+                        </li>
+                         <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;">  凉凉【原版伴奏】   </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">  某小翳  </a>
+                             
+                        </li>
+                         <li style=" width: 400px; height: 35px;">
+                            <a style="display: inline-block; float: left; width: 174px; text-align: left; padding-left: 2px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><span style="margin-left: 15px;"> 我的一个道姑朋友    </span></a>
+                            <a style="display: inline-block; float: left; width: 200px;">  某小翳  </a>
+                             
+                        </li>
+                    </ul>
+
+                </div>
+                 
+               
+                    <!--<div id="z5">
+                        <ul>
+                            <li><a href="#" style="color: #0d0101;">像我这样的人</a></li>
+                            <li><a href="#" style="color: #0d0101;">追光者 原版伴奏</a></li>
+                            <li><a href="#" style="color: #0d0101;">消愁（毛不易版）原版伴奏</a></li>
+                            <li><a href="#" style="color: #0d0101;">小幸运（珍藏原版伴奏）</a></li>
+                            <li><a href="#" style="color: #0d0101;">追光者</a></li>
+                            <li><a href="#" style="color: #0d0101;">成都 原版伴奏</a></li>
+                            <li><a href="#" style="color: #0d0101;">告白气球 原版伴奏</a></li>
+                            <li><a href="#" style="color: #0d0101;">房间</a></li>
+                            <li><a href="#" style="color: #0d0101;">说散就散</a></li>
+                            <li><a href="#" style="color: #0d0101;">消愁</a></li>
+                            <li><a href="#" style="color: #0d0101;">追光者 原版伴奏</a></li>
+                            <li><a href="#" style="color: #0d0101;">小幸运</a></li>
+                            <li><a href="#" style="color: #0d0101;">夜空中最亮的星（原版立体声伴奏）</a></li>
+                            <li><a href="#" style="color: #0d0101;">凉凉【原版伴奏】</a></li>
+                            <li><a href="#" style="color: #0d0101;">我的一个道姑朋友</a></li>
+
+
+                        </ul>
+                    </div>
+                </div>
+                <div id="banz1">
+                    <ul>
+                        <li><a href="#" style="color: #0d0101;">荒曦</a></li>
+                        <li><a href="#" style="color: #0d0101;">鹿马</a></li>
+                        <li><a href="#" style="color: #0d0101;">夏星云</a></li>
+                        <li><a href="#" style="color: #0d0101;">FIRE BOY</a></li>
+                        <li><a href="#" style="color: #0d0101;">深空先生</a></li>
+                        <li><a href="#" style="color: #0d0101;">DoloresCythe...</a></li>
+                        <li><a href="#" style="color: #0d0101;">管管</a></li>
+                        <li><a href="#" style="color: #0d0101;">刘瑞琦</a></li>
+                        <li><a href="#" style="color: #0d0101;">蓝鲸、</a></li>
+                        <li><a href="#" style="color: #0d0101;">荒曦</a></li>
+                        <li><a href="#" style="color: #0d0101;">千音工作室</a></li>
+                        <li></li>
+                        <li><a href="#" style="color: #0d0101;">奇幻唱片</a></li>
+                        <li><a href="#" style="color: #0d0101;">奇幻唱片 </a></li>
+                        <li><a href="#" style="color: #0d0101;">菠萝LM</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>-->
+    </div>
+            </div>
+
+        </div>
+
+
+            <div id="bottom" style="margin-top :30px;">
+                <div id="bottom_zhong">
+                    <ul>
+                        <li>5sing用户服务协议</li>
+                        <li>版权指引</li>
+                        <li style="width:60px;margin-right:25px;">授权协议</li>
+                        <li style="width:60px;margin-right:25px;">隐私政策</li>
+                        <li style="width:60px;margin-right:25px;">关于我们</li>
+                        <li style="width:60px;margin-right:25px;">商务合作</li>
+                        <li style="width:60px;margin-right:25px;">诚聘英才</li>
+                        <li style="width:60px;margin-right:25px;">联系我们</li>
+                        <li style="width:60px;margin-right:25px;">帮助中心</li>
+                    </ul>
+                    <p class="bottom_xia">
+                        <a>粤ICP备09017694号-2</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        信息网络传播视听节目许可证：1910564号　
+                        增值电信业务经营许可证：粤B2-20060339号　
+                        营业性演出许可证：穗天演440106120029　
+                        <img src="../../../../../首页/中国原创音乐基地 5SING_files/wen_icon.png" />
+                    </p>
+                    <p class="bottom_xia">
+                        Copyright © 2004-2017 KuGou.All Rights Reserved　
+                        违法和不良信息举报：www.12377.cn 举报电话：12377　
+                        粤公网安备 44010602000141号　&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a>12318 全国文化市场举报网站</a>
+                    </p>
+                </div>
+                <div id="jiaweixin">
+                </div>
+                <div id="guding">
+                    <div id="erwei"></div>
+                    <div id="fankui"></div>
+                    <div id="dingbu"></div>
+                </div>
+                <div id="erwei_ma"></div>
+            </div>
+</body>
+</html>

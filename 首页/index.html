@@ -1,0 +1,2062 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <script src="jquery-1.11.0.min.js"></script>
+    <!--<script src="jquery-color-master/jquery-color-master/Gruntfile.js"></script>-->
+    <script src="jquery-color-master/jquery-color-master/jquery.color.js"></script>
+    <!--<script src="jquery-color-master/jquery-color-master/jquery.color.svg-names.js"></script>-->
+    <style type="text/css" >
+        * {
+        margin :0;
+        padding :0;
+        }
+        #top {
+            width: 100%;
+            height: 98px;
+            margin: 0 auto;
+            background: linear-gradient(#292B2C,#181A1C);
+        }
+        #top_zhong {
+        width :1000px;
+        height :60px;
+        margin : 0 auto ;
+        }
+        #top_zhong>ul {
+        width :200px;
+        height :25px;
+        float :right ;
+        list-style-type :none ;
+        font-family :'Microsoft YaHei';
+        font-size :14px;
+        margin-top :15px;
+        }
+            #top_zhong > ul > li {
+                width: 30px;
+                height: 25px;
+                margin-left: 20px;
+                float: left;
+                text-align: center;
+                line-height: 25px;
+                cursor: pointer;
+                color: white;
+            }
+                #top_zhong > ul > li:hover {
+                    color: #66CC00;
+                }
+                #top_zhong > ul > li > ul {
+                    width: 60px;
+                    margin-left: -15px;
+                    color: #3C3C46;
+                    background-color: white;
+                    list-style-type: none;
+                    border: 1px solid #DDDDDD;
+                }
+                    #top_zhong > ul > li > ul > li:hover {
+                        color :black;
+                        background-color: #F1F1F1;
+                    }
+        #top_xia {
+            width: 100%;
+            height: 38px;
+            border-top: 1px solid #333333;
+            background-color: #222322;
+        }
+        #top_xia_zhong {
+        width :1000px;
+        height :38px;
+        margin :0 auto ;
+        }
+            #top_xia_zhong > ul {
+            width :1000px;
+            height :38px;
+            list-style-type :none; 
+            }
+
+                #top_xia_zhong > ul > li {
+                color :white;
+                }
+             .daohang {
+                width: 58px;
+                height: 34px;
+                float: left;
+                text-align: center;
+                line-height: 34px;
+                font-size: 14px;
+                color: white;
+            }
+        #top_xia_zhong > ul > li:hover {
+            color: #66CC00;
+            cursor :pointer ;
+        }
+        #zhong {
+            width: 100%;
+            height: 280px;
+            background-color: #B1BBBC;
+        }
+        .zhong_tu {
+        width :1000px;
+        height :280px;
+        position :relative ;
+        left :-62px;
+        overflow :hidden ;
+        }
+            .zhong_tu > ul>li {
+                list-style-type:none;
+            float :left ;
+            width :1000px;
+            height :280px;
+            cursor :pointer ;
+            }
+        #zhong_tu_xia {
+        width :1000px;
+        height :50px;
+        position :absolute  ;
+        left :182.5px;
+        top :330px;
+        text-align :center ;
+        }
+            #zhong_tu_xia > span {
+                width: 8px;
+                height: 8px;
+                cursor: pointer;
+                margin-left: 10px;
+                background-color: #eee;
+                font-size :0px;
+                display :inline-block;
+                border-radius :50%;
+            }
+        #zhongxia {
+            width: 1000px;
+            height: 1725px;
+            margin: 0 auto;
+            border: 1px solid #E9E9E9;
+        }
+        #zhongxia_top {
+        width :960px;
+        height :946px;
+        margin :0 auto ;
+        padding-top :40px;
+        }
+        #zhongxia_zhong {
+        width :960px;
+        height :299px;
+        margin :0 auto ;
+        }
+        #zhongxia_bottom {
+        width :960px;
+        height :432px;
+        margin :0 auto ;
+        }
+        #zuo1 {
+        width :660px;
+        height :926px;
+        float :left ;
+        }
+        #you2 {
+        width :280px;
+        height :934px;
+        float :right;
+        }
+        #zuozuo {
+        width :670px;
+        height :536px;
+        }
+        #zuozuo2 {
+        width :660px;
+        height :380px;
+        margin-top :20px;
+        }
+        .zuoshang {
+            width: 660px;
+            height: 40px;
+            border-bottom: 2px solid #32B150;
+            line-height :40px;
+            font-family :'Microsoft YaHei';
+        }
+        #zuoxia1 {
+            width: 330px;
+            height: 475px;
+            float: left;
+            border-right: 1px solid #E5E5E5;
+            padding-right: 5px;
+        }
+        #zuoxia2 {
+            width: 330px;
+            height: 475px;
+            float :right ;
+        }
+        .fenlei_daohang {
+        width :420px;
+        height :40px;
+        list-style-type :none ;
+        margin-left :100px;
+        }
+            .fenlei_daohang > li {
+                float: left;
+                font-size: 14px;
+                color: #999999;
+                margin-left :4px;
+            }
+        .yuan_tj {
+        width :300px;
+        height :40px;
+        margin-left :15px;
+        }
+        .yuanchuangs {
+        width :300px;
+        height :456px;
+        margin-left :15px;
+        }
+        .yc {
+        width :300px;
+        height :36px;
+        }
+        .on {
+        height :112px;
+        }
+            .on img {
+            width :86px;
+            height :86px;
+            }
+        .xian:hover {
+        text-decoration :underline ;
+        font-weight :bold ;
+        cursor :pointer ;
+        }
+        #gedans_wai {
+        margin-top :15px;
+        }
+        .gedans {
+            width: 130px;
+            height: 140px;
+            float: left;
+            background-image: url('中国原创音乐基地 5SING_files/gd_sprite.png');
+            background-position :-130px 0px;
+            background-repeat :no-repeat ;
+            margin-top :20px;
+        }
+            .gedans > img {
+            width :110px;
+            height :110px;
+            border-radius :10px;
+            }
+        .gedan_zhe {
+            width: 110px;
+            height: 110px;
+            border-radius: 10px;
+            background-color: black;
+            opacity: 0.5;
+            position: relative;
+            top: -128px;
+            display: none;
+            cursor :pointer ;
+        }
+        .gedan_jiesao > a:hover {
+            cursor: pointer;
+            color: #4CAFF4;
+        }
+        .zx {
+            padding-left: 20px;
+            padding-top: 20px;
+            font-size: 14px;
+            color: #333333;
+            width :238px;
+        }
+        .zxs {
+            margin-left :20px;
+            margin-top :20px;
+        width :238px;
+        height :150px;
+        }
+            .zxs > ul {
+            width :238px;
+            height :140px;
+            padding-top :10px;
+            }
+                .zxs > ul > li {
+                    color: #32B351;
+                    margin-left :10px;
+                    margin-bottom :5px;
+                }
+                    .zxs > ul > li > a {
+                    color :#333333;
+                    font-size :12px;
+                    }
+                        .zxs > ul > li > a:hover {
+                            color: #4CAFF4;
+                            text-decoration :underline;
+                            cursor :pointer ;
+                        }
+        .zxs_s {
+            color: #4CAFF4;
+        }
+        .zxs_s:hover {
+            cursor: pointer;
+            background-color: #4CAFF4;
+            color :white;
+        }
+        #sanbang {
+        width :240px;
+        height :489px;
+        margin-left :20px;
+        border :1px solid white;
+        }
+            #sanbang > a:hover {
+            cursor :pointer ;
+            }
+        .san_bangdan {
+            width: 80px;
+            height: 30px;
+            border-bottom: 2px solid #DADADA;
+            font-size: 12px;
+            display: block;
+            color: #646464;
+            float: left;
+            text-align : center ;
+            line-height :30px;
+        }
+        .san_on {
+            border-bottom: 2px solid #32B351;
+            font-weight :bold ;
+            color :black;
+        }
+        #san_bo {
+        width :238px;
+        height :36px;
+        margin-top :30px;
+        }
+        .bangdans {
+            width: 240px;
+            height: 416px;
+        }
+            .bangdans > ul {
+                width: 240px;
+                height: 416px;
+                background-image: url('中国原创音乐基地 5SING_files/rank_bg.png');
+                background-repeat: no-repeat;
+                background-position: -3px 0px;
+            }
+                .bangdans > ul > li {
+                    width :240px;
+                    height :41px;
+                    list-style-type :none ;
+                    text-align :center ;
+                    line-height :41px;
+                }
+                    .bangdans > ul > li>a:hover {
+                        cursor :pointer ;
+                        color: #32B150;
+                    }
+        .gedans_hide {
+        display :none ;
+        }
+        .xianchangs {
+            width: 200px;
+            height: 209px;
+            margin-top: 20px;
+            float: left;
+            margin-left: 30px;
+        }
+        .xianchangs_shang {
+            width :200px;
+            height :134px;
+            background-image: url('中国原创音乐基地 5SING_files/live_sprite_v1.png');
+            cursor :pointer ;
+        }
+        .xianchangs_xia {
+            width: 200px;
+            height: 75px;
+            background-image: url('中国原创音乐基地 5SING_files/live_sprite_v1.png');
+            background-position :-200px -134px;
+        }
+        .xianchangs_bofang {
+            width: 80px;
+            height: 70px;
+            position: absolute    ;
+            margin-top: -175px;
+            margin-left: 70px;
+            background-image: url('中国原创音乐基地 5SING_files/live_sprite_v1.png');
+            background-position :-18px -138px;
+            cursor :pointer ;
+            display :none ;
+            z-index :20;
+        }
+        .xianchangs_bozhu:hover {
+            cursor :pointer ;
+            text-decoration :underline;
+            color: #4CAFF4;
+        }
+        .hei {
+            width: 200px;
+            height: 134px;
+            position: absolute;
+            margin-top: -210px;
+            margin-left: -1px;
+            background-image: url('中国原创音乐基地 5SING_files/live_sprite_v1.png');
+            background-position :-200px 0px;
+            opacity :0;
+            cursor :pointer ;
+        }
+        #yinyueren_zuo {
+            width: 248px;
+            height: 340px;
+            float: left;
+            margin-top: 20px;
+            background-image: url('中国原创音乐基地 5SING_files/msc_sprite.png');
+            background-position :-266px 0px;
+            background-repeat :no-repeat ;
+        }
+        #yinyuerens {
+        width :960px;
+        height :390px;
+        }
+        .yinyueren_a:hover {
+            color: #4CAFF4;
+            cursor :pointer ;
+        }
+        #yinyueren_you {
+        width :705px;
+        height :330px;
+        float :right ;
+        margin-top :20px;
+        padding-top :10px;
+        }
+            #yinyueren_you > dl {
+                width: 120px;
+                height: 145px;
+                border: 1px solid #DADADA;
+                float: left;
+                margin-right: 17px;
+                margin-bottom: 18px;
+            }
+                #yinyueren_you > dl > dd {
+                width :119px;
+                height :119px;
+                }
+                #yinyueren_you > dl > dt {
+                    width: 119px;
+                    height: 24px;
+                    text-align: center;
+                    font-size: 12px;
+                    line-height: 24px;
+                    color: #5F5F5F;
+                }
+        .yinyueren_ul>li {
+        width :240px;
+        height :25px;
+        list-style-type :none ;
+        font-size :12px;
+        font-family :'Microsoft YaHei';
+        line-height :25px;
+        }
+        .yinyueren_hide {
+        display :none ;
+        }
+        #xia {
+            width :100%;
+            height :140px;
+            background-color: #EFEFEF;
+        }
+        #xia_zhong {
+        width :1010px;
+        height :140px;
+        margin :0 auto ;
+        padding-left :2px;
+        }
+        #yi {
+            width: 390px;
+            height: 90px;
+            border-right: 1px solid #DDDDDD;
+            float: left;
+            margin-top: 20px;
+        }
+        #er {
+            width: 366px;
+            height: 100px;
+            float: left;
+            margin-top: 20px;
+            padding-left :20px;
+        }
+        #san {
+            width: 194px;
+            height: 86px;
+            border-left: 1px solid #DDDDDD;
+            float: left;
+            margin-top: 20px;
+            padding-left :20px;
+        }
+        #er > ul {
+        width :340px;
+        height :58px;
+        font-size :12px;
+        list-style-type :none ;
+        }
+            #er > ul > li {
+                width: 150px;
+                height: 15px;
+                margin-top: 4px;
+                margin-right :16px;
+                float: left;
+                color: #999999;
+            }
+        .shoujiduans:hover {
+        cursor :pointer ;
+        }
+        #bottom {
+            width: 100%;
+            height: 116px;
+            background-color: #333333;
+        }
+        #bottom_zhong {
+
+        width :1004px;
+        height :116px;
+        margin :0 auto ;
+        }
+            #bottom_zhong > ul {
+               padding-top :15px;
+            width :1004px;
+            height :25px;
+            }
+                #bottom_zhong > ul > li {
+                width :120px;
+                height :25px;
+                text-align :center ;
+                line-height :25px;
+                float :left ;
+                font-size :12px;
+                list-style-type :none ;
+                color :white;
+                font-family :'Microsoft YaHei';
+                }
+        .text {
+        text-align :left ;
+        }
+        .bottom_xia {
+            width: 1000px;
+            height: 20px;
+            margin-top: 6px;
+            font-size: 12px;
+            color: #939393;
+            line-height :20px;
+            padding-left :4px;
+        }
+        #bottom_zhong > ul > li:hover {
+            color: #62B71F;
+            cursor :pointer ;
+        }
+        #jiaweixin {
+            width: 200px;
+            height: 220px;
+            position: absolute;
+            margin-top: -388px;
+            margin-left :1160px;
+            background-image: url('中国原创音乐基地 5SING_files/foot_sprite.png');
+            background-position :-24px 0px;
+            display :none ;
+        }
+        #guding {
+        width :50px;
+        height :162px;
+        position :fixed  ;
+        top :220px;
+        left :1280px;
+        }
+        #erwei {
+            width: 50px;
+            height: 53px;
+            background-image: url('中国原创音乐基地 5SING_files/side_sprite.png');
+            background-position :-50px 0px;
+            cursor :pointer ;
+        }
+        #fankui {
+            width: 50px;
+            height: 54px;
+            background-image: url('中国原创音乐基地 5SING_files/side_sprite.png');
+            background-position: -50px -54px;
+            cursor :pointer ;
+        }
+        #dingbu {
+            width: 50px;
+            height: 53px;
+            background-image: url('中国原创音乐基地 5SING_files/side_sprite.png');
+            background-position: -50px -109px;
+            display :none ;
+            cursor :pointer ;
+        }
+        #erwei_ma {
+            width: 170px;
+            height: 200px;
+            position: fixed;
+            top: 220px;
+            left: 1105px;
+            background-image: url('中国原创音乐基地 5SING_files/side_sprite.png');
+            background-position :-100px 0px;
+            background-repeat :no-repeat ;
+            display :none ;
+        }
+    </style>
+    <script type="text/javascript" >
+        $(function () {
+            $("#qizi1").hover(function () {
+                $(this).children("ul").show();
+            }, function () {
+                $(this).children("ul").hide();
+            });
+            $("#qizi2").hover(function () {
+                $(this).children("ul").show();
+            }, function () {
+                $(this).children("ul").hide();
+            });
+
+            //图片时间轮播
+            var xiaoyuan = 1;
+            var t2 = null;
+            var arr = ["#B1BBBC", "#F7F6F2", "#FEFEFE", "#111A37", "#050209", "#F5F5F5", "#E3F5FF", "#B0BCBA"];
+            var time = function () {
+                if (parseInt($(".zhong_tu").children("ul").css('marginLeft'))==-15000) {
+                    $(".zhong_tu").children("ul").animate({
+                        "margin-left": "-8000px"
+                    }, 800);
+                    if (xiaoyuan > 7) {
+                        xiaoyuan = 0;
+                    }
+                    $("#zhong_tu_xia span:eq(" + xiaoyuan + ")").animate({
+                        "background-color": "red"
+                    }, 400);
+                    $("#zhong_tu_xia span:eq(" + xiaoyuan + ")").siblings().css({
+                        "background-color": "white"
+                    });
+                    xiaoyuan++;
+                }
+                else {
+                    if (xiaoyuan>7) {
+                        xiaoyuan = 0;
+                    }
+                    $("#zhong_tu_xia span:eq("+xiaoyuan+")").animate({
+                        "background-color":"red"
+                    }, 400);
+                    $("#zhong_tu_xia span:eq(" + xiaoyuan + ")").siblings().css({
+                        "background-color": "white"
+                    });
+                    $(".zhong_tu").children("ul").animate({
+                        "margin-left": parseInt($(".zhong_tu").children("ul").css('marginLeft')) - 1000 + "px"
+                    }, 800);
+                    $("#zhong").animate({
+                        "background-color": arr[xiaoyuan] + ""
+                    }, 800);
+                    xiaoyuan++;
+                }
+                
+                t2 = setTimeout(time,5000);
+            }
+            var t= setTimeout(time, 5000);
+
+            //鼠标选中展示
+            $("#zhong_tu_xia").children("span").mouseover(function () {
+                //关闭两个计时器
+                clearTimeout(t);
+                clearTimeout(t2);
+                $(".zhong_tu").children("ul").stop(true);
+                $("#zhong").stop(true);
+                //
+                $(this).css({
+                    "background-color": "red"
+                }).siblings().css({
+                    "background-color": "white"
+                });
+                $(".zhong_tu").children("ul").animate({
+                    "margin-left": (parseInt($(this).text()) - 1) * (-1000) + "px"
+                }, 400);
+                $("#zhong").animate({
+                    "background-color": arr[parseInt($(this).text()) - 1] + ""
+                }, 400);
+                xiaoyuan = parseInt($(this).text());
+            }).mouseout(function () {
+                t = setTimeout(time, 5000);
+            });
+            $(".ycs").mouseover(function () {
+                $(this).children("div[class='yc on']").show();
+                $(this).children("div[class='yc']").hide();
+                $(this).siblings().children("div[class='yc']").show();
+                $(this).siblings().children("div[class='yc on']").hide();
+            });
+
+            //歌单
+            $(".gedans").hover(function () {
+                $(this).children("p[class='zhe']").hide();
+                $(this).children("div[class='gedan_zhe']").show();
+            }, function () {
+                $(this).children("p[class='zhe']").show();
+                $(this).children("div[class='gedan_zhe']").hide();
+            });
+            //榜单
+            $("#sanbang").children("a").click(function () {
+                switch ($(this).text()) {
+                    case "原创排行榜":
+                        $(".bangdans").children("ul:eq(0)").slideDown(1000).siblings().hide();
+                        $(this).addClass("san_on").siblings().removeClass("san_on");
+                        break;
+                    case "翻唱排行榜":
+                        $(".bangdans").children("ul:eq(1)").slideDown(1000).siblings().hide();
+                        $(this).addClass("san_on").siblings().removeClass("san_on");
+                        break;
+                    case "支持榜":
+                        $(".bangdans").children("ul:eq(2)").slideDown(1000).siblings().hide();
+                        $(this).addClass("san_on").siblings().removeClass("san_on");
+                        break;
+                }
+            });
+            //音乐现场
+            $(".hei").hover(function () {
+                $(this).css({
+                    "opacity": "1"
+                });
+                $(this).parents("div[class='xianchangs']").children("div[class='xianchangs_bofang']").show();
+            }, function () {
+                $(this).css({
+                    "opacity": "0"
+                });
+                $(this).parents("div[class='xianchangs']").children("div[class='xianchangs_bofang']").hide();
+            });
+            //音乐人
+            $("#yinyueren_you").children("dl").hover(function () {
+                $(this).children("dd[class='yinyueren_hide']").show();
+            }, function () {
+                $(this).children("dd[class='yinyueren_hide']").hide();
+            });
+            //
+            $("#yi").children("p").children("a").hover(function () {
+                $(this).css({
+                    "background-position": "-358px -201px",
+                    "cursor": "pointer"
+                });
+            }, function () {
+                $(this).css({
+                    "background-position": "-358px 0px",
+                });
+            });
+            $(".hezuo:eq(0)").hover(function () {
+                $(this).css({
+                    "background-position": "0px -40px",
+                    "cursor": "pointer"
+                });
+            }, function () {
+                $(this).css({
+                    "background-position": "0px 0px"
+                });
+            });
+            //
+            $(".hezuo:eq(1)").hover(function () {
+                $(this).css({
+                    "background-position": "-90px -40px",
+                    "cursor": "pointer"
+                });
+            }, function () {
+                $(this).css({
+                    "background-position": "-90px 0px"
+                });
+            });
+            //
+            $(".hezuo:eq(2)").hover(function () {
+                $(this).css({
+                    "background-position": "-180px -40px",
+                    "cursor": "pointer"
+                });
+            }, function () {
+                $(this).css({
+                    "background-position": "-180px 0px"
+                });
+            });
+            //
+            $(".hezuo:eq(3)").hover(function () {
+                $(this).css({
+                    "background-position": "-270px -40px",
+                    "cursor": "pointer"
+                });
+            }, function () {
+                $(this).css({
+                    "background-position": "-270px 0px"
+                });
+            });
+            //手机端
+            $(".shoujiduans:eq(0)").hover(function () {
+                $(this).children("i").css({
+                    "background-position": "0px -28px"
+                });
+            }, function () {
+                $(this).children("i").css({
+                    "background-position": "0px -4px"
+                });
+            });
+
+            $(".shoujiduans:eq(1)").hover(function () {
+                $(this).children("i").css({
+                    "background-position": "0px -74px"
+                });
+            }, function () {
+                $(this).children("i").css({
+                    "background-position": "0px -50px"
+                });
+            });
+            //加微信
+            $(".shoujiduans:eq(1)").hover(function () {
+                $("#jiaweixin").show();
+            }, function () {
+                $("#jiaweixin").hide();
+            });
+
+            //固定栏
+            $(document).scroll(function () {
+                if ($(document).scrollTop() > 150) {
+                    $("#dingbu").stop(true, false);
+                    $("#dingbu").fadeIn(400);
+                }
+                else {
+                    $("#dingbu").stop(true, false);
+                    $("#dingbu").fadeOut(400);
+                }
+            });
+            //
+            $("#erwei").hover(function () {
+                $(this).css({
+                    "background-position": "0px 0px"
+                });
+                $("#erwei_ma").show();
+            }, function () {
+                $(this).css({
+                    "background-position": "-50px 0px"
+                });
+                $("#erwei_ma").hide();
+            });
+            //
+            $("#fankui").hover(function () {
+                $(this).css({
+                    "background-position": "0px -54px"
+                });
+            }, function () {
+                $(this).css({
+                    "background-position": "-50px -54px"
+                });
+            });
+            //
+            $("#dingbu").hover(function () {
+                $(this).css({
+                    "background-position": "0px -109px"
+                });
+            }, function () {
+                $(this).css({
+                    "background-position": "-50px -109px"
+                });
+            });
+
+            //回家
+            $("#dingbu").click(function () {
+                var time = setInterval(function () {
+                    window.scrollBy(0, -50);
+                    if (document.documentElement.scrollTop <= 0) {
+                        clearInterval(time);
+                    }
+                }, 10);
+            });
+
+            //推荐
+            var length = 0;
+            $(".zxs_s:eq(0)").click(function () {
+                if (length==$(".tuijian_ul").length-1) {
+                    $(".tuijian_ul:eq(" + length + ")").hide();
+                    $(".tuijian_ul:eq(0)").fadeIn(400);
+                    length = 0;
+                }
+                else {
+                    $(".tuijian_ul:eq(" + length + ")").hide();
+                    $(".tuijian_ul:eq(" + (length + 1) + ")").fadeIn(400);
+                    length++;
+                }
+                
+            });
+            //
+            $(".zxs_s:eq(1)").click(function () {
+                if (length == 0) {
+                    $(".tuijian_ul:eq(" + (length) + ")").hide();
+                    length = $(".tuijian_ul").length - 1;
+                    $(".tuijian_ul:eq("+($(".tuijian_ul").length-1)+")").fadeIn(400);
+                }
+                else {
+                    $(".tuijian_ul:eq(" + (length) + ")").hide();
+                    $(".tuijian_ul:eq(" + (length-1) + ")").fadeIn(400);
+                    length--;
+                }
+
+            });
+
+            //
+            $("#huodong").click(function () {
+                window.location("../活动/新建文件夹 (2)/WebApplication1/WebApplication1/HtmlPage1.html");
+            });
+            $("#fanchang").click(function () {
+                window.location("../翻唱/得飘得飘/HtmlPage.html");
+            });
+
+            $("#zhuce").click(function () {
+                window.location("../注册/注册/shoujihao.html");
+            });
+            $("#banzou").click(function () {
+                window.location("../伴奏/卢美琳/伴奏/WebApplication1/WebApplication1/HtmlPage1.html");
+            });
+
+        })
+
+    </script>
+</head>
+<body>
+    <div id="top">
+        <div id="top_zhong">
+            <img src="中国原创音乐基地 5SING_files/logo.png" />
+            <input type="text" style="border-radius: 25px 0px 0px 25px; padding-left: 15px; width: 180px; height: 25px; background-color: rgba(225,225,225,0); border: 1px solid #32B351; position: absolute; top: 16px; line-height: 25px; border-right: 0px; " placeholder="歌曲/歌单/会员" />
+            <a href="javascript:;" style="display: inline-block; width: 30px; height: 25px; border: 1px solid #32B351; border-left: 0px; position: relative; top: -4px; left: 196px; text-align: left; line-height: 25px; text-decoration: none; color: #32B351; border-radius: 0px 25px 25px 0px; ">|<span style="color :white;">🔎</span></a>
+            <ul>
+                <li>登录</li>
+                <li id="zhuce">注册</li>
+                <li id="qizi1" style="position :relative  ; z-index:10;">上传
+                <ul style="display :none ;">
+                    <li>上传原创</li>
+                    <li>上传翻唱</li>
+                    <li>上传伴奏</li>
+                    <li>歌曲管理</li>
+                </ul>
+                </li>
+                <li id="qizi2" style="z-index :10;position :relative ;">APP
+                <ul style="display :none ;border :0px;height :20px;">
+                    <li style="height :0;"><img style="border: 1px solid #DDDDDD;" src="中国原创音乐基地 5SING_files/5singcode.png" /></li>
+                </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="top_xia">
+            <div id="top_xia_zhong">
+                <ul>
+                    <li class="daohang" style="width: 62px; border-bottom: 4px solid #32B150; ">
+                        <a style="font-size :16px;">首页</a>
+                    </li>
+                    <li class="daohang">
+                        <a>原创</a>
+                    </li>
+                    <li class="daohang">
+                        <a id="fanchang">翻唱</a>
+                    </li>
+                    <li class="daohang">
+                        <a id="banzou">伴奏</a>
+                    </li>
+                    <li class="daohang">
+                        <a>榜单</a>
+                    </li>
+                    <li class="daohang">
+                        <a>歌单</a>
+                    </li>
+                    <li class="daohang" style="width :4.31px;">
+                        <a>|</a>
+                    </li>
+                    <li class="daohang" style="width :72px;">
+                        <a>音乐人</a>
+                    </li>
+                    <li class="daohang">
+                        <a id="huodong">活动</a>
+                    </li>
+                    <li class="daohang">
+                        <a>圈子</a>
+                    </li>
+                    <li class="daohang" style="width :86px;">
+                        <a>音乐现场</a>
+                    </li>
+                    <li class="daohang">
+                        <a>众筹</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="zhong">
+        <div class="zhong_tu">
+            <ul style="width :16000px;height :280px;">
+                <li><img src="中国原创音乐基地 5SING_files/2728590d4d6c1fccca527074f4213866.jpg" /></li>
+                <li><img src="中国原创音乐基地 5SING_files/9508eec27a5ab0c29de053d89d45b86b.jpg" /></li>
+                <li><img src="中国原创音乐基地 5SING_files/d817df915b65c56939988a7fee317216.jpg" /></li>
+                <li><img src="中国原创音乐基地 5SING_files/03d1a2f27e725fb9fa42b8888cb4ca46.jpg" /></li>
+                <li><img src="中国原创音乐基地 5SING_files/27d33f499e8f243ea91eb5591910efaa.jpg" /></li>
+                <li><img src="中国原创音乐基地 5SING_files/0eb9153f3a7f33b35e60088d92307ace.jpg" /></li>
+                <li><img src="中国原创音乐基地 5SING_files/87243c9a972730947c60dbd9a1f3c1d4.jpg" /></li>
+                <li><img src="中国原创音乐基地 5SING_files/68cc00e02e552d92b79f00bc18f60e8d.jpg" /></li>
+                <li><img src="中国原创音乐基地 5SING_files/2728590d4d6c1fccca527074f4213866.jpg" /></li>
+                <li><img src="中国原创音乐基地 5SING_files/9508eec27a5ab0c29de053d89d45b86b.jpg" /></li>
+                <li><img src="中国原创音乐基地 5SING_files/d817df915b65c56939988a7fee317216.jpg" /></li>
+                <li><img src="中国原创音乐基地 5SING_files/03d1a2f27e725fb9fa42b8888cb4ca46.jpg" /></li>
+                <li><img src="中国原创音乐基地 5SING_files/27d33f499e8f243ea91eb5591910efaa.jpg" /></li>
+                <li><img src="中国原创音乐基地 5SING_files/0eb9153f3a7f33b35e60088d92307ace.jpg" /></li>
+                <li><img src="中国原创音乐基地 5SING_files/87243c9a972730947c60dbd9a1f3c1d4.jpg" /></li>
+                <li><img src="中国原创音乐基地 5SING_files/68cc00e02e552d92b79f00bc18f60e8d.jpg" /></li>
+            </ul>
+        </div>
+        <div id="zhong_tu_xia">
+            <span style="background-color :red;">1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+            <span>7</span>
+            <span>8</span>
+        </div>
+    </div>
+    <div id="zhongxia">
+        <div id="zhongxia_top">
+            <div id="zuo1">
+                <div id="zuozuo">
+                    <div class="zuoshang">
+                        <span style="font-size :18px;float :left ;">分类推荐</span>
+                        <ul class="fenlei_daohang">
+                            <li style="font-weight: bold; color: #666666;">编辑推荐</li>
+                            <li>|</li>
+                            <li>古风</li>
+                            <li>|</li>
+                            <li>流行</li>
+                            <li>|</li>
+                            <li>民谣</li>
+                            <li>|</li>
+                            <li>摇滚</li>
+                            <li>|</li>
+                            <li>动漫游戏</li>
+                            <li>|</li>
+                            <li>民族&美声</li>
+                        </ul>
+                        <a href="javascript:;" style="float: right; width: 80px; height: 40px;  margin-top: -40px; font-size: 12px; color: #666666; text-align: right;text-decoration :none ;">更多></a>
+                    </div>
+                        <div id="zuoxia1">
+                            <div class="yuan_tj">
+                                <i style="float :left ; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-20px 0px;width :18px;height :18px;display :block ;margin-top :10px;"></i>
+                                <span style="color: #333333; width: 120px; float: left;  margin-top: 10px; display: inline-block; margin-left: 4px; ">原创推荐</span>
+                                <i style="float :left ; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-40px 0px;width :12px;height :12px;display :block ;margin-top :13px;"></i>
+                                <span style="color: #666666; float: left; font-size: 12px;  margin-top: 12px; display: inline-block; margin-left: 4px;">全部播放</span>
+                                <i style="float :left ; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-58px 0px;width :12px;height :12px;display :block ;margin-top :13px;margin-left :24px;"></i>
+                                <span style="color: #666666; font-size: 12px; margin-top: 12px; display: inline-block; margin-left: 4px;">下一批</span>
+                            </div>
+                            <div class="yuanchuangs">
+                                <div class="ycs">
+                                    <div class="yc" style="display :none ;"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 210px;">天涯明月刀·剑荡八荒（粤语版）</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">东山口总舵</a></div>
+                                    <div class="yc on">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/67f1976fcf892b630db59b66747d8222.jpg_180x180.jpg" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">古风</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block; color: #2E2E2E; font-size: 14px; position: relative; left: 14px;" title="天涯明月刀·剑荡八荒（粤语版）">天涯明月刀·剑荡八荒（粤语版）</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090; font-weight: 200; margin-left: 14px;">东山口总舵</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :100px;cursor :pointer ;"></a>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 210px;">突然撩人【红唇】</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">【妙语清歌】嫌弃</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/70bd476f2add73ecc873eb642aa06e0d.jpg_180x180.jpg" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">爵士</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="突然撩人【红唇】">突然撩人【红唇】</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :10px;">【妙语清歌】嫌弃</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :65px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">掐指一算今日不宜写灵感PV地址：https://www.bilibili.com/video/av16378021/</p>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 210px;">带我回家</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">杨帆_62839687</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/c2ee3dfbefaf2eb5abccf67bb30e38e1.jpg_180x180.jpg" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">流行</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="带我回家">带我回家</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :14px;">杨帆_62839687</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :80px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">
+                                            最开始是有一天傍晚我突然抱起吉他写的歌，很简单，接近民谣风格。
+                                            之后和我的好朋友崔恒重新聊到这首歌，他非常有才华。我们一起改了很多次旋律和弦进程，赋予了这首歌更丰富的色彩。
+                                            出来的编曲风格我很喜欢。如果用颜色形容情绪，一开始的demo是粉色的，很简单的小女生思绪。到现在的版本，我认为是暖金色的，说不上来原因，感觉吧。
+                                            希望这首歌你们会喜欢。
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 210px;">是风动 Feat. 河图</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">银临</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/2001110d462bae4f4af2b5f46b84aac8.png_180x180.png" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">古风</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="是风动 Feat. 河图">是风动 Feat. 河图</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :14px;">银临</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :135px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">
+                                            第一次跟图老师的正式合唱！有人老问我说为啥到副歌的地方都听不见银临的声音，哈哈哈 因为这首歌是给图老师写的呀~当绿叶当得超开心的！
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;width :210px;">留给明天的答卷【《那年那兔那些事儿》第四季ED】</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">午年_5ive</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/47a15ccf7533598cd39afec261830591.jpg_180x180.jpg" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">流行</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="留给明天的答卷【《那年那兔那些事儿》第四季ED】">留给明天的答卷【《那年那兔那些事儿》第四季ED】</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :14px;">午年_5ive</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :110px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">
+                                            《那年那兔那些事儿》第四季ED
+                                            “我是种花家的兔子，那些历史教会我们的事儿，都是先辈留给明天的答卷！”
+                                            出品：厦门翼下之风动漫科技有限公司
+                                            制作：@米漫传媒
+                                            特别感谢：@_CcccEs @古风音乐会
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;width :210px;">《狐妖小红娘 日语版 OP2》——万水依山</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">叫ぶ獣</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/9f3f373943f899d4fbb162bb2e42a1d9.jpg_180x180.jpg" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">动漫/游戏</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="《狐妖小红娘 日语版 OP2》——万水依山">《狐妖小红娘 日语版 OP2》——万水依山</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :14px;">叫ぶ獣</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :125px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">
+                                            《狐妖小红娘》日语版 月红篇 新OP 《万水依山》 完整版终于解禁！5sing也上传以便大家收听！
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;width :210px;">扬州姑娘【人声本家】</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">双笙</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/0dc495c962752e7ae0d659f40fe93675.jpg_180x180.jpg" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">古风</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="扬州姑娘【人声本家】">扬州姑娘【人声本家】</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :14px;">双笙</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :135px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">
+                                            扬州姑娘【人声本家】
+
+                                            词曲：砖厂浪人
+                                            二胡：二胡妹
+                                            琵琶：林夕小二梦
+                                            笛：青鲨
+                                            古琴：书渊
+                                            绘：Systjcfl
+                                            影：纯名木
+                                            演唱：双笙
+                                            后期：砖厂浪人
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;width :210px;">大反派</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">Judechiu</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/76ddc834a3c5a45be5a11a57410f34ca.jpg_180x180.jpg" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">搞笑/另类</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="大反派">大反派</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :14px;">Judechiu</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :115px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">
+                                            这首歌写给Joker 看出来了吗？
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;width :210px;">我爱着机器人那一方的你</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">菅原纱由理(THE SxPLAY...</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/0349608f01b2af0639cca5d4c1a3b320.jpg_180x180.jpg" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">R&B</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="我爱着机器人那一方的你">我爱着机器人那一方的你</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :14px;">菅原纱由理(THE SxPLAY)</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :20px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;width :210px;">【山大 x 雨洛】U （一首很耐听的歌）</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">山tothe大</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/bfb3f33d8f1c4c5791d8475d883e091c.png_180x180.png" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">对唱/合唱</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="【山大 x 雨洛】U （一首很耐听的歌）">【山大 x 雨洛】U （一首很耐听的歌）</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :14px;">山tothe大</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :110px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">
+                                            策划：阿宝
+                                            作曲/编曲：山大
+                                            演唱：山大 feat. 雨洛
+                                            作词：山芋
+                                            后期：Rosa
+                                            海报：长锋
+                                            pv：狗蛋QAQ
+
+                                            视频请前往微博：山tothe大
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="zuoxia2">
+                            <div class="yuan_tj">
+                                <i style="float :left ; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px 0px;width :18px;height :18px;display :block ;margin-top :10px;"></i>
+                                <span style="color: #333333; width: 120px; float: left;  margin-top: 10px; display: inline-block; margin-left: 4px; ">翻唱推荐</span>
+                                <i style="float :left ; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-40px 0px;width :12px;height :12px;display :block ;margin-top :13px;"></i>
+                                <span style="color: #666666; float: left; font-size: 12px;  margin-top: 12px; display: inline-block; margin-left: 4px;">全部播放</span>
+                                <i style="float :left ; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-58px 0px;width :12px;height :12px;display :block ;margin-top :13px;margin-left :24px;"></i>
+                                <span style="color: #666666; font-size: 12px; margin-top: 12px; display: inline-block; margin-left: 4px;">下一批</span>
+                            </div>
+                            <div class="yuanchuangs">
+                                <div class="ycs">
+                                    <div class="yc" style="display :none ;"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 210px;">このピアノでお前を8759632145回ぶん殴る</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">冬名名</a></div>
+                                    <div class="yc on">
+                                        <div style="float: left; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png'); background-position: 0px -33px; ">
+                                            <img src="中国原创音乐基地 5SING_files/95cb263236a471c88bdda0f32037d5c2.jpg_180x180.jpg" style="margin-left :1px;margin-top :2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">搞笑/另类</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block; color: #2E2E2E; font-size: 14px; position: relative; left: 14px;" title="このピアノでお前を8759632145回ぶん殴る">このピアノでお前を8759632145回ぶん殴る</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090; font-weight: 200; margin-left: 14px;">冬名名</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :125px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">
+                                            狗混的
+                                            我18岁啦
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 210px;">赴鸿门</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">Cb不馋</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float: left; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png'); background-position: 0px -33px; ">
+                                            <img src="中国原创音乐基地 5SING_files/a41c363e48d5d3f764f30a2f23e6aa08.png_180x180.png" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">古风</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="赴鸿门">赴鸿门</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :10px;">Cb不馋</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :125px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">后期：NamieMeng</p>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 210px;">No promises</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">Maurice`Gissing</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/5028556f3659854f8f8d090018f0c329.jpg_180x180.jpg" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">R&B</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="No promises">No promises</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :14px;">Maurice`Gissing</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :80px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">
+                                            嗯，黛阿姨的歌，好久没发歌了，估计这电子得加了10几个效果器。。2333
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 210px;">【山大】说散就散</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">山tothe大</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/bfb3f33d8f1c4c5791d8475d883e091c.png_180x180.png" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">流行</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="【山大】说散就散">【山大】说散就散</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :14px;">山tothe大</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :110px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">
+                                            翻唱：山大
+                                            后期：子杨
+                                            pv：阿宝
+                                            美工：Mr.情
+                                            pv背景：阿瑟
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;width :210px;">『ACCA』苍月摇曳</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">时砂.</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/e9003f4ad7a96531b6c69d49deb95fac.jpg_180x180.jpg" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">动漫/游戏</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="『ACCA』苍月摇曳">『ACCA』苍月摇曳</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :14px;">时砂.</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :130px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">
+                                            今天我过生日，这个生日对我来说意义有点重要，但是具体几岁这就不重要了。
+
+                                            ACCA这个ED，不知道大家注意到没有，片尾的歌曲和动画描述的是另一个故事，感兴趣的朋友可以重新去看看。
+                                            吉恩的妹妹萝塔在某一集透露过，在被问到喜欢的人的时候，她说：比起喜欢，更多的是仰慕。
+                                            这种仰慕对我来说应该算是最纯粹的喜欢了，不知道大家有没有暗恋的人呢？
+                                            无关欲望，只是不知不觉中悄无声息的心动，光想象就能若有似无地闻到他的气息，只要他站在那里，你就干什么都不是了。
+                                            ( ͡° ͜ʖ ͡°)
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;width :210px;">叙世 w.晴愔/Firework瑾</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">夏喘喘丶</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/09f55fa8b6355a339d685b307462c9c3.jpg_180x180.jpg" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">古风</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="叙世 w.晴愔/Firework瑾">叙世 w.晴愔/Firework瑾</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :14px;">夏喘喘丶</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :110px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">
+                                            敲开心又和晴愔小姐姐唱歌啦！！谢谢我瑾的完美戏腔！！之前后期也辛苦了！！！！
+                                            感谢绯戈的超稳后期！！超棒！！！日常赞美我夏的海报哈哈哈哈哈哈哈哈！！
+                                            希望你们喜欢！！！
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;width :210px;">【苏陌丹】Almost Lover HB2村乙</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">册二点的蛋壳</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/ca82dc84965973fdee58b0e69675337b.jpg_180x180.jpg" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">流行</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="【苏陌丹】Almost Lover HB2村乙">【苏陌丹】Almost Lover HB2村乙</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :14px;">册二点的蛋壳</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :85px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">
+                                            我滴宝！！！！！！今年也生日快乐！！！！
+                                            我又唱了虐歌嘻嘻嘻我知道你不会打我的！！！
+                                            我觉得词曲很好啊，完全贴合现在信缘成佛的我俩哈哈哈哈你会爱上的！【x
+
+                                            又陪你度过了一个生日嘿嘿❤
+                                            以后七老八十也还要“呼叫二宫和也老婆”“呼叫大野智老婆”！！
+                                            这么多年感觉我拉你进了好多的坑啊，不论是看番，还是翻唱，还是arashi，漫威2333
+                                            喂你吃安利真的爽！！以后我还要给你狂喂安利！这都是爱的证明！
+
+                                            还有你这个小居居以后一定要给我早睡不然我真的要追着你那些账号催你睡觉！
+                                            就不能跟我一起做个老年养生模式的girl吗！！！
+                                            为了以后能喷着我送的香喷喷跟我一起去见爱豆，能不能！把身体！养好！
+                                            你可以的！！！
+
+                                            最后虽然在一首虐歌里写了这么激情的小作文，但我还是想跟大家说，原曲很好听，真的很扎心，希望大家能喜欢！！最后的最后，感谢收听！！！！
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;width :210px;">杀死那个石家庄人</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">郑乐成</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/60625177778b642746d739a345696fd2.jpg_180x180.jpg" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">摇滚</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="杀死那个石家庄人">杀死那个石家庄人</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :14px;">郑乐成</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :120px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">
+                                            这首歌实际上描述了北方重工业城市在经历过了时代变迁，从计划经济到市场经济的的变轨所经历的阵痛，和那些被遗忘或者是被抛弃的群体的失落和愤怒的感受。
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;width :210px;">メーベル</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">纸杯君</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/3c48bec201a9bb76ffdecdc2ec1f776a.jpg_180x180.jpg" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">摇滚</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="メーベル">メーベル</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :14px;">纸杯君</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :120px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="ycs">
+                                    <div class="yc"><a href="javascript:;" style="float: left; text-decoration: none; margin-top: 10px; font-size: 12px; color: #2E2E2E;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;width :210px;">【国风/电音】超燃《月光》秦时明月十周年特别改编</a><a href="javascript:;" style="float: right; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 75px; font-size: 12px; margin-top: 10px; color: #939393;">嗨的国风音乐</a></div>
+                                    <div class="yc on" style="display :none ;">
+                                        <div style="float :left ; width: 92px; height: 112px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :0px -33px;">
+                                            <img src="中国原创音乐基地 5SING_files/8eef8471f9d2a1cde3fa87a0a92bb172.jpg_180x180.jpg" style="margin-left: 1px; margin-top: 2px;" />
+                                            <p style="text-align: center; color: #666666;font-size :12px;">古风</p>
+                                        </div>
+                                        <a class="xian" style="width: 160px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;  color: #2E2E2E;font-size :14px;position :relative ;left :14px;" title="【国风/电音】超燃《月光》秦时明月十周年特别改编">【国风/电音】超燃《月光》秦时明月十周年特别改编</a>
+                                        <a class="xian" style="font-size: 12px; color: #909090;font-weight :200 ;margin-left :14px;">嗨的国风音乐</a>
+                                        <a style="background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-73px 0px;width :20px;height :17px;display :inline-block  ;position :relative  ;top :-14px;left :85px;cursor :pointer ;"></a>
+                                        <p style="width: 190px; height: 60px; font-size: 12px; color: #909090;position :absolute  ;margin-left :100px;overflow :hidden ;line-height :20px;">
+                                            秦时明月主题曲《月光》乐器演奏版
+                                            作曲：胡彦斌
+                                            民乐改编：柴昀喆、贺鑫、徐一
+                                            二胡：柴叔
+                                            中阮：那爷
+                                            古筝：王克寒
+                                            古琴：醉梦引
+                                            笛箫（音频）：闫磊
+                                            笛箫（视频）：酷铁锤
+                                            电声改编：HEROAR乐团
+                                            吉他：绛舞乱丸、Litterzy、沢奇Sawaki
+                                            贝斯：Noki轩
+                                            钢琴：JazMaybe
+                                            鼓：万万
+                                            电声录制：HEROAR乐团
+                                            混音：H.K.君
+                                            特别感谢：
+                                            古琴部分改编 南一先生
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    <i style="width: 21px; height: 10px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png'); position: absolute;  background-position: -75px -20px; margin-top :-2px;margin-left :-11px;"></i>
+                </div>
+                <div id="zuozuo2">
+                    <div class="zuoshang">
+                        <span style="font-size :18px;float :left ;">歌单</span>
+                        <span style="color: #B399B3;padding-left :10px;font-size :12px;">|</span>
+                        <span style="color: #B399B3;padding-left :5px;font-size :12px;">专辑</span>
+                        <a href="javascript:;" style="float: right; width: 80px; height: 40px;  margin-top: 0px; font-size: 12px; color: #666666; text-align: right;text-decoration :none ;">更多></a>
+                    </div>
+                    <div id="gedans_wai">
+                        <div class="gedans">
+                        <img src="中国原创音乐基地 5SING_files/1cc50455ba29392455237ae9e6b4d13c.jpg_124x124.jpg" />
+                            <p class="gedan_jiesao" style="font-size: 12px; padding-left: 10px; color: #5F5F5F;"><a title="老来多健忘">老来多健忘</a></p>
+                            <p class="zhe" style="background-color :black;height :20px;position :relative  ;margin-top :-38px;width :110px;border-radius :0px 0px 10px 10px;opacity :0.5;z-index :0;">
+                                <i style="width: 18px; height: 12px; display: inline-block; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png'); background-position: -94px 0px; margin-left: 10px; margin-top: 3px; z-index: 20; "></i>
+                                <span style="color :white;font-size :12px;font-family :'Microsoft YaHei';font-weight :500;z-index :20;">583</span>
+                            </p>
+                            <div class="gedan_zhe"><a style="width: 61px; height: 56px; display: block; margin: 0 auto;  margin-top: 25px; position: absolute; margin-left: 25px; background-image: url('中国原创音乐基地 5SING_files/gd_sprite.png');background-position :-268px 0px; "></a></div>
+                        </div>
+                        <div class="gedans">
+                        <img src="中国原创音乐基地 5SING_files/c19fe941ba9e345fe05bf2745c88182a.jpg_124x124.jpg" />
+                            <p class="gedan_jiesao" style="font-size: 12px; padding-left: 10px; color: #5F5F5F;overflow :hidden ;text-overflow :ellipsis ;width :80px;white-space :nowrap ;"><a title="熟悉的日式旋律">熟悉的日式旋律</a></p>
+                            <p class="zhe" style="background-color :black;height :20px;position :relative  ;margin-top :-38px;width :110px;border-radius :0px 0px 10px 10px;opacity :0.5;z-index :0;">
+                                <i style="width: 18px; height: 12px; display: inline-block; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png'); background-position: -94px 0px; margin-left: 10px; margin-top: 3px; z-index: 20; "></i>
+                                <span style="color :white;font-size :12px;font-family :'Microsoft YaHei';font-weight :500;z-index :20;">11143</span>
+                            </p>
+                            <div class="gedan_zhe"><a style="width: 61px; height: 56px; display: block; margin: 0 auto;  margin-top: 25px; position: absolute; margin-left: 25px; background-image: url('中国原创音乐基地 5SING_files/gd_sprite.png');background-position :-268px 0px; "></a></div>
+                        </div>
+                        <div class="gedans">
+                        <img src="中国原创音乐基地 5SING_files/eada3f6a207388c171beba028678fd15.jpg_124x124.jpg" />
+                            <p class="gedan_jiesao" style="font-size: 12px; padding-left: 10px; color: #5F5F5F; overflow: hidden; text-overflow: ellipsis; width: 80px; white-space: nowrap;"><a title="柠檬味的英文歌">柠檬味的英文歌</a></p>
+                            <p class="zhe" style="background-color :black;height :20px;position :relative  ;margin-top :-38px;width :110px;border-radius :0px 0px 10px 10px;opacity :0.5;z-index :0;">
+                                <i style="width: 18px; height: 12px; display: inline-block; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png'); background-position: -94px 0px; margin-left: 10px; margin-top: 3px; z-index: 20; "></i>
+                                <span style="color :white;font-size :12px;font-family :'Microsoft YaHei';font-weight :500;z-index :20;">27110</span>
+                            </p>
+                            <div class="gedan_zhe"><a style="width: 61px; height: 56px; display: block; margin: 0 auto;  margin-top: 25px; position: absolute; margin-left: 25px; background-image: url('中国原创音乐基地 5SING_files/gd_sprite.png');background-position :-268px 0px; "></a></div>
+                        </div>
+                        <div class="gedans">
+                        <img src="中国原创音乐基地 5SING_files/7acf210f2c01ec5db945c946a72da3d5.jpg_124x124.jpg" />
+                            <p class="gedan_jiesao" style="font-size: 12px; padding-left: 10px; color: #5F5F5F; overflow: hidden; text-overflow: ellipsis; width: 80px; white-space: nowrap;"><a title="照亮灵魂的歌声">照亮灵魂的歌声</a></p>
+                            <p class="zhe" style="background-color :black;height :20px;position :relative  ;margin-top :-38px;width :110px;border-radius :0px 0px 10px 10px;opacity :0.5;z-index :0;">
+                                <i style="width: 18px; height: 12px; display: inline-block; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png'); background-position: -94px 0px; margin-left: 10px; margin-top: 3px; z-index: 20; "></i>
+                                <span style="color :white;font-size :12px;font-family :'Microsoft YaHei';font-weight :500;z-index :20;">44087</span>
+                            </p>
+                            <div class="gedan_zhe"><a style="width: 61px; height: 56px; display: block; margin: 0 auto;  margin-top: 25px; position: absolute; margin-left: 25px; background-image: url('中国原创音乐基地 5SING_files/gd_sprite.png');background-position :-268px 0px; "></a></div>
+                        </div>
+                        <div class="gedans">
+                        <img src="中国原创音乐基地 5SING_files/a55eff5f6f33dfc854bbdcad44d78c9b.jpg_124x124.jpg" />
+                            <p class="gedan_jiesao" style="font-size: 12px; padding-left: 10px; color: #5F5F5F; overflow: hidden; text-overflow: ellipsis; width: 80px; white-space: nowrap;"><a title="哼唱来自远古的声音，只为惊艳你">哼唱来自远古的声音，只为惊艳你</a></p>
+                            <p class="zhe" style="background-color :black;height :20px;position :relative  ;margin-top :-38px;width :110px;border-radius :0px 0px 10px 10px;opacity :0.5;z-index :0;">
+                                <i style="width: 18px; height: 12px; display: inline-block; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png'); background-position: -94px 0px; margin-left: 10px; margin-top: 3px; z-index: 20; "></i>
+                                <span style="color :white;font-size :12px;font-family :'Microsoft YaHei';font-weight :500;z-index :20;">142228</span>
+                            </p>
+                            <div class="gedan_zhe"><a style="width: 61px; height: 56px; display: block; margin: 0 auto;  margin-top: 25px; position: absolute; margin-left: 25px; background-image: url('中国原创音乐基地 5SING_files/gd_sprite.png');background-position :-268px 0px; "></a></div>
+                        </div>
+                        <div class="gedans">
+                        <img src="中国原创音乐基地 5SING_files/fc69450238850019bb8312101e3fdcf3.jpg_124x124.jpg" />
+                            <p class="gedan_jiesao" style="font-size: 12px; padding-left: 10px; color: #5F5F5F; overflow: hidden; text-overflow: ellipsis; width: 80px; white-space: nowrap;"><a title="日漫特典❀花之殇">日漫特典❀花之殇</a></p>
+                            <p class="zhe" style="background-color :black;height :20px;position :relative  ;margin-top :-38px;width :110px;border-radius :0px 0px 10px 10px;opacity :0.5;z-index :0;">
+                                <i style="width: 18px; height: 12px; display: inline-block; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png'); background-position: -94px 0px; margin-left: 10px; margin-top: 3px; z-index: 20; "></i>
+                                <span style="color :white;font-size :12px;font-family :'Microsoft YaHei';font-weight :500;z-index :20;">34753</span>
+                            </p>
+                            <div class="gedan_zhe"><a style="width: 61px; height: 56px; display: block; margin: 0 auto;  margin-top: 25px; position: absolute; margin-left: 25px; background-image: url('中国原创音乐基地 5SING_files/gd_sprite.png');background-position :-268px 0px; "></a></div>
+                        </div>
+                        <div class="gedans">
+                        <img src="中国原创音乐基地 5SING_files/69de3e37fe42393743bbd1e7d544c530.jpg_124x124.jpg" />
+                            <p class="gedan_jiesao" style="font-size: 12px; padding-left: 10px; color: #5F5F5F; overflow: hidden; text-overflow: ellipsis; width: 80px; white-space: nowrap;"><a title="Everything is you">Everything is you</a></p>
+                            <p class="zhe" style="background-color :black;height :20px;position :relative  ;margin-top :-38px;width :110px;border-radius :0px 0px 10px 10px;opacity :0.5;z-index :0;">
+                                <i style="width: 18px; height: 12px; display: inline-block; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png'); background-position: -94px 0px; margin-left: 10px; margin-top: 3px; z-index: 20; "></i>
+                                <span style="color :white;font-size :12px;font-family :'Microsoft YaHei';font-weight :500;z-index :20;">49733</span>
+                            </p>
+                            <div class="gedan_zhe"><a style="width: 61px; height: 56px; display: block; margin: 0 auto;  margin-top: 25px; position: absolute; margin-left: 25px; background-image: url('中国原创音乐基地 5SING_files/gd_sprite.png');background-position :-268px 0px; "></a></div>
+                        </div>
+                        <div class="gedans">
+                        <img src="中国原创音乐基地 5SING_files/ebb3c9c09c94ec3d3515cb384dae43b3.jpg_124x124.jpg" />
+                            <p class="gedan_jiesao" style="font-size: 12px; padding-left: 10px; color: #5F5F5F; overflow: hidden; text-overflow: ellipsis; width: 80px; white-space: nowrap;"><a title="华语经典老歌精选">华语经典老歌精选</a></p>
+                            <p class="zhe" style="background-color :black;height :20px;position :relative  ;margin-top :-38px;width :110px;border-radius :0px 0px 10px 10px;opacity :0.5;z-index :0;">
+                                <i style="width: 18px; height: 12px; display: inline-block; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png'); background-position: -94px 0px; margin-left: 10px; margin-top: 3px; z-index: 20; "></i>
+                                <span style="color :white;font-size :12px;font-family :'Microsoft YaHei';font-weight :500;z-index :20;">77304</span>
+                            </p>
+                            <div class="gedan_zhe"><a style="width: 61px; height: 56px; display: block; margin: 0 auto;  margin-top: 25px; position: absolute; margin-left: 25px; background-image: url('中国原创音乐基地 5SING_files/gd_sprite.png');background-position :-268px 0px; "></a></div>
+                        </div>
+                        <div class="gedans">
+                        <img src="中国原创音乐基地 5SING_files/9f0032844cc8da3d112213cc6cf7141f.jpg_124x124.jpg" />
+                            <p class="gedan_jiesao" style="font-size: 12px; padding-left: 10px; color: #5F5F5F; overflow: hidden; text-overflow: ellipsis; width: 80px; white-space: nowrap;"><a title="10月原创古风精选 25首">10月原创古风精选 25首</a></p>
+                            <p class="zhe" style="background-color :black;height :20px;position :relative  ;margin-top :-38px;width :110px;border-radius :0px 0px 10px 10px;opacity :0.5;z-index :0;">
+                                <i style="width: 18px; height: 12px; display: inline-block; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png'); background-position: -94px 0px; margin-left: 10px; margin-top: 3px; z-index: 20; "></i>
+                                <span style="color :white;font-size :12px;font-family :'Microsoft YaHei';font-weight :500;z-index :20;">369276</span>
+                            </p>
+                            <div class="gedan_zhe"><a style="width: 61px; height: 56px; display: block; margin: 0 auto;  margin-top: 25px; position: absolute; margin-left: 25px; background-image: url('中国原创音乐基地 5SING_files/gd_sprite.png');background-position :-268px 0px; "></a></div>
+                        </div>
+                        <div class="gedans">
+                        <img src="中国原创音乐基地 5SING_files/98b6d497230aa0af46575d3272242dfc.jpg_124x124.jpg" />
+                            <p class="gedan_jiesao" style="font-size: 12px; padding-left: 10px; color: #5F5F5F; overflow: hidden; text-overflow: ellipsis; width: 80px; white-space: nowrap;"><a title="因为我爱你">因为我爱你</a></p>
+                            <p class="zhe" style="background-color :black;height :20px;position :relative  ;margin-top :-38px;width :110px;border-radius :0px 0px 10px 10px;opacity :0.5;z-index :0;">
+                                <i style="width: 18px; height: 12px; display: inline-block; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png'); background-position: -94px 0px; margin-left: 10px; margin-top: 3px; z-index: 20; "></i>
+                                <span style="color :white;font-size :12px;font-family :'Microsoft YaHei';font-weight :500;z-index :20;">70736</span>
+                            </p>
+                            <div class="gedan_zhe"><a style="width: 61px; height: 56px; display: block; margin: 0 auto;  margin-top: 25px; position: absolute; margin-left: 25px; background-image: url('中国原创音乐基地 5SING_files/gd_sprite.png');background-position :-268px 0px; "></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="you2">
+
+                <img style="padding-left :20px;" src="中国原创音乐基地 5SING_files/bc370ae45cd05d5afd320ae6198161b8.jpg" />
+                <div class="zx">
+                    <p><span style="float :left ;">推荐资讯</span><span style="float: right; border: 1px solid #4CAFF4; width: 14px; height: 10px; display: inline-block; text-align: center; line-height: 10px; font-size: 10px;  "class="zxs_s">></span><span style="float: right; border: 1px solid #4CAFF4; width: 14px; height: 10px; display: inline-block; margin-right: 10px; text-align: center; line-height: 10px; font-size: 10px; "class="zxs_s"><</span></p>
+                </div>
+                <div class="zxs">
+                    <ul class="tuijian_ul">
+                        <li><a title="【推荐】乐音话舍 VOL.11 许愿一个阿拉德">【推荐】乐音话舍 VOL.11 许愿一个阿拉德</a></li>
+                        <li><a title="【专辑】银临新专《蚍蜉渡海》今日上线！">【专辑】银临新专《蚍蜉渡海》今日上线！</a></li>
+                        <li><a title="【独家】天涯明月刀同人歌曲《剑荡八荒》">【独家】天涯明月刀同人歌曲《剑荡八荒》</a></li>
+                        <li><a title="【众筹】曲调原创古风专辑《单曲循环》">【众筹】曲调原创古风专辑《单曲循环》</a></li>
+                        <li><a title="【独家】茶理理原创新歌《人偶之梦》">【独家】茶理理原创新歌《人偶之梦》</a></li>
+                    </ul>
+                    <ul class="tuijian_ul" style="display :none ;">
+                        <li><a title="【推荐】SING女团全新MV《寄明月》">【推荐】SING女团全新MV《寄明月》</a></li>
+                        <li><a title="【歌单】这些民谣，好听到单曲循环！">【歌单】这些民谣，好听到单曲循环！</a></li>
+                        <li><a title="【歌单】9月日文翻唱精选 30首">【歌单】9月日文翻唱精选 30首</a></li>
+                        <li><a title="【歌单】9月原创古风精选 25首">【歌单】9月原创古风精选 25首</a></li>
+                        <li><a title="【电台】慕喊寒的正确打开方式？">【电台】慕喊寒的正确打开方式？</a></li>
+                    </ul>
+                    <ul class="tuijian_ul" style="display :none ;">
+                        <li style="overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;"><a title="【独家】边江献唱《吴江锦时书》陆逊主题曲">【独家】边江献唱《吴江锦时书》陆逊主题曲</a></li>
+                        <li><a title="【歌单】入骨相思，知不知？">【歌单】入骨相思，知不知？</a></li>
+                        <li><a title="【推荐】梦间集全真之变印象曲《剑之道》">【推荐】梦间集全真之变印象曲《剑之道》</a></li>
+                        <li><a title="【独家】晃儿原创古风新歌《隔烟水》">【独家】晃儿原创古风新歌《隔烟水》</a></li>
+                        <li><a title="【推荐】表白神曲“Bee With U”暖心上线">【推荐】表白神曲“Bee With U”暖心上线</a></li>
+                    </ul>
+                </div>
+                <div id="sanbang">
+                    <a class="san_bangdan san_on">原创排行榜</a>
+                    <a class="san_bangdan">翻唱排行榜</a>
+                    <a class="san_bangdan">支持榜</a>
+                    <div id="san_bo">
+                        <i style="width: 12px; height: 12px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-40px 0px;display :inline-block ;margin-top :10px;margin-left :100px; "></i>
+                        <a style="font-size: 12px; top: -2px; position: relative; color: #5F5F5F;">全部播放</a>
+                        <i style="width: 12px; height: 12px; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-58px 0px;display :inline-block ;margin-top :10px;margin-left :10px; "></i>
+                        <a style="font-size: 12px; top: -2px; position: relative; color: #5F5F5F;">下一批</a>
+                    </div>
+                    <div class="bangdans">
+                        <ul>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span style="color: #F38B20;">1</span><span style="margin-left :10px;font-size :12px;top :-1px;position :relative ;">是风动 Feat. 河图</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">银临</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span style="color: #EB7000;">2</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">[原创]江南梦</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">Winky诗[班长君]</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span style="color: #F2A009;">3</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">无寄</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">慕寒</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>4</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative; ">扬州姑娘【人声本家】</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">双笙</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>5</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">【曲/唱】眉心妆</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">小麦芽甘璐</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>6</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">【魔道祖师】半途风华【纯歌版】</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">归墟原创团队</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>7</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">【山大 x 雨洛】U （一首很耐听的歌）</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">山tothe大</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>8</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">【大荒神域录】</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">西瓜JUN</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>9</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">画梦——记红楼十二钗</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">晃儿</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>10</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">蒲江  Style</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">蒲江阳光琴行</a>
+                            </li>
+                        </ul>
+                        <ul class="gedans_hide">
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span style="color: #F38B20;">1</span><span style="margin-left :10px;font-size :12px;top :-1px;position :relative ;">病名は爱だった</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">傲娇少年_Vk</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span style="color: #EB7000;">2</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">乐音话舍 VOL.11 许愿一个阿拉德</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">5sing音乐人</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span style="color: #F2A009;">3</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">小半</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">Babystop_山竹</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>4</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative; ">天造地设</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">萧忆情Alex</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>5</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">红昭愿 （小少年ver）</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">洛少爷</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>6</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">九张机</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">五音Jw</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>7</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">追光者</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">诺言Jason</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>8</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">消愁</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">_小魂_</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>9</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">【白石溪】</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">西瓜JUN</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>10</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">天地有灵-《捉妖记2》推广曲</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">伦桑.[平纱落雁]</a>
+                            </li>
+                        </ul>
+                        <ul class="gedans_hide">
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span style="color: #F38B20;">1</span><span style="margin-left :10px;font-size :12px;top :-1px;position :relative ;">追光者</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">诺言Jason</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span style="color: #EB7000;">2</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">单的刚刚好</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">音乐人韦琪</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span style="color: #F2A009;">3</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">盲眼画师</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">黄麒Eros</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>4</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative; ">陈酒江湖</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">正版曲调</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>5</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">【神舞幻想同人曲】大祀官</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">江南诚</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>6</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">病名は爱だった</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">傲娇少年_Vk</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>7</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">{致} 逝去的十一月 三曲</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">佳J.I.A</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>8</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">【神舞幻想同人曲】大祀官</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">流沙sober</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>9</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">小嫦娥 feat.叶洛洛</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">Babystop_山竹</a>
+                            </li>
+                            <li>
+                                <a style="width: 120px; display: block; float: left; font-size: 14px; text-align: left; padding-left: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span>10</span><span style="margin-left: 10px; font-size: 12px; top: -1px; position: relative;">剑魂(《射雕英雄传》电视剧插曲)</span></a>
+                                <a style="width :70px;display :block ;float :right ;font-size :12px;overflow :hidden ;text-overflow :ellipsis ;white-space :nowrap ;text-align :left ;">琥珀珀珀珀丶</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="zhongxia_zhong">
+            <div class="zuoshang" style="width :960px;">
+                <span style="font-size :18px;float :left ;">音乐现场</span>
+                <a href="javascript:;" style="float: right; width: 80px; height: 40px;  margin-top: 0px; font-size: 12px; color: #666666; text-align: right;text-decoration :none ;">更多></a>
+            </div>
+            <div id="xianchang">
+                <div class="xianchangs">
+                    <div class="xianchangs_shang">
+                        <img style="width :200px;height :134px;border-radius :10px;" src="中国原创音乐基地 5SING_files/b031ae03ba8fb5bde9fefa17b1aa1ffe.jpg_140x105.jpg" />
+                    </div>
+                    <div class="xianchangs_xia">
+                        <a class="xianchangs_bozhu" style="margin-top :10px;display :inline-block ;font-size :12px;padding-left :10px;">琥珀珀珀珀丶</a>
+                        <p style="width: 120px; height: 16px; font-size: 12px; margin-top: 10px; padding-left: 10px; color: #999999;"><span style="background-image: url('中国原创音乐基地 5SING_files/live_sprite_v1.png'); width :20px;height :15px;background-repeat :no-repeat ;background-position :0px -150px;display :inline-block ;"></span><a style="position :relative ;top :-6px;">654个观众</a></p>
+                        <p style="margin-top: 5px; font-size: 12px; padding-left: 10px; color: #999999;">男粉丝很多的胡婆婆</p>
+                    </div>
+                    <div style="position :absolute ;margin-top :-200px;width :40px; height :20px;margin-left :160px;"><img src="中国原创音乐基地 5SING_files/live-hot-1.gif" /></div>
+                    <div class="xianchangs_bofang"></div>
+                    <div class="hei"></div>
+                </div>
+                <div class="xianchangs">
+                    <div class="xianchangs_shang">
+                        <img style="width :200px;height :134px;border-radius :10px;" src="中国原创音乐基地 5SING_files/9ada608b3a9adfd3604f7d45c312b848.jpg_100x100.jpg" />
+                    </div>
+                    <div class="xianchangs_xia">
+                        <a class="xianchangs_bozhu" style="margin-top :10px;display :inline-block ;font-size :12px;padding-left :10px;">君 扬【君音云城】</a>
+                        <p style="width: 120px; height: 16px; font-size: 12px; margin-top: 10px; padding-left: 10px; color: #999999;"><span style="background-image: url('中国原创音乐基地 5SING_files/live_sprite_v1.png'); width :20px;height :15px;background-repeat :no-repeat ;background-position :0px -150px;display :inline-block ;"></span><a style="position :relative ;top :-6px;">381个观众</a></p>
+                        <p style="margin-top: 5px; font-size: 12px; padding-left: 10px; color: #999999;">这是一个棒棒哒主播</p>
+                    </div>
+                    <div style="position :absolute ;margin-top :-200px;width :40px; height :20px;margin-left :160px;"><img src="中国原创音乐基地 5SING_files/live-hot-1.gif" /></div>
+                    <div class="xianchangs_bofang"></div>
+                    <div class="hei"></div>
+                </div>
+                <div class="xianchangs">
+                    <div class="xianchangs_shang">
+                        <img style="width :200px;height :134px;border-radius :10px;" src="中国原创音乐基地 5SING_files/0db19938062483117e2368a83399dee8.jpg_140x105.jpg" />
+                    </div>
+                    <div class="xianchangs_xia">
+                        <a class="xianchangs_bozhu" style="margin-top :10px;display :inline-block ;font-size :12px;padding-left :10px;">孔德强</a>
+                        <p style="width: 120px; height: 16px; font-size: 12px; margin-top: 10px; padding-left: 10px; color: #999999;"><span style="background-image: url('中国原创音乐基地 5SING_files/live_sprite_v1.png'); width :20px;height :15px;background-repeat :no-repeat ;background-position :0px -150px;display :inline-block ;"></span><a style="position :relative ;top :-6px;">364个观众</a></p>
+                        <p style="margin-top: 5px; font-size: 12px; padding-left: 10px; color: #999999;">愿你迷路到我身旁。。。。。。</p>
+                    </div>
+                    <div style="position :absolute ;margin-top :-200px;width :40px; height :20px;margin-left :160px;"><img src="中国原创音乐基地 5SING_files/live-hot-1.gif" /></div>
+                    <div class="xianchangs_bofang"></div>
+                    <div class="hei"></div>
+                </div>
+                <div class="xianchangs">
+                    <div class="xianchangs_shang">
+                        <img style="width :200px;height :134px;border-radius :10px;" src="中国原创音乐基地 5SING_files/d3af712dec31077c2a4e5fbdd4260a0b.jpg_100x100.jpg" />
+                    </div>
+                    <div class="xianchangs_xia">
+                        <a class="xianchangs_bozhu" style="margin-top :10px;display :inline-block ;font-size :12px;padding-left :10px;">茶二娘</a>
+                        <p style="width: 120px; height: 16px; font-size: 12px; margin-top: 10px; padding-left: 10px; color: #999999;"><span style="background-image: url('中国原创音乐基地 5SING_files/live_sprite_v1.png'); width :20px;height :15px;background-repeat :no-repeat ;background-position :0px -150px;display :inline-block ;"></span><a style="position :relative ;top :-6px;">131个观众</a></p>
+                        <p style="margin-top: 5px; font-size: 12px; padding-left: 10px; color: #999999;">【韵府】策划小王几～</p>
+                    </div>
+                    <div style="position :absolute ;margin-top :-200px;width :40px; height :20px;margin-left :160px;"><img src="中国原创音乐基地 5SING_files/live-hot-1.gif" /></div>
+                    <div class="xianchangs_bofang"></div>
+                    <div class="hei"></div>
+                </div>
+            </div>
+        </div>
+        <div id="zhongxia_bottom">
+            <div class="zuoshang" style="width :960px;">
+                <span style="font-size :18px;float :left ;">热门音乐人</span>
+                <a href="javascript:;" style="float: right; width: 80px; height: 40px;  margin-top: 0px; font-size: 12px; color: #666666; text-align: right;text-decoration :none ;">更多></a>
+            </div>
+            <div id="yinyuerens">
+                <div id="yinyueren_zuo">
+                    <div style="width :190px;height :260px;margin :0 auto ;margin-top :20px;">
+                        <p style="text-align: center; height: 30px;  line-height: 30px; color: #626262;font-family :'Microsoft YaHei';"><a class="yinyueren_a">NL不分</a></p>
+                        <img style="cursor: pointer; border: 1px solid #DADADA;" src="中国原创音乐基地 5SING_files/9a35fc6528faa70d3eccdb97474d4f86.jpg_190x190.jpg" />
+                        <p style="font-size: 12px; padding-top: 10px; color: #999999;">古风歌手</p>
+                    </div>
+                </div>
+                <div id="yinyueren_you">
+                    <dl>
+                        <dd style="cursor :pointer ;"><img  src="中国原创音乐基地 5SING_files/7b9fb591a9f302e9eee3f4385a5278dd.jpg_120x120.jpg" /></dd>
+                        <dt>LauraShao</dt>
+                        <dd class="yinyueren_hide" style="width: 260px; height: 312px;position: absolute; margin-top: -144px; background-image: url('中国原创音乐基地 5SING_files/msc_sprite.png'); ">
+                            <div style="width :125px;height :80px;float :right ;color :white;margin-top :10px;">
+                                <a style="font-family:'Microsoft YaHei';font-size :12px;">LauraShao</a>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;">歌手/听众</p>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;"> The Greatest.</p>
+                            </div>
+                            <div style="width :240px;height :170px;float :left ;color :white;margin-top :55px;margin-left :10px;">
+                                <p style="font-family:'Microsoft YaHei';font-size :14px;">热门歌曲</p>
+                                <ul class="yinyueren_ul" style="width :240px;height :140px;margin-top :10px;">
+                                    <li><a>Cheap Thrill</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>Stay</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>Too Good At Goodbye</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>小马快跑</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>Symphony</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                </ul>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd><img src="中国原创音乐基地 5SING_files/24a645ef9fc533726ee0a3a72f308244.jpg_120x120.jpg" /></dd>
+                        <dt>hanser05号机</dt>
+                        <dd class="yinyueren_hide" style="width: 260px; height: 312px;position: absolute; margin-top: -144px; background-image: url('中国原创音乐基地 5SING_files/msc_sprite.png'); ">
+                            <div style="width :125px;height :80px;float :right ;color :white;margin-top :10px;">
+                                <a style="font-family:'Microsoft YaHei';font-size :12px;">hanser05号机</a>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;">歌手/后期/词作者</p>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;">看看 听听 多想 少说 照着能让自己开心的方式向前就对了</p>
+                            </div>
+                            <div style="width :240px;height :170px;float :left ;color :white;margin-top :55px;margin-left :10px;">
+                                <p style="font-family:'Microsoft YaHei';font-size :14px;">热门歌曲</p>
+                                <ul class="yinyueren_ul" style="width :240px;height :140px;margin-top :10px;">
+                                    <li><a>恋爱裁判 中文翻唱 ( YUKIri+Hanser</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>病名为爱（YUKIri＋Hanser</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>威风堂堂 2016完整版</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>妄想税 Guitar Arrange</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>恋爱循环</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                </ul>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd><img src="中国原创音乐基地 5SING_files/0898a757654ad1b0a6fdfeb5019c594a.jpg_120x120.jpg" /></dd>
+                        <dt>小荣童鞋QAQ</dt>
+                        <dd class="yinyueren_hide" style="width: 260px; height: 312px;position: absolute; margin-top: -144px; background-image: url('中国原创音乐基地 5SING_files/msc_sprite.png'); ">
+                            <div style="width :125px;height :80px;float :right ;color :white;margin-top :10px;">
+                                <a style="font-family:'Microsoft YaHei';font-size :12px;">小荣童鞋QAQ</a>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;">歌手</p>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;">粉丝群【荣王府】: 2群311190518 1群329089049  敲门砖：荣...</p>
+                            </div>
+                            <div style="width :240px;height :170px;float :left ;color :white;margin-top :55px;margin-left :10px;">
+                                <p style="font-family:'Microsoft YaHei';font-size :14px;">热门歌曲</p>
+                                <ul class="yinyueren_ul" style="width :240px;height :140px;margin-top :10px;">
+                                    <li><a>【剑三】蛊梦（剧情版）</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>【無烬】孤城烟火-沈夜角色曲</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>【剑三】乱世.无衣&NL不分</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>【剑三】追风</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>【朝颜】--《一梦芳华》</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                </ul>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd><img src="中国原创音乐基地 5SING_files/3598c104281efe10af73456730507156.jpg_120x120.jpg" /></dd>
+                        <dt>Caroline_Sue</dt>
+                        <dd class="yinyueren_hide" style="width: 260px; height: 312px;position: absolute; margin-top: -144px; background-image: url('中国原创音乐基地 5SING_files/msc_sprite.png'); ">
+                            <div style="width :125px;height :80px;float :right ;color :white;margin-top :10px;">
+                                <a style="font-family:'Microsoft YaHei';font-size :12px;">Caroline_Sue</a>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;">歌手/词作者/曲作者</p>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;">微博/唱吧/网易云:Caroline苏艾┋音乐制作,代唱等业务Q:2835604...</p>
+                            </div>
+                            <div style="width :240px;height :170px;float :left ;color :white;margin-top :55px;margin-left :10px;">
+                                <p style="font-family:'Microsoft YaHei';font-size :14px;">热门歌曲</p>
+                                <ul class="yinyueren_ul" style="width :240px;height :140px;margin-top :10px;">
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">Hold Tight to Me（刚好遇见你 英文版）</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>【古风作曲+演唱】菩提树下</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>When（当）</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>Innocence</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>C.S│Right There【To:AMY】</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                </ul>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd><img src="中国原创音乐基地 5SING_files/33a9b29132852e8954c8556b36429ee8.jpg_120x120.jpg" /></dd>
+                        <dt>腾云驾雾琉璃仙</dt>
+                        <dd class="yinyueren_hide" style="width: 260px; height: 312px;position: absolute; margin-top: -144px; background-image: url('中国原创音乐基地 5SING_files/msc_sprite.png'); ">
+                            <div style="width :125px;height :80px;float :right ;color :white;margin-top :10px;">
+                                <a style="font-family:'Microsoft YaHei';font-size :12px;">腾云驾雾琉璃仙</a>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;">歌手/词作者/曲作者</p>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;">古典、摇滚——最爱！来快意江湖或者放声大笑吧！
+    QQ群：2110311...</p>
+                            </div>
+                            <div style="width :240px;height :170px;float :left ;color :white;margin-top :55px;margin-left :10px;">
+                                <p style="font-family:'Microsoft YaHei';font-size :14px;">热门歌曲</p>
+                                <ul class="yinyueren_ul" style="width :240px;height :140px;margin-top :10px;">
+                                    <li><a>【墨宝】白鸟</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>两生契</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>凯凯王</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>飞雪与剑</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a>琴师</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                </ul>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd><img src="中国原创音乐基地 5SING_files/1e191e37a3c32bb54889dbde7bdf0178.jpg_120x120.jpg" /></dd>
+                        <dt>madao大火神</dt>
+                        <dd class="yinyueren_hide" style="width: 260px; height: 312px;position: absolute; margin-top: -144px; background-image: url('中国原创音乐基地 5SING_files/msc_sprite.png'); ">
+                            <div style="width :125px;height :80px;float :right ;color :white;margin-top :10px;">
+                                <a style="font-family:'Microsoft YaHei';font-size :12px;">madao大火神</a>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;">喜欢日翻以及中文说唱</p>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;"></p>
+                            </div>
+                            <div style="width :240px;height :170px;float :left ;color :white;margin-top :55px;margin-left :10px;">
+                                <p style="font-family:'Microsoft YaHei';font-size :14px;">热门歌曲</p>
+                                <ul class="yinyueren_ul" style="width :240px;height :140px;margin-top :10px;">
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">君じゃなきゃダメみたい(月刊少女野崎君OP)</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">あとひとつwith.KaBooooom</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">【 火影忍者】GO！</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">一笑悬命</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">炉心融解*When the cry</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                </ul>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd><img src="中国原创音乐基地 5SING_files/eb9b3c0ae8305425675127c1eafaea18.jpg_120x120.jpg" /></dd>
+                        <dt>Winky诗[班长君]</dt>
+                        <dd class="yinyueren_hide" style="width: 260px; height: 312px;position: absolute; margin-top: -144px; background-image: url('中国原创音乐基地 5SING_files/msc_sprite.png'); ">
+                            <div style="width :125px;height :80px;float :right ;color :white;margin-top :10px;">
+                                <a style="font-family:'Microsoft YaHei';font-size :12px;">Winky诗[班长君]</a>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;">制作人/编曲/曲作者/歌手</p>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;">新浪微博：
+@Winky诗
+http://weibo.com/winkyje...</p>
+                            </div>
+                            <div style="width :240px;height :170px;float :left ;color :white;margin-top :55px;margin-left :10px;">
+                                <p style="font-family:'Microsoft YaHei';font-size :14px;">热门歌曲</p>
+                                <ul class="yinyueren_ul" style="width :240px;height :140px;margin-top :10px;">
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">[原创]山鬼——Winky2013【EP】</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">[原创]清欢怅</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">[原创]《宣》——剑网三同人等身抱枕宣传曲</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">离骚</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">[演唱]大荒往事——天下3官方音乐专辑“踏歌山海”</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                </ul>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd><img src="中国原创音乐基地 5SING_files/d1f039c113060ca381210a4fa80eb562.jpg_120x120.jpg" /></dd>
+                        <dt>玮子Vagus</dt>
+                        <dd class="yinyueren_hide" style="width: 260px; height: 312px;position: absolute; margin-top: -144px; background-image: url('中国原创音乐基地 5SING_files/msc_sprite.png'); ">
+                            <div style="width :125px;height :80px;float :right ;color :white;margin-top :10px;">
+                                <a style="font-family:'Microsoft YaHei';font-size :12px;">玮子Vagus</a>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;">iammeoncemore</p>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;"></p>
+                            </div>
+                            <div style="width :240px;height :170px;float :left ;color :white;margin-top :55px;margin-left :10px;">
+                                <p style="font-family:'Microsoft YaHei';font-size :14px;">热门歌曲</p>
+                                <ul class="yinyueren_ul" style="width :240px;height :140px;margin-top :10px;">
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">CLEAN</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">i will be</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">If The Moon Fell Down（with. Lloyd）</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">Falling Slowly</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">Sweeter Than Fiction（with.小爱）</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                </ul>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd><img src="中国原创音乐基地 5SING_files/95e2c6a54df643883d137d413ee99c25.jpg_120x120.jpg" /></dd>
+                        <dt>pheym</dt>
+                        <dd class="yinyueren_hide" style="z-index :20; width: 260px; height: 312px;position: absolute; margin-top: -144px; background-image: url('中国原创音乐基地 5SING_files/msc_sprite.png'); ">
+                            <div style="width :125px;height :80px;float :right ;color :white;margin-top :10px;">
+                                <a style="font-family:'Microsoft YaHei';font-size :12px;">pheym</a>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;">★唱着玩玩/非本业/一人乐/感谢聆听★
+★洁癖，特别忌讳被抄梗，请勿无注明模仿...</p>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;"></p>
+                            </div>
+                            <div style="width :240px;height :170px;float :left ;color :white;margin-top :55px;margin-left :10px;">
+                                <p style="font-family:'Microsoft YaHei';font-size :14px;">热门歌曲</p>
+                                <ul class="yinyueren_ul" style="width :240px;height :140px;margin-top :10px;">
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">【The POEM·序章】神の名前に堕ちる者  120616</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">【正式】雨の庭  131102~131212</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">【正式】自由を謳う風 130822~140419</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">【正式】E-neshtear,Liz-na 120824</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">【正式】Harvest 111220</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                </ul>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd><img src="中国原创音乐基地 5SING_files/76ddc834a3c5a45be5a11a57410f34ca.jpg_120x120.jpg" /></dd>
+                        <dt>Judechiu</dt>
+                        <dd class="yinyueren_hide" style="width: 260px; height: 312px;position: absolute; margin-top: -144px; background-image: url('中国原创音乐基地 5SING_files/msc_sprite.png');z-index :20; ">
+                            <div style="width :125px;height :80px;float :right ;color :white;margin-top :10px;">
+                                <a style="font-family:'Microsoft YaHei';font-size :12px;">Judechiu</a>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;">歌手/听众/曲作者</p>
+                                <p style="font-family:'Microsoft YaHei';font-size :12px;margin-top :5px;">过气的男歌手</p>
+                            </div>
+                            <div style="width :240px;height :170px;float :left ;color :white;margin-top :55px;margin-left :10px;">
+                                <p style="font-family:'Microsoft YaHei';font-size :14px;">热门歌曲</p>
+                                <ul class="yinyueren_ul" style="width :240px;height :140px;margin-top :10px;">
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">I ve got the world on a string( feat.众男神 )</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">喜剧之王</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">Jingle bells（FT.刘暖佳三姐妹）</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">大反派</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                    <li><a style="width :180px;display :inline-block ;overflow :hidden ;white-space :nowrap ;">中国姑娘</a><a style="width: 18px; height: 20px; display: inline-block; float: right; background-image: url('中国原创音乐基地 5SING_files/rec_sprite_v1.png');background-position :-94px 0px;margin-right :14px; margin-top :5px;cursor :pointer ;"></a></li>
+                                </ul>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div id="xia">
+        <div id="xia_zhong">
+            <div id="yi">
+                <p style="width :200px;height :40px;">
+                    <a style="display: inline-block; width: 67px; height: 40px; background-image: url('中国原创音乐基地 5SING_files/bom_logo.png');background-position :-358px 0px;"></a>
+                    <span style=" top: -20px; position: relative; color: #5F5F5F;">合作伙伴</span>
+                </p>
+                <a class="hezuo" style="width :90px;height :40px;  display:inline-block;background-image:url('中国原创音乐基地 5SING_files/bom_logo.png');"></a>
+                <a class="hezuo" style="width: 90px; height: 40px;  display: inline-block; background-image: url('中国原创音乐基地 5SING_files/bom_logo.png'); background-position: -90px 0px;"></a>
+                <a class="hezuo" style="width: 90px; height: 40px;  display: inline-block; background-image: url('中国原创音乐基地 5SING_files/bom_logo.png'); background-position: -180px 0px; "></a>
+                <a class="hezuo" style="width: 90px; height: 40px;  display: inline-block; background-image: url('中国原创音乐基地 5SING_files/bom_logo.png'); background-position: -270px 0px;"></a>
+            </div>
+            <div id="er">
+                <p style="width :200px;height :40px;">
+                    <span style="color: #926666; ">实用话题</span>
+                </p>
+                <ul>
+                    <li><a title="网站违规广告细则说明">1、网站违规广告细则说明</a></li>
+                    <li><a title="申请网站歌单推荐">2、申请网站歌单推荐</a></li>
+                    <li><a title="5sing客户端下载">3、5sing客户端下载</a></li>
+                    <li><a title="申请网站推荐歌曲">4、申请网站推荐歌曲</a></li>
+                    <li><a title="5sing用户服务协议">5、5sing用户服务协议</a></li>
+                </ul>
+            </div>
+            <div id="san">
+                <p style="width :200px;height :40px;">
+                    <span style="color: #926666; ">5sing手机端</span>
+                </p>
+                <a style="width: 90px; height: 22px;  display: block;font-size:12px;color:#939393;">5sing安卓端下载</a>
+                <a style="width: 90px; height: 22px;  display: block;font-size:12px;color:#939393;">5singIOS端下载</a>
+                <div style="position :absolute ;margin-top :-70px;margin-left :100px;z-index :0;">
+                    <a class="shoujiduans" style="width: 90px; height: 20px; display: block; border: 1px solid #CBCBCB;background-color :white;font-size :12px;"><i style="width: 24px; height: 20px; display: inline-block; background-image: url('中国原创音乐基地 5SING_files/foot_sprite.png');background-position :0px -4px; "></i><span style="position: relative; top: -6px; left: 8px; color: #8E8E8E;">加关注</span></a>
+                    <a class="shoujiduans" style="width: 90px; height: 20px; display: block; border: 1px solid #CBCBCB;background-color :white;font-size :12px;margin-top :10px;"><i style="width: 24px; height: 20px; display: inline-block; background-image: url('中国原创音乐基地 5SING_files/foot_sprite.png');background-position :0px -50px; "></i><span style="position: relative; top: -6px; left: 8px; color: #8E8E8E;">加微信</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="bottom">
+        <div id="bottom_zhong">
+            <ul>
+                <li>5sing用户服务协议</li>
+                <li>版权指引</li>
+                <li style="width:60px;margin-right:25px;">授权协议</li>
+                <li style="width:60px;margin-right:25px;">隐私政策</li>
+                <li style="width:60px;margin-right:25px;">关于我们</li>
+                <li style="width:60px;margin-right:25px;">商务合作</li>
+                <li style="width:60px;margin-right:25px;">诚聘英才</li>
+                <li style="width:60px;margin-right:25px;">联系我们</li>
+                <li style="width:60px;margin-right:25px;">帮助中心</li>
+            </ul>
+            <p class="bottom_xia">
+                <a>粤ICP备09017694号-2</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                信息网络传播视听节目许可证：1910564号　
+                增值电信业务经营许可证：粤B2-20060339号　
+                营业性演出许可证：穗天演440106120029　
+                <img src="中国原创音乐基地 5SING_files/wen_icon.png" />
+            </p>
+            <p class="bottom_xia">
+                Copyright © 2004-2017 KuGou.All Rights Reserved　
+                违法和不良信息举报：www.12377.cn 举报电话：12377　
+                粤公网安备 44010602000141号　&nbsp;&nbsp;&nbsp;&nbsp;
+                <a>12318 全国文化市场举报网站</a>
+            </p>
+        </div>
+        <div id="jiaweixin">
+        </div>
+        <div id="guding">
+            <div id="erwei"></div>
+            <div id="fankui"></div>
+            <div id="dingbu"></div>
+        </div>
+        <div id="erwei_ma"></div>
+    </div>
+</body>
+</html>

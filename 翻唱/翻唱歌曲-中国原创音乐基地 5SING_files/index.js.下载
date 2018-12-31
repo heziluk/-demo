@@ -1,0 +1,734 @@
+/* 扩展indexOf方法 */
+if (!Array.indexOf) {
+    Array.prototype.indexOf = function(obj) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i] == obj) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+
+(function($) {
+    /* 幻灯片 */
+    $.fn.ZenSlide = function(options){
+        return this.each(function() {
+            var defaults = {
+                box:$(this),
+                itembox:'ul',
+                item:'li',
+                timer:5000,
+                page:true,
+                btn:true,
+                auto:true,
+                clone:true,
+                colorChange:true,
+                speed:500
+            }
+            var opt = $.extend({},defaults,options);
+            var oItem     = opt.box.find(opt.item),
+                countitem = oItem.length,
+                oItembox  = opt.box.find(opt.itembox),
+                num       = 0,
+                movelen,
+                oItemlist,
+                oItemlistLength = countitem*2,
+                listToPage = [],
+                s;
+
+            var methods = {
+                init:function(){
+                    if(opt.clone){
+                        oItem.clone().appendTo(oItembox);
+                        oItemlist = opt.box.find(opt.item);
+                    }else{
+                        oItemlist = oItem;
+                    }
+                    /*oItem.clone().appendTo(oItembox);
+                    oItemlist = opt.box.find(opt.item);*/
+                    var pagenum = 0;
+                    for (var i = 0; i < oItemlistLength; i++) {
+                        pagenum = (pagenum>=countitem)?0:pagenum;
+                        listToPage[i] = pagenum;
+                        pagenum++;
+                    }
+                    pagenum = null;
+
+                    movelen = oItem.outerWidth();
+                    oItembox.width(movelen * oItemlistLength);
+
+                    (opt.page)?this.setPageNum():'';
+
+                    if (countitem > 1) {
+                        (opt.btn == true)?this.setBtn():'';
+                        if(!opt.auto){return;}
+                        opt.box.hover(function() {
+                            methods.stopInterval();
+                        }, function() {
+                            methods.resetInterval();
+                        });
+                        methods.resetInterval();
+                    }
+                    (opt.colorChange)?this.changeWraperColor():'';
+                },
+                setPageNum:function(){
+                    var numCode = '<div class="banner_ctrl_wrap">';
+                    for (var i = 1; i <= countitem; i++) {
+                        if (i == 1) {
+                            numCode += ('<span class="curr">' + i + '</span>');
+                        } else {
+                            numCode += ('<span>' + i + '</span>');
+                        }
+                    }
+                    numCode += '</div>';
+                    opt.box.append(numCode);
+                    opt.box.find('.banner_ctrl_wrap').find('span').mouseenter(function() {
+                        if(num>=countitem){
+                            num = $(this).index() + countitem-1;
+                        }else{
+                            num = $(this).index() - 1;
+                        }
+                        methods.slide(false);
+                    });
+                },
+                currPage:function(){
+                    opt.box.find('.banner_ctrl_wrap').find('span:eq(' + listToPage[num] + ')').addClass('curr').siblings('span').removeClass('curr');
+                },
+                setBtn:function(){
+                    var btnCode = '<span class="wsl_banner_next"><i></i></span><span class="wsl_banner_prev"><i></i></span>';
+                    opt.box.append(btnCode);
+                    var nextBtn = $('.wsl_banner_next');
+                    var prevBtn = $('.wsl_banner_prev');
+                    opt.box.hover(function() {
+                        nextBtn.show();
+                        prevBtn.show();
+
+                    }, function() {
+                        nextBtn.hide();
+                        prevBtn.hide();
+                    });
+
+                    nextBtn
+                        .hover(function() {
+                            $(this).addClass('on');
+                        }, function() {
+                            $(this).removeClass('on');
+                        })
+                        .click(function(){
+                            methods.slide(false);
+                        });
+                    prevBtn
+                        .hover(function() {
+                            $(this).addClass('on');
+                        }, function() {
+                            $(this).removeClass('on');
+                        })
+                        .click(function(){
+                            methods.slide(true);
+                        });
+                },
+                slide:function(prev){
+                    if(prev){
+                        if(num > 0){
+                            num--;
+                        }else{
+                            num = countitem;
+                            oItembox.css('margin-left',-(num * movelen) + 'px');
+                            num--;
+                        }
+                    }else{
+                        if(num < (oItemlistLength - 1)){
+                            num++;
+                        }else{
+                            num = countitem - 1;
+                            oItembox.css('margin-left',-(num * movelen) + 'px');
+                            num++;
+                        }
+                    }
+                    oItembox.stop().animate({
+                        'margin-left': -(num * movelen) + 'px'
+                    },opt.speed);
+
+                    (opt.page)? methods.currPage() : '';
+
+                    (opt.colorChange)?this.changeWraperColor():'';
+                },
+                changeWraperColor:function(){
+                    var color = oItemlist.eq(num).attr('data-color');
+                    $('.ws_banner_wrap').css('background', color);
+                },
+                stopInterval: function() {
+                    clearInterval(s);
+                },
+                resetInterval: function() {
+                    s = setInterval(function(){methods.slide(false);},opt.timer);
+                }
+            }
+            methods.init();
+        });
+    }
+
+    $.fn.dealSlide = function(options){
+        return this.each(function() {
+            var defaults = {
+                'box':$(this),
+                'itembox':'ul',
+                'item':'li',
+                'currClass':'curr',
+                'auto':true,
+                'page':true,
+                'timer':6000,
+                'autoTimer':null
+            }
+            var opt = $.extend({},defaults,options);
+
+            var $itembox = opt.box.find(opt.itembox),
+                $item = $itembox.find(opt.item),
+                _maxNum = $item.length-1,
+                _num = 0,
+                _dir = 'next',
+                _isAnimating = false;
+
+            var methods = {
+                init:function(){
+                    if(_maxNum==0){return;}
+                    if(opt.page){
+                        methods.setPage();
+                    }
+                    if(!methods.isCss3Support()){
+                        $item.hide().css('opacity',1).first().show();
+                    }
+                    if(opt.auto){
+                        methods.autoPlay();
+                        opt.box.hover(function() {
+                            methods.stopAuto();
+                        }, function() {
+                            methods.autoPlay();
+                        });
+                    }
+                },
+                isCss3Support:function(){
+                    return (window.applicationCache)?true:false;
+                },
+                setPage:function(){
+                    var pageTemp = '<div class="deal_ctrl_wrap">';
+                    for (var i = 1; i <= _maxNum+1; i++) {
+                        if (i == 1) {
+                            pageTemp += ('<span class="curr">' + i + '</span>');
+                        } else {
+                            pageTemp += ('<span>' + i + '</span>');
+                        }
+                    }
+                    pageTemp += '</div>';
+                    opt.box.append(pageTemp);
+                    opt.box.find('.deal_ctrl_wrap').find('span').mouseenter(function() {
+                        if(_isAnimating){return;}
+                        var _val = $(this).index(),_oNum = _num;
+                        _dir = (_val<_oNum)?'prev':'next';
+                        _num = _val;
+                        methods.slide(_oNum,_num,_dir,true,_oNum);
+                    });
+                },
+                currentPage:function(){
+                    opt.box.find('.deal_ctrl_wrap span:eq('+_num+')').addClass('curr').siblings('span').removeClass('curr');
+                },
+                slide:function(current,next,dir,pageEvent,oNum){
+                    if(current==next||_isAnimating){return;}
+                    var _onClass = '',_oNum = oNum || _num;
+
+                    if(!pageEvent && dir=='next'){
+                        _num = (_num>=_maxNum)?0:++_num;
+                    }else if(!pageEvent && dir=='prev'){
+                        _num = (_num<=0)?_maxNum:--_num;
+                    }
+
+                    if(methods.isCss3Support()){
+                        _onClass = (dir=='next')?'navInNext':'navInPrev';
+
+                        $item.removeClass(_onClass);
+                        _onClass += ' ' + opt.currClass;
+
+                        $item.eq(next).addClass(_onClass);
+                        _isAnimating = true;
+
+                        setTimeout(function(){
+                            _onClass = _onClass.split(' ')[0];
+                            $item.eq(current).removeClass(opt.currClass);
+                            $item.eq(next).removeClass(_onClass);
+                            _isAnimating = false;
+                        },500);
+                    }else{
+                        // 不支持css3动画时使用jq动画代替
+                        $item.eq(current).fadeOut();
+                        $item.eq(next).fadeIn();
+                    }
+
+                    methods.currentPage();
+                },
+                autoPlay:function(){
+                    opt.autoTimer = setInterval(function(){
+                        var _next = (_num>=_maxNum)?0:_num+1;
+                        methods.slide(_num,_next,'next');
+                    },opt.timer);
+                },
+                stopAuto:function(){
+                    clearInterval(opt.autoTimer);
+                }
+            }
+            methods.init();
+        });
+    }
+
+    // 返回顶部
+    $.fn.goTop = function(options) {
+        return this.each(function() {
+            var $obj = $(this);
+            var defaults = {
+                min: 300,
+                fadeSpeed: 200,
+                scrollSpeed: 200
+            }
+            var settings = $.extend({}, defaults, options);
+            methods = {
+                init: function() {
+                    if($(window).scrollTop() && $(window).scrollTop() >= settings.min){
+                        $obj.show();
+                    }else{
+                        $obj.hide();
+                    }
+                    methods.event();
+                },
+                event: function() {
+                    $(window).scroll(function() {
+                        if ($(window).scrollTop() >= settings.min) {
+                            $obj.fadeIn(settings.fadeSpeed);
+                        } else {
+                            $obj.fadeOut(settings.fadeSpeed);
+                        }
+                    });
+                    $obj.on('click', function(e) {
+                        e.preventDefault();
+                        $('html,body').animate({
+                            scrollTop: 0
+                        }, settings.scrollSpeed);
+                    });
+                }
+            }
+            methods.init();
+        });
+    }
+})(jQuery);
+
+//$('#banner').ZenSlide();
+
+$().ready(function() {
+    $('.f_pub').dealSlide();
+
+    // 页头hover
+    $('.top_nav li').has('ul').hover(function() {
+        $(this).find('ul').show();
+    }, function() {
+        if($(this).hasClass('head_box_ct')){return;}
+        $(this).find('ul').hide();
+    });
+
+    // 原创推荐
+    $('.rec_yc .ct').delegate('.rec_yc .ct .item', 'mouseenter' ,function() {
+        $(this).siblings().removeClass('on');
+        $(this).addClass('on');
+    });
+    // 翻唱推荐
+    $('.rec_fc .ct').delegate('.rec_fc .ct .item', 'mouseenter' ,function() {
+        $(this).siblings().removeClass('on');
+        $(this).addClass('on');
+    });
+
+
+    // 更换推荐类型
+    $('.rec_type .types a').click(function(){
+        var i = $(this).index('.types a');
+        $(this).addClass('curr').siblings('a').removeClass('curr');
+        //当前类型
+        var style = $(this).attr('data-style');
+        $('.rec_type').attr('data-style', $(this).attr('data-style'));
+
+        $.getJSON(globals.urlPrefix.service + "song/webrecommendnew?l=10&p=1&s="+style+"&jsoncallback=?", function(data){
+
+            var html = '';
+            var songIdString = '';
+            $.each(data.yc, function(i,item){
+                if (0 == i) {
+                    html += '<div class="item on">';
+                } else {
+                    html += '<div class="item">';
+                }
+                html += '<div class="normal">';
+                html += '<a href="http://5sing.kugou.com/yc/'+item.songId+'.html" onclick="_czc.push([\'_trackEvent\',\'首页\', \'分类推荐播放\',\'原创\']);"  class="s_name" target="_blank">'+item.songName+'</a>';
+                html += '<a href="http://5sing.kugou.com/'+item.singerId+'" class="singer" target="_blank">'+item.singerName+'</a>';
+                html += '</div>';
+                html += '<div class="hover">';
+                html += '<div class="hover_l">';
+                html += '<img src="'+item.singerImage+'" alt="">';
+                html += '<p>'+item.songStyle+'</p>';
+                html += '</div>';
+                html += '<div class="hover_r">';
+                html += '<p>';
+                html += '<a href="http://5sing.kugou.com/yc/'+item.songId+'.html" onclick="_czc.push([\'_trackEvent\',\'首页\', \'分类推荐跳转\',\'原创\']);" class="s_name" target="_blank" title="'+item.songName+'">'+item.songName+'</a>';
+                html += '<a href="javascript:void(0);" onclick="_czc.push([\'_trackEvent\',\'首页\', \'分类推荐播放\',\'原创\']);" songinfo="yc$'+item.songId+'" class="playBtn PlayerWidget_play"></a>';
+                html += '</p>';
+                html += '<p><a href="http://5sing.kugou.com/'+item.singerId+'" class="singer" target="_blank">'+item.singerName+'</a></p>';
+                html += '<p class="info">'+item.content+'</p></div></div></div>';
+
+                songIdString += 'yc$' + item.songId + '$';
+
+            });
+            $('.rec_yc .ct').empty().html(html);
+            $('.rec_yc .control .PlayerWidget_play').attr('songinfo', songIdString);
+
+            html = '';
+            songIdString = '';
+            $.each(data.fc, function(i,item){
+                if (0 == i) {
+                    html += '<div class="item on">';
+                } else {
+                    html += '<div class="item">';
+                }
+
+                html += '<div class="normal">';
+                html += '<a href="http://5sing.kugou.com/yc/'+item.songId+'.html" class="s_name" target="_blank">'+item.songName+'</a>';
+                html += '<a href="http://5sing.kugou.com/'+item.singerId+'" class="singer" target="_blank">'+item.singerName+'</a>';
+                html += '</div>';
+                html += '<div class="hover">';
+                html += '<div class="hover_l">';
+                html += '<img src="'+item.singerImage+'" alt="">';
+                html += '<p>'+item.songStyle+'</p>';
+                html += '</div>';
+                html += '<div class="hover_r">';
+                html += '<p>';
+                html += '<a href="http://5sing.kugou.com/fc/'+item.songId+'.html" onclick="_czc.push([\'_trackEvent\',\'首页\', \'分类推荐跳转\',\'翻唱\']);" class="s_name" target="_blank" title="'+item.songName+'">'+item.songName+'</a>';
+                html += '<a href="javascript:void(0);" onclick="_czc.push([\'_trackEvent\',\'首页\', \'分类推荐播放\',\'翻唱\']);" songinfo="fc$'+item.songId+'" class="playBtn PlayerWidget_play"></a>';
+                html += '</p>';
+                html += '<p><a href="http://5sing.kugou.com/'+item.singerId+'" class="singer" target="_blank">'+item.singerName+'</a></p>';
+                html += '<p class="info">'+item.content+'</p></div></div></div>';
+
+                songIdString += 'fc$' + item.songId + '$';
+            });
+
+            $('.rec_fc .ct').empty().html(html);
+            $('.rec_fc .control .PlayerWidget_play').attr('songinfo', songIdString);
+            // ajax 获取数据后再执行下面动画
+            $('.rec_type .animation2').addClass('fadeInTop');
+            setTimeout(function(){
+                $('.rec_type .animation2').removeClass('fadeInTop');
+            }, 600);
+        });
+
+
+    });
+
+    // 推荐类型下一批
+    var rec_type_page = 2;
+    $('.rec_type').on('click','.change',function(){
+
+        var obj = null;
+        if($(this).parents('.rec_yc').length>0){
+            obj = $('.rec_type .rec_yc');
+            var type = 1;
+            var typeAlisa = 'yc';
+        }else{
+            obj = $('.rec_type .rec_fc');
+            var type = 2;
+            var typeAlisa = 'fc';
+        }
+
+        var style = $('.rec_type').attr('data-style');
+        $.getJSON(globals.urlPrefix.service + "song/webrecommendnew?l=10&p="+rec_type_page+"&t="+type+"&s="+style+"&jsoncallback=?", function(data){
+            var html = '';
+            var songIdString = '';
+            ++rec_type_page;
+            $.each(data, function(i,item){
+                if (0 == i) {
+                    html += '<div class="item on">';
+                } else {
+                    html += '<div class="item">';
+                }
+
+                html += '<div class="normal">';
+                if (typeAlisa == 'yc') {
+                    html += '<a href="http://5sing.kugou.com/'+typeAlisa+'/'+item.songId+'.html" onclick="_czc.push([\'_trackEvent\',\'首页\', \'分类推荐播放\',\'原创\']);" class="s_name" target="_blank">'+item.songName+'</a>';
+                } else {
+                    html += '<a href="http://5sing.kugou.com/'+typeAlisa+'/'+item.songId+'.html" onclick="_czc.push([\'_trackEvent\',\'首页\', \'分类推荐播放\',\'翻唱\']);" class="s_name" target="_blank">'+item.songName+'</a>';
+                }
+                html += '<a href="http://5sing.kugou.com/'+item.singerId+'" class="singer" target="_blank">'+item.singerName+'</a>';
+                html += '</div>';
+                html += '<div class="hover">';
+                html += '<div class="hover_l">';
+                html += '<img src="'+item.singerImage+'">';
+                html += '<p>'+item.songStyle+'</p>';
+                html += '</div>';
+                html += '<div class="hover_r">';
+                html += '<p>';
+                if (typeAlisa == 'yc') {
+                    html += '<a href="http://5sing.kugou.com/'+typeAlisa+'/'+item.songId+'.html" onclick="_czc.push([\'_trackEvent\',\'首页\', \'分类推荐跳转\',\'原创\']);" class="s_name" target="_blank" title="'+item.songName+'">'+item.songName+'</a>';
+                } else {
+                    html += '<a href="http://5sing.kugou.com/'+typeAlisa+'/'+item.songId+'.html" onclick="_czc.push([\'_trackEvent\',\'首页\', \'分类推荐跳转\',\'翻唱\']);" class="s_name" target="_blank" title="'+item.songName+'">'+item.songName+'</a>';
+                }
+                if (typeAlisa == 'yc') {
+                    html += '<a href="javascript:void(0);" onclick="_czc.push([\'_trackEvent\',\'首页\', \'分类推荐播放\',\'原创\']);" songinfo="'+typeAlisa+'$'+item.songId+'" class="playBtn PlayerWidget_play"></a>';
+                } else {
+                    html += '<a href="javascript:void(0);" onclick="_czc.push([\'_trackEvent\',\'首页\', \'分类推荐播放\',\'翻唱\']);" songinfo="'+typeAlisa+'$'+item.songId+'" class="playBtn PlayerWidget_play"></a>';
+                }
+                html += '</p>';
+                html += '<p><a href="http://5sing.kugou.com/'+item.singerId+'" class="singer" target="_blank">'+item.singerName+'</a></p>';
+                html += '<p class="info">'+item.content+'</p></div></div></div>';
+
+                songIdString += typeAlisa + '$' + item.songId + '$';
+            });
+
+            $('.rec_'+typeAlisa+' .ct').empty().html(html);
+            $('.rec_'+typeAlisa+' .control .PlayerWidget_play').attr('songinfo', songIdString);
+            if (rec_type_page == 6) {
+                rec_type_page = 1;
+            }
+        });
+
+
+
+    });
+
+    // 歌单tap
+    $('.rec_gd .tag').click(function() {
+        $(this).addClass('curr').siblings('.tag').removeClass('curr');
+        var i = $(this).index('.tag');
+        $('.rec_gd .ct:eq('+i+')').addClass('fadeInRight').show().siblings('.ct').removeClass('fadeInRight').hide();
+        if(i===1){
+            $('.rec_gd .more').hide();
+        }else{
+            $('.rec_gd .more').show();
+        }
+    });
+
+    // 歌单
+    $('.rec_gd .item').hover(function() {
+        $(this).find('.bar').hide().end().find('.cover').show();
+    }, function() {
+        $(this).find('.cover').hide().end().find('.bar').show();
+    });
+
+    // live推荐
+    var liveWrap = $('#live_wrap');
+    liveWrap.find('.item_c').hover(function() {
+        $(this).find('.hover').show();
+    }, function() {
+        $(this).find('.hover').hide();
+    });
+    liveWrap.find('.cover').click(function(){
+        location.href = $(this).next('a').attr('href');
+    });
+
+    // 热门音乐人
+    $('.msc_list .item').hover(function() {
+        $(this).find('.hover').show();
+    }, function() {
+        $(this).find('.hover').hide();
+    });
+
+    // 活动
+    $('.ws_event_wrap .item').hover(function() {
+        $(this).find('.hover').show();
+    }, function() {
+        $(this).find('.hover').hide();
+    });
+
+    // 排行榜tap
+    var rankCurrentPage = 1;
+    //当前为第一页
+    var nowIsFirst = 1;
+    $('.rank .hd a').click(function(){
+        var i = $(this).index();
+        $('.rank').attr('data-type', i + 1);
+        $(this).addClass('curr').siblings('a').removeClass('curr');
+        var object = $('.rank .bd .tapbox').eq(i);
+        $('.rank .bd .PlayerWidget_play').attr('songinfo', object.attr('data-info'));
+        if (0 == i) {
+            $('.rank .bd a').eq(1).attr('onclick', "_czc.push([\'_trackEvent\',\'首页\', \'原创排行榜\',\'全部播放\'])");
+        } else if (1 == i) {
+            $('.rank .bd a').eq(1).attr('onclick', "_czc.push([\'_trackEvent\',\'首页\', \'翻唱排行榜\',\'全部播放\'])");
+        }
+
+        if (nowIsFirst) {
+            object.addClass('fadeInTop curr').show().siblings('.tapbox').hide().removeClass('fadeInTop curr');
+            setTimeout(function(){
+                object.removeClass('fadeInTop');
+            }, 1200);
+            return false;
+        } else {
+            object.addClass('fadeInTop curr').siblings('.tapbox').hide().removeClass('fadeInTop curr');
+            setTimeout(function(){
+                object.removeClass('fadeInTop');
+            }, 1200);
+            nowIsFirst = 0;
+        }
+
+        var type = $('.rank').attr('data-type');
+        var rankClass = '';
+        rankCurrentPage = 0;
+        $.getJSON(globals.urlPrefix.service + "song/rank?p=0&k="+type+"&jsoncallback=?", function(data){
+            if (data) {
+                var songIdString = '';
+                var html = '';
+                $.each(data, function(i,item){
+                    if (rankCurrentPage == 0) {
+                        switch(i) {
+                            case 0:
+                                rankClass = 'fir';
+                                break;
+                            case 1:
+                                rankClass = 'sec';
+                                break;
+                            case 2:
+                                rankClass = 'thi';
+                                break;
+                            default :
+                                rankClass = '';
+                                break;
+                        }
+                    }
+                    html += '<li class="'+rankClass+'">';
+                    if (item.SongKind == 'yc') {
+                        html += '<a href="http://5sing.kugou.com/'+item.SongKind+'/'+item.songId+'.html" onclick="_czc.push([\'_trackEvent\',\'首页\', \'原创排行榜\',\'歌曲详情页\']);" class="song" target="_blank" title="'+item.SongName+'"><span>'+ (i+1) +'</span>'+item.SongName+'</a>';
+                    } else {
+                        html += '<a href="http://5sing.kugou.com/'+item.SongKind+'/'+item.songId+'.html" onclick="_czc.push([\'_trackEvent\',\'首页\', \'翻唱排行榜\',\'歌曲详情页\']);" class="song" target="_blank" title="'+item.SongName+'"><span>'+ (i+1) +'</span>'+item.SongName+'</a>';
+                    }
+                    html += '<a href="http://5sing.kugou.com/'+item.uid+'" class="singer" target="_blank">'+item.NickName+'</a>';
+                    html += '</li>';
+                    songIdString += item.SongKind +'$' + item.songId + '$';
+                });
+
+                $('.rank .bd a').eq(1).attr('songinfo', songIdString);
+                $('.rank ul.curr').attr('data-info', songIdString);
+
+                $('.rank ul.curr').empty().html(html).addClass('fadeInTop').show();
+
+                setTimeout(function(){
+                    $('.rank ul.curr').removeClass('fadeInTop');
+                },1200);
+                ++rankCurrentPage;
+            }
+        });
+        return false;
+    });
+
+    //第一次下一批
+    var nextFist = 0;
+
+    $('.rank .change').click(function(){
+        nowIsFirst = 0;
+        var object = $(this);
+        var type = $('.rank').attr('data-type');
+        var rankClass = '';
+        nextFist = 1;
+        $.getJSON(globals.urlPrefix.service + "song/rank?p="+(rankCurrentPage)+"&k="+type+"&jsoncallback=?", function(data){
+            if (data) {
+                var songIdString = '',preNum = rankCurrentPage * 10 + 1;
+
+                var html = '';
+                $.each(data, function(i,item){
+                    if (rankCurrentPage == 0) {
+                        switch(i) {
+                            case 0:
+                                rankClass = 'fir';
+                                break;
+                            case 1:
+                                rankClass = 'sec';
+                                break;
+                            case 2:
+                                rankClass = 'thi';
+                                break;
+                            default :
+                                rankClass = '';
+                                break;
+                        }
+                    }
+                    html += '<li class="'+rankClass+'">';
+                    if (item.SongKind == 'yc') {
+                        html += '<a href="http://5sing.kugou.com/'+item.SongKind+'/'+item.songId+'.html" onclick="_czc.push([\'_trackEvent\',\'首页\', \'原创排行榜\',\'歌曲详情页\']);" class="song" target="_blank" title="'+item.SongName+'"><span>'+(i+preNum)+'</span>'+item.SongName+'</a>';
+                    } else {
+                        html += '<a href="http://5sing.kugou.com/'+item.SongKind+'/'+item.songId+'.html" onclick="_czc.push([\'_trackEvent\',\'首页\', \'翻唱排行榜\',\'歌曲详情页\']);" class="song" target="_blank" title="'+item.SongName+'"><span>'+(i+preNum)+'</span>'+item.SongName+'</a>';
+                    }
+                    html += '<a href="http://5sing.kugou.com/'+item.uid+'" class="singer" target="_blank">'+item.NickName+'</a>';
+                    html += '</li>';
+                    songIdString += item.SongKind +'$' + item.songId + '$';
+                });
+
+                object.next('a').attr('songinfo', songIdString);
+                $('.rank ul.curr').attr('data-info', songIdString);
+                $('.rank ul.curr').empty().html(html).addClass('fadeInTop').show();
+                setTimeout(function(){
+                    $('.rank ul.curr').removeClass('fadeInTop');
+                },1200);
+                ++rankCurrentPage;
+                if (nextFist) {
+                    if (rankCurrentPage == 5) {
+                        rankCurrentPage = 0;
+                    }
+                } else {
+                    if (rankCurrentPage == 4) {
+                        rankCurrentPage = 0;
+                    }
+                }
+            }
+
+        });
+    });
+
+    // 页脚二维码
+    $('.ws_global_footer .wx').hover(function() {
+        $('.ws_global_footer .qrcode').show();
+    }, function() {
+        $('.ws_global_footer .qrcode').hide();
+    });
+
+
+    (function changeNewsList(){
+        var $obj = $('.news .bd ul'),
+            maxNum = $obj.length-1,
+            num = 0;
+
+        $('.news .btns a').click(function(){
+            var type = ($(this).hasClass('prev'))?'prev':'next';
+            if(type=='next'){
+                if(num<maxNum){
+                    num++;
+                }else if(num==maxNum){
+                    num = 0;
+                }
+            }
+            if(type=='prev'){
+                if(num>0){
+                    num--;
+                }else if(num==0){
+                    num = maxNum;
+                }
+            }
+            $obj.removeClass('curr flipInY').hide();
+            $obj.eq(num).addClass('curr flipInY').show();
+        });
+    })();
+
+    $('.ws_sidebar .btn_back').goTop();
+    $('.ws_sidebar .btn_qr').hover(function() {
+        $('.ws_sidebar .qr_box').show();
+    }, function() {
+        $('.ws_sidebar .qr_box').hide();
+    });
+
+    ;(function setChangeVerSion(){
+        //var _left = ($(window).width()-1000)/2-63 +'px',
+         //   _temp = '<div class="change_ver"><a onclick="_czc.push([\'_trackEvent\',\'首页\', \'版本切换\',\'旧版\'])" href="/index_old.html"><span>点我回<br/>旧版首页</span></a></div>';
+
+        //$('body').append(_temp);
+        //$('.change_ver').css({'left':_left});
+    })();
+});

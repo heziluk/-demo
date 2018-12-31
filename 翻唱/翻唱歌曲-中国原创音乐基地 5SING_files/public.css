@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+/* footer */
+.ws_global_footer{width:100%;min-width:980px;}
+.ws_footer_con{height:140px;background:#efefef;}
+.ws_footer_info{background: #333;}
+.ws_global_footer .content{width:980px;margin:0 auto;padding:15px 0 10px;background:transparent;}
+.ws_global_footer .content a{color:#999;}
+.ws_global_footer .content a:hover{color:#4caff4;}
+.ws_global_footer h6{padding:0;height:40px;line-height:40px;font-size:16px;font-weight:400;color:#666;margin:0 0 10px 0;}
+
+.ws_global_footer .concur{width:400px;float:left;background:url(../images/foot_line.png) 399px 15px no-repeat;min-height:115px;}
+.ws_global_footer .concur a{float:left;width:90px;height:40px;background:url(../images/bom_logo.png) no-repeat;margin-right:6px;text-decoration:none;}
+.ws_global_footer .concur a.lg_01{background-position:0 0;}
+.ws_global_footer .concur a.lg_02{background-position:-90px 0;}
+.ws_global_footer .concur a.lg_03{background-position:-180px 0;}
+.ws_global_footer .concur a.lg_04{background-position:-270px 0;}
+.ws_global_footer .concur a.lg_01:hover{background-position:0 -40px;}
+.ws_global_footer .concur a.lg_02:hover{background-position:-90px -40px;}
+.ws_global_footer .concur a.lg_03:hover{background-position:-180px -40px;}
+.ws_global_footer .concur a.lg_04:hover{background-position:-270px -40px;}
+.ws_global_footer .concur h6 a{display:block;width:63px;height:100%;text-indent:-9999px;background:url(../images/bom_logo.png) -360px 7px no-repeat;}
+.ws_global_footer .concur h6 a:hover{background-position:-360px -34px;}
+
+.ws_global_footer .topic{padding-left:20px;width:366px;float:left;background:url(../images/foot_line.png) 385px 15px no-repeat;min-height:115px;}
+.ws_global_footer .topic li{float:left;width:165px;height:22px;line-height:22px;padding-right:10px;}
+
+.ws_global_footer .download{padding-left:20px;width:194px;float:left;min-height:115px;}
+.ws_global_footer .download .down_l{width:100px;float:left;line-height:22px;}
+.ws_global_footer .download .down_r{width:94px;float:left;position:relative;}
+.ws_global_footer .download .down_r a{display:block;width:88px;height:22px;line-height:22px;border:1px solid #d7d7d7;background:#fff;text-decoration:none;}
+.ws_global_footer .download .down_r a:hover{border-color:#c0c0c0;color:#666;}
+.ws_global_footer .download .down_r .wb{margin:-15px 0 10px;}
+.ws_global_footer .download .down_r a i{float:left;width:24px;height:24px;background-repeat:no-repeat;margin:0 5px 0;background-image:url(../images/foot_sprite.png);background-repeat:no-repeat;}
+.ws_global_footer .download .down_r .wb i{background-position:0 0;}
+.ws_global_footer .download .down_r .wb:hover i{background-position:0 -24px;}
+.ws_global_footer .download .down_r .wx i{background-position:0 -48px;}
+.ws_global_footer .download .down_r .wx:hover i{background-position:0 -72px;}
+.ws_global_footer .download .down_r .qrcode{width:200px;height:220px;background:url(../images/foot_sprite.png) -24px 0 no-repeat;position:absolute;bottom:0;right:-190px;display:none;}
+
+.ws_footer_info .content{padding:15px 0 25px;}
+.ws_footer_info p{height:22px;line-height:22px;text-align:center;color:#999;text-align:left;}
+.ws_footer_info .f_nav{margin-bottom:10px;color:#fff;}
+.ws_footer_info .f_nav a{color:#fff;margin:0 28px 0 0;}
+.ws_footer_info .f_nav a:hover{color:#6c0;text-decoration:none;}

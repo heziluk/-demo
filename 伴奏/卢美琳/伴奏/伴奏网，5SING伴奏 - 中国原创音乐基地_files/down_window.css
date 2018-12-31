@@ -1,0 +1,21 @@
+﻿.opendown{ width:360px; font-family:"微软雅黑"; font-size:14px; color:#999; padding:25px 30px; background:#FFF;box-shadow:#4C4C53 0px 0px 10px; text-align:left;}
+.opendown .close{top:10px; right:20px;font-weight:400; color:#333;font-size:16px;text-align: center;background-image: none;}
+.opendown .title{ font-size:16px; height:32px; overflow:hidden; line-height:2; margin-bottom:10px;}
+.opendown .title span{ color:#333}
+.opendown .content{ line-height:26px; margin-bottom:30px; margin-top:0; width: auto; border:none; padding:0;}
+.opendown .content span{font-weight: 700;color: #FFB76F; margin:0 5px;}
+.opendown .content a,.opendown .bottom a{ color:#4aa5ff; margin:0px 5px; text-decoration:underline}
+.opendown .bottom a{margin:0 5px 0 0;}
+.opendown .content .orangeTag{color:#ff9000;}
+.opendown .bottom{line-height:26px; }
+.opendown .bottom .btn{ width:88px; height:26px; background:#ff8502; display:inline-block; text-decoration:none; color:#fff; text-align:center; border: none;}
+.opendown .bottom .btn:hover{color:#fff; background:#ff9d02; border: none;}
+/*.opendown .bottom .btn:hover{color:#fff; background:#e4e4e4; border:1px solid #fff}*/
+.opendown .bottom .btn.Success{ background:#64cd00; color:#FFF; border:0}
+.opendown .bottom .btn.fail{ background:#E4E4E4; color:#FFF; border:0}
+.opendown .Result{ margin:25px 0 40px 0; height:60px;}
+.opendown .Result i{ width:60px; height:60px; background:url(../images/vi_bg_new.png); margin-right:10px; float:left}
+.opendown .Result i.fail{background:url(../images/vi_bg_new.png) no-repeat -60px 0px;}
+.opendown .Result span{ color:#333}
+.p_rel{position: relative;}
+.p_abs{position: absolute;}

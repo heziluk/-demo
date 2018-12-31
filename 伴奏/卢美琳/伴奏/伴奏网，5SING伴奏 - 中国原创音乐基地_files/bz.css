@@ -1,0 +1,102 @@
+@charset "utf-8";
+/* CSS Document */
+.box1{ padding:13px 0 12px; height:25px; overflow:hidden; zoom:1; line-height:25px; margin:100px auto 0;width:1000px;}
+.laba{ float:right; overflow:hidden; zoom:1; padding-top:5px;}
+.laba_fabu a{ display:block; width:15px; height:15px; text-indent:-9999px; overflow:hidden; background:url(http://static.5sing.kugou.com/images/h_bg.png) no-repeat 0 -167px;}
+.laba_fabu{ margin-left:10px;}
+#scrollBoxo{ height:15px; overflow:hidden; line-height:15px;}
+#scrollBoxo li{ text-align:right;}
+
+.a_sub_nav,.a_sub_nav ul li{ float:left;}
+.a_sub_nav ul{ overflow:hidden; height:25px; float:left;}
+.a_sub_nav ul li a{ display:block; padding:0 15px; float:left; height:25px; margin-right:2px; text-align:center; line-height:25px;}
+.a_sub_nav ul li a:hover{ background:#f8f8f8; text-decoration:none;}
+.a_sub_nav ul li.a_sub_nav_clo a:link,.a_sub_nav ul li.a_sub_nav_clo a:visited{ color:#fff; background:#f29900;}
+.a_sub_nav ul li.a_sub_nav_clo a:hover{ color:#fff; background:#f29900;}
+.content{ position:relative; background:#fff; width:980px; padding:10px;margin:0 auto 30px;}
+.yc_footer{ text-align:center; padding:20px 0 30px; line-height:1.8;border-top: 1px solid #ededed;}
+
+.ct_list{ font-size:12px; margin-top:15px;}
+.ct_list tr:hover td{ background:#f8f8f8;}
+.ct_list tr th{ background:#f8f8f8; padding:9px 0 8px; font-weight:400; color:#666;}
+.ct_list tr td{ padding:14px 0 12px; background:#fff; text-align:center; border-bottom:1px dashed #ededed;}
+.aleft{ text-align:left; text-indent:12px;}
+.aleft em{ margin-right:15px; color:#999;}
+.c999:link,.c999:visited{ color:#999;}
+.c999:hover{ color:#e00;}
+.t_bnt{ display:block; width:14px; height:14px; line-height:0; font-size:0; background:url(http://static.5sing.kugou.com/images/yc_bg.png) no-repeat; text-indent:-9999px; overflow:hidden; margin:0 auto;}
+.shit{ background-position:0 -95px;}
+.xiaz{ background-position:0 -125px;}
+.c2 .shit{ background-position:0 -110px;}
+.c2 .xiaz{ background-position:0 -140px;}
+.bz_more{ text-align:right; padding:15px 0 5px 0; font-size:14px;}
+.seh_bz{ background:#ffae00; border:0; color:#fff; width:80px; height:35px; line-height:35px; float:left; text-align:center; padding:0; cursor:pointer;}
+.seh_bz:hover{ background:#ff9c00}
+
+.bz_left{ float:left; width:660px;}
+.bz_right{ float:left; width:300px; margin-left:20px; _display:inline;}
+.bz_intro{ background:#f8f8f8; overflow:hidden; zoom:1; padding:15px 15px 25px;}
+.bz_view h1,.b1 h1{ font-family:'Microsoft Yahei','΢���ź�','����'; font-weight:400; font-size:20px; color:#000;}
+.bz_view p{ color:#999; margin-bottom:15px;}
+.bz_seh{ height:35px; overflow:hidden;}
+.bz_seh .seh_v{ border:1px solid #ccc; border-right:none; padding:3px 4px; width:390px;height: 27px;}
+.bz_seh .seh_v:focus{ border:1px solid #6DB823; border-right:none;}
+.bz_seh .seh_bz{ width:106px; background:#73c325;}
+.bz_seh .seh_bz:hover{ background:#6DB823;}
+.seh_hot{ float:left; margin-top:15px;}
+.seh_hot a{ margin-left:15px;}
+
+.bz_hot{ margin-top:20px;}
+.bz_hot h2 a{ font-size:14px;}
+.cgreen:link,.cgreen:visited{ color:#6DB823;}
+
+.bz_songer{ overflow:hidden; zoom:1; width:660px; padding:0 0 30px;}
+.bz_songer ul{ width:675px;}
+.bz_songer ul li{ float:left; width:120px; margin:15px 15px 0 0; _display:inline; height:120px;}
+.bz_songer ul li img{ display:block;}
+.bz_songer ul li span{ background:#73c325; _background:#f8f8f8; background:rgba(70, 140, 0, .8); color:#fff; _color:#333; height:25px; line-height:25px; margin-top:-25px; _margin-top:0px; position:relative; z-index:2; text-align:center; display:block;display:none\9;_display:block;transition:all 0.4s ease-in-out;-webkit-transition:all 0.4s ease-in-out;-moz-transition:all 0.4s ease-in-out;opacity: 0; cursor:pointer;}
+.bz_songer ul li a:hover{ text-decoration:none;}
+.bz_songer ul li a:hover span{ display:block\9;opacity:1;}
+
+.bz_new h3{ font-size:14px; border-bottom:1px solid #ececec; text-indent:8px; padding-bottom:5px;}
+.bz_new ul{ padding:8px 0 0;}
+.bz_new ul li{ height:26px; line-height:26px; overflow:hidden; padding:0 8px;}
+.bz_new ul li:hover{ background:#f8f8f8;}
+.bz_new ul li .bz_new_a{ float:left;}
+.bz_new ul li .c999{ float:right;}
+.rt_bzad1_300,.bz_new{ margin-bottom:35px;}
+
+
+/**/
+.b1{ padding:15px 15px 25px; background:#f8f8f8;}
+.b1 p{ color:#999; margin-top:5px;}
+.b2 h2{ font-size:14px; color:#6DB823;margin:35px 0 15px;}
+
+.bz_box,.bz_singer{ width:1000px; overflow:hidden; margin:20px 0 0;}
+.bz_song_list{ width:1040px; margin-bottom:30px; overflow:hidden; zoom:1;}
+.bz_song_list ul{ width:300px; float:left; margin-right:40px; _display:inline;}
+.bz_song_list ul li{ height:40px; line-height:40px; border-bottom:1px dashed #ededed; padding:0 5px;}
+.bz_song_list ul li:hover,.bz_singer_list li:hover{ background:#f8f8f8;}
+.bz_song_list ul li em,.bz_singer_list li em{ float:left; width:25px; color:#999; font-size:10px;}
+.bz_box_tit{ font-weight:100; font-size:30px; font-style:italic; color:#e1e1e1;}
+.bz_box_more a{ display:block; height:50px; width:980px; line-height:50px; font-family:'Microsoft Yahei','΢���ź�','����'; font-weight:400; font-size:20px; background:#f8f8f8; text-align:center;}
+.bz_box_more a:hover{ background:#f4f4f4;}
+.bz_singer_list{ overflow:hidden; zoom:1;margin-bottom:30px;}
+.bz_singer_list li{ float:left; width:157px; height:40px; line-height:40px; overflow:hidden; white-space:normal; padding-left:5px;}
+
+/* 所有歌手 */
+.zimu_list{ overflow:hidden; zoom:1; padding:25px 0 7px;}
+.zimu_list em{ float:left; color:#999; padding:3px 5px 0 0;}
+.zimu_list ul{ overflow:hidden; zoom:1; float:left;}
+.zimu_list ul li{ float:left; margin:0 1px;}
+.zimu_list ul li a{float:left; display:block; padding:3px 8px 2px;}
+.zimu_list ul li a:link,.zimu_list ul li a:visited{ color:#6DB823; text-decoration:underline;}
+.zimu_list ul li a.selected{background:#6DB823; color:#fff; text-decoration:none;}
+.zimu_list ul li a:hover{ background:#fff; text-decoration:none; color:#e00;}
+.zimu_list ul li.zimu_un a:link,.zimu_list ul li.zimu_un a:visited{ color:#999; text-decoration:none;}
+.zimu_list ul li.zimu_un a:hover{ color:#999; background:none;}
+.bz_singer_all .bz_singer_list li{ padding-left:10px; width:153px;}
+.bz_singer_all{ width:auto;}
+.bz_singer_all .bz_box_tit{ background:url(http://static.5sing.kugou.com/images/line.png) 0 center repeat-x;}
+.bz_singer_all .bz_box_tit em{ background:#fff; font-style:italic; padding:0 10px 0 3px;}
+115.231.37.4

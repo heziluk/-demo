@@ -1,0 +1,24 @@
+seajs.config({
+    charset: 'utf-8',
+    base: 'http://static.5sing.kugou.com/release/js/modules/v2.9.00',
+    alias:{
+        "jquery": "libs/jquery1.7",
+        "fancybox": "libs/fancybox/jquery.fancybox",
+        "plugins": "jquery.plugin",
+        "globals": "globals",
+        "comments": "comments",
+        "comments_old": "comments_old",
+        "player": "player/core",
+        "singleplayer": "player/single",
+        "multiplayer": "player/multi",
+        "playerwidget": "player/widget/ui",
+        "cache": "cache" ,
+        "nicescroll": "nicescroll",
+        "template": "libs/arttemplate/template"
+    },
+    paths: {
+    }
+});
+//map: [
+//    [ /^(.*\.(?:css|js))(.*)$/i, '$1?20140619004' ]
+//]

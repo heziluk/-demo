@@ -1,0 +1,600 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="jquery-1.11.0.min.js"></script>
+    <script type="text/javascript">
+        function set(id) {
+            if (id == 1) {
+                $(document.getElementById("biaodan")).animate({
+                    "opacity": "1"
+                }, 400);
+                $(document.getElementById("biaodan")).show();
+                $(document.getElementById("biaodan1")).animate({
+                    "opacity": "0"
+                }, 400);
+                $(document.getElementById("biaodan1")).hide();
+                //document.getElementById("one1").className = "current";
+                //document.getElementById("one2").className = "";
+            }
+            if (id == 2) {
+                $(document.getElementById("biaodan")).animate({
+                    "opacity": "0"
+                }, 400);
+                $(document.getElementById("biaodan")).hide();
+                $(document.getElementById("biaodan1")).animate({
+                    "opacity": "1"
+                }, 400);
+                $(document.getElementById("biaodan1")).show();
+                //document.getElementById("one2").className = "current";
+                //document.getElementById("one1").className = "";
+            }
+        }
+    </script>
+    <style type="text/css">
+        * {
+            margin: 0px auto;
+            padding: 0px;
+             
+        }
+
+        #shoujihao {
+            width: 100%;
+            height: 625px;
+            border: 0px solid black;
+            background-image: url("reg_bg.jpg" );
+            background-size: 100% 100%;
+        }
+
+        #beijing {
+            width: 350px;
+            height: 230px;
+            border: 0px solid black;
+            position: relative;
+            left: 380px;
+            top: -100px;
+        }
+
+        #tiaozuan1 li {
+            width: 100px;
+            height: 30px;
+            border: 0px solid red;
+            float: left;
+            list-style-type: none;
+            line-height: 30px;
+            text-align: center;
+        }
+
+            #tiaozuan1 li a {
+                text-decoration: none;
+                color: black;
+            }
+
+            #tiaozuan1>li:hover {
+                
+                cursor:pointer;
+            }
+
+        #yiyou ul li {
+            margin-top: 7px;
+            list-style-type: none;
+            font-size: 12px;
+        }
+
+            #yiyou ul li a {
+                text-decoration: none;
+                color: #50B13D;
+            }
+
+        #tiaozuan {
+            width: 320px;
+            height: 30px;
+            border: 1px solid #beb2b2;
+        }
+
+        #biaodan input {
+            width: 290px;
+            height: 30px;
+            color: #808080;
+            position: relative;
+            left: 10px;
+            margin-top: 10px;
+        }
+
+        #biaodan1 input {
+            width: 290px;
+            height: 30px;
+            color: #808080;
+            position: relative;
+            left: 10px;
+            margin-top: 10px;
+        }
+
+        #biaodan {
+            width: 320px;
+            height: 290px;
+            border: 1px solid #beb2b2;
+        }
+
+        #biaodan1 {
+            width: 320px;
+            height: 290px;
+            border: 1px solid #beb2b2;
+            display: none;
+        }
+
+        #yanzheng input {
+            width: 80px;
+            height: 25px;
+        }
+
+        #yanzheng img {
+            width: 60px;
+            height: 20px;
+            position: relative;
+            left: 10px;
+            top: 5px;
+        }
+
+        #yanzheng a {
+            margin-left: 10px;
+            text-decoration: none;
+        }
+
+        #yanzheng1 input {
+            width: 80px;
+            height: 25px;
+        }
+
+        #yanzheng1 img {
+            width: 60px;
+            height: 20px;
+            position: relative;
+            left: 10px;
+            top: 5px;
+        }
+
+        #yanzheng1 a {
+            margin-left: 10px;
+            text-decoration: none;
+        }
+
+        #tongyi li {
+            font-size: 11px;
+            list-style: none;
+            margin-left: 35px;
+            margin-top: 15px;
+        }
+
+        #tongyi a {
+            text-decoration: none;
+        }
+
+        #fuxuan {
+            float: left;
+            margin-top: -3px;
+        }
+
+            #fuxuan input {
+                width: 15px;
+            }
+
+        #tongyi1 li {
+            font-size: 11px;
+            list-style: none;
+            margin-left: 35px;
+            margin-top: 15px;
+        }
+
+        #tongyi1 a {
+            text-decoration: none;
+        }
+
+        #fuxuan1 {
+            float: left;
+            margin-top: -3px;
+        }
+
+            #fuxuan1 input {
+                width: 15px;
+            }
+
+        #anniu input {
+            background-color: #50b13d;
+            border: 0px;
+        }
+
+        #anniu {
+            position: relative;
+            right: 15px;
+        }
+
+        #anniu1 input {
+            background-color: #50b13d;
+            border: 0px;
+        }
+
+        #anniu1 {
+            position: relative;
+            right: 15px;
+        }
+
+        #wei ul li {
+            list-style: none;
+            float: left;
+            font-size: 13px;
+        }
+
+        #wei img {
+            width: 30px;
+            height: 30px;
+            margin-top: 10px;
+            margin-right: 30px;
+        }
+
+
+
+        #wei1 ul li {
+            list-style: none;
+            float: left;
+            font-size: 13px;
+        }
+
+        #wei1 img {
+            width: 30px;
+            height: 30px;
+            margin-top: 10px;
+            margin-right: 30px;
+        }
+
+        .a {
+            margin-top: 20px;
+            margin-left: 10px;
+            width: 100px;
+            color: #808080;
+        }
+
+        .b {
+            width: 35px;
+        }
+
+
+
+        #duanxin input {
+            width: 145px;
+        }
+
+        .shouji {
+            float: left;
+        }
+
+        .duanxin {
+            background-color: #50b13d;
+            border: 0px;
+        }
+
+        #sing {
+            width: 100%;
+            height: 500px;
+            border: 0px solid red;
+            position: relative;
+            top: 35px;
+            background-color: white;
+        }
+
+        #singtu {
+            position: relative;
+            top: 211px;
+            left: 155px;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            var attt = ["下载 (3).png", "下载.png", "下载 (1).png", "下载 (2).png"];
+            var i = 0;
+            $("#huanyi").click(function () {
+                if (i==attt.length) {
+                    i = 0;
+                }
+                $(this).prev("img").attr("src",attt[i]+"");
+                i++;
+            })
+
+
+
+            $("#tiaozuan1>li").click(function myfunction() {
+                $(this).css({
+                    "border-top": "2px solid #6CE26C",
+                    "font-weight": "bolder"
+                }).siblings().css({
+                    "border-top": "0px solid black",
+                    "font-weight": "300"
+                });
+            })
+
+
+
+
+
+            $(".mima").focus(function () {
+                $(this).attr("type", "password");//改变文本框属性
+                $(this).val("");
+                $(this).css({
+                    "border": "1px solid #BEB2B2"
+                });
+            });
+            $(".mima").blur(function () {
+                if ($(this).val().length == 8) {
+
+                }
+                else {
+                    $(this).css({
+                        "border": "2px solid red"
+                    });
+                    $(this).attr("type", "text")
+                    $(this).val("格式不对,请重新输入！");
+                }
+            })
+            $(".mima2").focus(function () {
+                $(this).attr("type", "password");//改变文本框属性
+                $(this).val("");
+                $(this).css({
+                    "border": "1px solid #BEB2B2"
+                });
+            });
+            $(".mima2").blur(function () {
+                var txt = $(this).val();
+                var txt1 = $(".mima").val();
+                if (txt== txt1) {
+
+                }
+                else {
+                    $(this).css({
+                        "border": "2px solid red"
+                    });
+                    $(this).attr("type", "text")
+                    $(this).val("格式不对,请重新输入！");
+                }
+            })
+            $(".mima1").focus(function () {
+                $(this).attr("type", "password");//改变文本框属性
+                $(this).val("");
+                $(this).css({
+                    "border": "1px solid #BEB2B2"
+                });
+            });
+            $(".mima1").blur(function () {
+                if ($(this).val().length == 8) {
+
+                }
+                else {
+                    $(this).css({
+                        "border": "2px solid red"
+                    });
+                    $(this).attr("type", "text")
+                    $(this).val("格式不对,请重新输入！");
+                }
+            })
+            $(".mima3").focus(function () {
+                $(this).attr("type", "password");//改变文本框属性
+                $(this).val("");
+                $(this).css({
+                    "border": "1px solid #BEB2B2"
+                });
+            });
+            $(".mima3").blur(function () {
+                var txt2 = $(this).val();
+                var txt3 = $(".mima1").val();
+                if (txt2 == txt3) {
+
+                }
+                else {
+                    $(this).css({
+                        "border": "2px solid red"
+                    });
+                    $(this).attr("type", "text")
+                    $(this).val("格式不对,请重新输入！");
+                }
+            })
+            $(".yanzhengma").focus(function () {
+                //$(this).attr("type", "text");
+                $(this).val("");
+                $(this).css({
+                    "border": "1px solid #BEB2B2"
+                });
+            })
+            $(".yanzhengma").blur(function () {
+                if ($(this).val().length == 6) {
+
+                }
+                else {
+                    $(this).css({
+                        "border": "2px solid red"
+                    });
+                    $(this).attr("type", "text")
+                    $(this).val("格式不对,请重新输入！");
+                }
+            })
+            $(".youyanzheng").focus(function () {
+                //$(this).attr("type", "text");
+                $(this).val("");
+                $(this).css({
+                    "border": "1px solid #BEB2B2"
+                });
+            })
+            $(".youyanzheng").blur(function () {
+                if ($(this).val().length == 6) {
+
+                }
+                else {
+                    $(this).css({
+                        "border": "2px solid red"
+                    });
+                    $(this).attr("type", "text")
+                    $(this).val("格式不对,请重新输入！");
+                }
+            })
+            $(".youxiang").focus(function () {
+                //$(this).attr("type", "text");
+                $(this).val("");
+                $(this).css({
+                    "border": "1px solid #BEB2B2"
+                });
+            })
+            $(".youxiang").blur(function () {
+                var email = $(this).val();
+                var emailReg = /^\w+@\w+.[a-zA-Z]{2,3}(.[a-zA-Z]{2,3})?$/;
+                if (!emailReg.test(email)) {
+                    $(this).css({
+                        "border": "2px solid red"
+                    });
+                    $(this).attr("type", "text")
+                    $(this).val("格式不对,请重新输入！");
+                }
+            })
+            $(".shouji").focus(function () {
+                //获取焦点
+
+                $(this).val("");//获取属性
+                $(this).css({//修改样式
+                    "border": "1px solid #BEB2B2"
+                });
+            });
+        })
+        //$(function () {
+        //    $(".yanzhengtu").toggle(
+        //        function () {s
+        //            $(this).attr({ "src": "444.jpg" })
+        //        },
+        //    function () {
+        //        $(this).attr({ "src": "banlv.jpg" })
+        //    },
+        //    function () {
+        //        $(this).attr({ "src": "good2.jpg" })
+        //    });
+
+        //    });
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            var phoneReg = /^(13|15|18)\d{9}$/;
+
+            $(".shouji").blur(function () {//失去焦点
+                if (phoneReg.test($(".shouji").val())) {
+
+                }
+                else {
+                    $(this).css({
+                        "border": "2px solid red",
+                    });
+                    $(this).val("格式不对,请重新输入！");
+                }
+            })
+        })
+
+    </script>
+</head>
+<body>
+    <div id="shoujihao">
+        <div id="sing">
+
+            <img id="singtu" src="reg_lt.png" />
+            <div id="beijing">
+                <div id="tiaozuan">
+                    <ul id="tiaozuan1">
+                        <li class="current" id="one1" onclick="set(1)" style="border-top :2px solid #6CE26C;font-weight :bold ;">手机号注册</li>
+                        <li id="one2" onclick="set(2)">邮箱注册</li>
+                    </ul>
+                    <div id="yiyou">
+                        <ul>
+                            <li>已有账号？<a href="#">立即登录</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="biaodan">
+
+                    <div id="duanxin">
+                        <input class="shouji" type="text" value="手机号码" style="border: 1px solid #beb2b2;" />
+                        <input class="duanxin" type="button" value="免费获取短信" style="color: white; height: 32px;" />
+                    </div>
+                    <input class="yanzhengma" type="text" value="短信验证码" style="border: 1px solid #beb2b2;" />
+                    <input class="mima" type="text" value="设置密码" style="border: 1px solid #beb2b2;" />
+                    <input class="mima2" type="text" value="确认密码" style="border: 1px solid #beb2b2;" />
+                    <div id="yanzheng">
+                    </div>
+                    <div id="fuxuan">
+                        <input type="checkbox" />
+                    </div>
+                    <div id="tongyi">
+                        <ul>
+                            <li>同意并遵守<a href="#">《5sing用户协议》</a>和 <a href="#">《隐私政策》</a></li>
+                        </ul>
+                    </div>
+                    <div id="anniu">
+                        <a href="#">
+                            <input type="button" value="立即登录" style="color: white;" /></a>
+                    </div>
+                    <div id="wei">
+                        <ul>
+                            <li class="a">合作账号登录</li>
+                            <li class="b">
+                                <img src="2017-11-28_091126.png" /></li>
+                            <li class="b">
+                                <img src="2017-11-28_091228.png" /></li>
+                            <li class="b">
+                                <img src="2017-11-28_091252.png" /></li>
+                            <li class="b">
+                                <img src="2017-11-28_091305.png" /></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div id="biaodan1">
+
+                    <input class="youxiang" type="text" value="邮箱地址" style="border: 1px solid #beb2b2;" />
+                    <input class="mima1" type="text" value="设置密码" style="border: 1px solid #beb2b2;" />
+                    <input class="mima3" type="text" value="确认密码" style="border: 1px solid #beb2b2;" />
+                    <div id="yanzheng1">
+                        <input class="youyanzheng" type="text" value="验证码" style="border: 1px solid #beb2b2;" />
+                        <img class="yanzhengtu" src="下载 (2).png" />
+                        <a id="huanyi" href="#">换一张</a>
+                    </div>
+                    <div id="fuxuan1">
+                        <input type="checkbox" />
+                    </div>
+                    <div id="tongyi1">
+
+                        <ul>
+
+                            <li>同意并遵守<a href="#">《5sing用户协议》</a>和 <a href="#">《隐私政策》</a></li>
+                        </ul>
+
+                    </div>
+                    <div id="anniu1">
+                        <a href="#">
+                            <input type="submit" value="立即登录" style="color: white;" /></a>
+                    </div>
+                    <div id="wei1">
+                        <ul>
+                            <li class="a">合作账号登录</li>
+                            <li class="b">
+                                <img src="2017-11-28_091126.png" /></li>
+                            <li class="b">
+                                <img src="2017-11-28_091228.png" /></li>
+                            <li class="b">
+                                <img src="2017-11-28_091252.png" /></li>
+                            <li class="b">
+                                <img src="2017-11-28_091305.png" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+
+
+    var html = '';
+            html += '<li class="curr"><a href="http://5sing.kugou.com/poster/click?itemId=1454&trackId=aedc0d3a5cc078f320d24082ead0e019" target="_blank"><img src="http://wsing.bssdl.kugou.com/8117f00cecc48d886c0797b1111326a7.jpg" width="240" height="240" alt="【专辑】蚍蜉渡海"></a></li>';
+            html += '<li class=""><a href="http://5sing.kugou.com/poster/click?itemId=169&trackId=9c9e9995e817415c92fdd7f6f2a8da6d" target="_blank"><img src="http://wsing.bssdl.kugou.com/bc370ae45cd05d5afd320ae6198161b8.jpg" width="240" height="240" alt="新版app下载"></a></li>';
+        $('#firstrelease').html(html);
+
+
+

@@ -1,0 +1,227 @@
+﻿seajs.use(["plugins", "globals","cache"], function (plugins, globals,Cache) {
+    var page = 1;
+    function showQuestionnaire(){
+        $.getJSON("http://service.5sing.kugou.com/common/checkQuestionnaire?jsoncallback=?", {}, function(res){
+            if(!!res.display){
+                var qHtml = '<div class="inquiry rel">' + 
+                                '<div class="inq_box abs yhei" style="display: none">' + 
+                                    '<div class="inq_box_tit flx">' + 
+                                        '<h3 class="n lt f12 fw">你对5sing满意吗？</h3>' + 
+                                        '<span class="btn rt in_btn wh16">关闭</span>' + 
+                                    '</div>' + 
+                                    '<ul class="inq_list">' + 
+                                        '<li class="flx inq_i01"><i class="btn in_btn wh16 lt"></i>满意</li>' + 
+                                        '<li class="flx inq_i03"><i class="btn in_btn wh16 lt"></i>不满意</li>' + 
+                                        '<li class="flx inq_i02"><i class="btn in_btn wh16 lt"></i>不回答</li>' + 
+                                    '</ul>' + 
+                                '</div>' + 
+                                '<a href="###" target="_self" class="btn in_btn" title="好评调查">好评调查</a>' + 
+                                '<div class="inq_tips abs yhei fw lh18" style="display:none;">' + 
+                                    '<span class="btn rt in_btn wh16">关闭</span>' + 
+                                    '<div class="inq_tips_text tc clear">评价提交成功<br>5sing会持续为您提供更好的服务</div>' + 
+                                '</div>' + 
+                            '</div>';
+                $("#go_top").prepend(qHtml);
+                $("#go_top > .inquiry > a.btn").hover(function(){
+                    $(this).parent().find(".inq_box").show();
+                });
+                var inquiryEl = $("#go_top > .inquiry"), inqboxEl = inquiryEl.find(".inq_box"), inqtipsEl = inquiryEl.find(".inq_tips");
+                var closeTipsTimer = null;
+                inqboxEl.find(".inq_box_tit > span").live("click",function(){
+                    inqboxEl.hide();
+                });
+                inqtipsEl.find(".inq_tips span.btn").click(function(){
+                    clearTimeout(closeTipsTimer);
+                    inquiryEl.remove();
+                });
+                inqboxEl.find(".inq_list > li").click(function(){
+                    var ind = inqboxEl.find(".inq_list > li").index(this);
+                    $.getJSON("http://service.5sing.kugou.com/common/postQuestionnaire?jsoncallback=?", {val: ind + 1}, function(res){
+                        var iframe = document.createElement('iframe');
+                        iframe.src = 'http://survey.kugou.com/default/save/id=1C79D6ABB84B990EE8267BC15D7E5A5EB471B61F6B3028DE&data[743]=' + (ind + 1);
+                        iframe.style.display = "none";
+                        document.body.appendChild(iframe);
+                        inqboxEl.remove();
+                        inqtipsEl.show();
+                        closeTipsTimer = setTimeout(function(){
+                            inquiryEl.remove();
+                        }, 5000);
+                    });
+                });
+
+            }
+        });
+    }
+  var initCache = function(){
+        var cache = new Cache(function(){
+            $(".PlayerWidget_play").live("click", function(){
+                var songInfo = $(this).attr("songinfo");
+				var songListID = $(this).attr("songlistid");
+                if(!!songInfo){
+                    cache.set("fmPage_Add", {"data": songInfo, "type": 0, "playNow": true});
+                    var time = parseInt(globals.cookies.get("fmPageTime"));
+                    if(isNaN(time)){
+                        globals.open("/fm/m/")
+                    }
+                }
+				else if(!!songListID)
+				{
+					cache.set("fmPage_Add", {"data": songListID, "type": 3, "playNow": true});
+                    var time = parseInt(globals.cookies.get("fmPageTime"));
+                    if(isNaN(time)){
+                        globals.open("/fm/m/")
+                    }
+				}
+                else
+                    $(this).attr("href", "###");
+            });
+        });
+    };
+    $(document).ready(function () {
+        $(".group_tit ul li").live("click",function(){
+		$(this).parent().find("li").removeClass("album_tit_clo");
+		$(this).addClass("album_tit_clo");
+		var index = $(this).index(".group_tit ul li");
+		$(".a_g_list").hide().eq(index).show().addClass("fadeInRight");
+	});
+	$(".share_tit ul li").live("click",function(){
+		$(this).parent().find("li").removeClass("album_tit_clo");
+		$(this).addClass("album_tit_clo");
+		var index = $(this).index(".share_tit ul li");
+		$(".ot_list").hide().eq(index).show().addClass("fadeInRight");
+	});
+	$(".a_g_list dl").hover(function(){
+		$(this).addClass("a_g_list_hover").find(".group_player").show();
+	},function(){
+		$(this).removeClass("a_g_list_hover").find(".group_player").hide();
+	});        showQuestionnaire();
+        initCache();
+        $("#RefreshYc").bind("click", function () {
+            LoadSong(1);
+        });
+        $("#RefreshFc").bind("click", function () {
+            LoadSong(2);
+        });
+        function LoadSong(songType)
+        {
+            $.getJSON("http://service.5sing.kugou.com/song/webRecommend?jsoncallback=?", { t: songType, p: page + 1,pz:10 }, function (res) {
+                var html = '';
+                var ids = "";
+                for (var i = 0; i < res.length; i++) {
+                    var obj = res[i];
+                    html += '<dl class="flx"> <dt>';
+                    html += '<strong class="sl_name"><a href="http://5sing.kugou.com/' + obj.songtype + '/' + obj.id + '.html" class="f_gb" target="_blank" title ="'+obj.songname+'">' + obj.songname + '</a></strong>';
+                    html += '        </dt>';
+                    html += '        <dd class="sl_d1"><a href="http://5sing.kugou.com/' + obj.uid + '" class="f_g9 ell" target="_blank" title="' + obj.nickname + '">' + obj.nickname + '</a></dd>';
+                    html += '        <dd class="sl_d2 g9"><span class="b">' + obj.click + '</span>次播放</dd>';
+                    html += '        <dd class="sl_d3"><a href="###" songinfo="' + obj.songtype + '$' + obj.id + '" class="btn bni play_btn PlayerWidget_play" title="播放">试听</a></dd>';
+                    html += '</dl>'
+                    ids += "$" + obj.songtype + "$" + obj.id;
+                }
+                if (songType == 1)
+                {
+                    $(".song_yc .player_all").attr("songinfo", ids.substr(1));
+                    $(".song_yc .yc_list").html(html);
+                }  
+                else
+                {
+                    $(".song_fc .player_all").attr("songinfo", ids.substr(1));
+                    $(".song_fc .yc_list").html(html);
+                }   
+                page = page + 1;
+            });
+        }
+       
+        $(".artist_pic").hover(function () {
+            $(this).find(".abs").stop(true, true).slideDown(300);
+        }, function () {
+            $(this).find(".abs").hide();
+        });
+        $(".group_list ul li").hover(function () {
+            $(this).addClass("group_list_hover").find(".group_player").stop(true, true).fadeIn(300);
+        }, function () {
+            $(this).removeClass("group_list_hover").find(".group_player").hide();
+        });
+
+        $(".group_tab li").each(function (i) {
+            $(this).click(function () {
+                $(".group_tab li[class='group_tab_clo']").removeClass();
+                $(this).addClass("group_tab_clo");
+                $(".group_list ul").hide().eq(i).show().addClass("fadeInRight");
+            });
+        });
+        $(".news_tit .news_down").live("click", function () {
+            var uls = $(".news_list ul");
+            var next = $(".news_list ul[db=1]").hide().attr("db", 0).next();
+            if (next.length == 0)
+                next = uls.eq(0)
+            next.show().addClass("flipInY").attr("db", 1);
+        });
+        $(".news_tit .news_up").live("click", function () {
+            var uls = $(".news_list ul");
+            var prev = $(".news_list ul[db=1]").hide().attr("db", 0).prev();
+            if (prev.length == 0)
+                prev = uls.last();
+            prev.show().addClass("flipInY").attr("db", 1);
+        });
+        $(".song_rank_page .news_down").live("click",function(){
+		var uls = $(this).parent().parent().parent().find(".s_r_list ol");
+		var next = $(this).parent().parent().parent().find(".s_r_list ol[dr=1]").hide().removeClass("fadeInRight").removeClass("fadeInLeft").attr("dr", 0).next();
+		if(next.length == 0)
+			next = uls.eq(0)
+		next.show().addClass("fadeInRight").attr("dr", 1);
+               $(".song_rank_tit .player_all").attr("songinfo", next.attr("id"));
+	});
+	$(".song_rank_page .news_up").live("click",function(){
+		var uls = $(this).parent().parent().parent().find(".s_r_list ol");
+		var prev = $(this).parent().parent().parent().find(".s_r_list ol[dr=1]").hide().removeClass("fadeInRight").removeClass("fadeInLeft").attr("dr", 0).prev();
+		if(prev.length == 0)
+			prev = uls.last();
+		prev.show().addClass("fadeInLeft").attr("dr", 1);
+               $(".song_rank_tit .player_all").attr("songinfo",prev.attr("id"));
+	});
+        $(".song_rank_nav li").live("click",function(){
+	    $(".song_rank_nav li").removeClass("song_rank_nav_clo");
+		$(this).addClass("song_rank_nav_clo");
+		var index = $(this).index(".song_rank_nav li");
+		$(".s_r_box").hide();
+		$(".s_r_box").eq(index).show();
+                $(".song_rank_tit .player_all").attr("songinfo", $(".s_r_list").eq(index).find("ol[dr=1]").attr("id"));
+	}); 
+        $(function () {
+            var scrollVal = 0;
+            if ($(document).scrollTop() > 250) {
+                $('.go_top .dingbu').stop(true, true).fadeIn(400);
+            }
+            $(window).scroll(function () {
+                if ($(document).scrollTop() > 250) {
+                    if(scrollVal == 0){
+                        var inq_width = $(document).width();
+                        if(inq_width>=1340)
+                            $("#go_top > .inquiry > .inq_box").show();
+                    }
+                    $('.go_top .dingbu').stop(true, true).fadeIn(400);
+                    scrollVal++;
+                } else {
+                    $('.go_top .dingbu').stop(true, true).fadeOut(500);
+                }
+            });
+        });
+        $(".app_qr").hover(function () {
+            $(this).parent().find(".app_download").stop(true, true).show();
+        }, function () {
+            $(this).parent().find(".app_download").stop(true, true).hide();
+        });       
+    });    
+});
+
+function LoadSong(songType) {
+    $.getJSON("http://service.5sing.kugou.com/song/webRecommend?jsoncallback=?", { t: SongType, p: page + 1 }, function (res) {
+        for (var i = 0; i < res.length; i++) {
+            var obj = res[i];
+            alert(obj.id);
+        }
+        page = page + 1;
+    });
+}
+

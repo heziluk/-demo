@@ -1,0 +1,1442 @@
+﻿  <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="jquery-1.11.0.min.js"></script>
+    <style type="text/css">
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+
+
+        #top {
+            width: 100%;
+            height: 98px;
+            margin: 0 auto;
+            background: linear-gradient(#292B2C,#181A1C);
+            position :fixed ;
+            top :0px;
+            z-index :20;
+        }
+
+        #top_zhong {
+            width: 1000px;
+            height: 60px;
+            margin: 0 auto;
+        }
+
+            #top_zhong > ul {
+                width: 200px;
+                height: 25px;
+                float: right;
+                list-style-type: none;
+                font-family: 'Microsoft YaHei';
+                font-size: 14px;
+                margin-top: 15px;
+            }
+
+                #top_zhong > ul > li {
+                    width: 30px;
+                    height: 25px;
+                    margin-left: 20px;
+                    float: left;
+                    text-align: center;
+                    line-height: 25px;
+                    cursor: pointer;
+                    color: white;
+                }
+
+                    #top_zhong > ul > li:hover {
+                        color: #66CC00;
+                    }
+
+                    #top_zhong > ul > li > ul {
+                        width: 60px;
+                        margin-left: -15px;
+                        color: #3C3C46;
+                        background-color: white;
+                        list-style-type: none;
+                        border: 1px solid #DDDDDD;
+                    }
+
+                        #top_zhong > ul > li > ul > li:hover {
+                            color: black;
+                            background-color: #F1F1F1;
+                        }
+
+        #top_xia {
+            width: 100%;
+            height: 38px;
+            border-top: 1px solid #333333;
+            background-color: #222322;
+        }
+
+        #top_xia_zhong {
+            width: 1000px;
+            height: 38px;
+            margin: 0 auto;
+        }
+
+            #top_xia_zhong > ul {
+                width: 1000px;
+                height: 38px;
+                list-style-type: none;
+            }
+
+                #top_xia_zhong > ul > li {
+                color :white;
+                }
+             .daohang {
+                width: 58px;
+                height: 34px;
+                float: left;
+                text-align: center;
+                line-height: 34px;
+                font-size: 14px;
+                color: white;
+            }
+
+        #top_xia_zhong > ul > li:hover {
+            color: #66CC00;
+            cursor: pointer;
+        }
+
+        
+
+        body {
+            font-size: 15px;
+        }
+
+        #zt {
+            margin-top :100px;
+            height: 1121px;
+            width: 100%;
+            border: 0px solid #000000;
+        }
+
+        #znr {
+            width: 1010px;
+            height: 1171px;
+            border: 0px solid #ffd800;
+            margin: 0px auto;
+        }
+
+        #zuo1 {
+            width: 711px;
+            height: 60px;
+            border-bottom: 0.1px solid #dcd6d9;
+            float: left;
+        }
+
+        #you1 {
+            width: 241px;
+            height: 60px;
+            border-bottom: 0.1px solid #dcd6d9;
+            float: right;
+        }
+
+        #ld {
+            width: 97px;
+            height: 60px;
+            border-bottom: 3px solid green;
+        }
+
+            #ld a:hover {
+                color: red;
+            }
+
+        a {
+            text-decoration: none;
+        }
+
+        #ld a {
+            line-height: 60px;
+            color: #808080;
+        }
+
+        #zuo1dh {
+            width: 710px;
+            height: 24px;
+            border: 0px solid green;
+            float: left;
+            margin-top: 22PX;
+        }
+
+        .zuo1ho {
+            color: #666666;
+        }
+
+        .zuo2ho {
+            color: #666666;
+        }
+
+            .zuo1ho:hover {
+                color: red;
+            }
+
+        #zuo1dh a {
+            font-size: 15px;
+            margin-left: 15px;
+        }
+
+        #you1li {
+            width: 243px;
+            height: 393px;
+            border: 0px solid green;
+            margin-top: 20px;
+        }
+
+            #you1li ul li {
+                width: 243px;
+                border: 0px solid #ffd800;
+                list-style-type: none;
+                margin-top: 5px;
+            }
+
+        .yin1:hover, .yin2:hover {
+            color: red;
+        }
+
+        .yin1 {
+            border: 0px solid black;
+            width: 130px;
+            /*文字多余部分隐藏*/
+            display: inline-block;
+            overflow: hidden;
+            /*多余部分显示省略号*/
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #0F820C;
+        }
+
+        .yin2 {
+            border: 0px solid black;
+            width: 80px;
+            /*文字多余部分隐藏*/
+            display: inline-block;
+            overflow: hidden;
+            /*多余部分显示省略号*/
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-left: 25px;
+            color: #808080;
+        }
+
+        #zuo1tw {
+            width: 710px;
+            height: 334px;
+            border: 0px solid red;
+            margin-top: 60px;
+        }
+
+        #zuo2 {
+            width: 711px;
+            height: 60px;
+            border-bottom: 0.1px solid #dcd6d9;
+            float: left;
+            margin-top: 391px;
+        }
+
+        #zuo2tw {
+            width: 710px;
+            height: 285px;
+            border: 0px solid #ff6a00;
+            margin-top: 20px;
+        }
+
+        #you2 {
+            width: 241px;
+            height: 60px;
+            border-bottom: 0.1px solid #dcd6d9;
+            float: right;
+            margin-top: 391px;
+        }
+
+        #you2li {
+            width: 243px;
+            height: 282px;
+            border: 0px solid green;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+            #you2li ul li {
+                width: 243px;
+                height:20px;
+                border: 0px solid #ffd800;
+                list-style-type: none;
+                margin-top: 5px;
+            }
+
+        #zuo3 {
+            width: 711px;
+            height: 60px;
+            border-bottom: 0.1px solid #dcd6d9;
+            float: left;
+            margin-top: 313px;
+        }
+
+        #zuo3li {
+            width: 343px;
+            height: 292px;
+            border: 0px solid green;
+            overflow: hidden;
+            margin-top: 20px;
+            float: left;
+        }
+
+            #zuo3li > ul > li {
+                width: 320px;
+                
+                list-style-type: none;
+            }
+
+
+                #zuo3li > ul > li:hover, #zuo3li2 > ul > li:hover {
+                    border-bottom: 1px solid #E0E0E0;
+                }
+
+
+        #zuo3li2 {
+            width: 343px;
+            height: 292px;
+            border: 0px solid green;
+            overflow: hidden;
+            margin-top: 20px;
+            float: right;
+        }
+
+            #zuo3li2 > ul > li {
+                width: 313px;
+                
+                list-style-type: none;
+            }
+
+        #xsgd {
+            width: 243px;
+            height: 900px;
+            position :relative   ;
+            top :0px;
+        }
+
+        #you3 {
+            width: 241px;
+            height: 60px;
+            border-bottom: 0.1px solid #dcd6d9;
+            float: right;
+            margin-top: 311px;
+        }
+
+        #you3li {
+            width: 243px;
+            height: 282px;
+            border: 0px solid green;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+            #you3li ul li {
+                width: 243px;
+                border: 0px solid #ffd800;
+                list-style-type: none;
+                margin-top: 5px;
+            }
+
+
+        #zuo1tw1 > ul {
+            width: 345px;
+            height: 98px;
+            border: 0px solid black;
+            list-style-type: none;
+            float: left;
+            margin-bottom: 17px;
+            margin-left: 8px;
+             /*文字多余部分隐藏*/
+            display: inline-block;
+            overflow: hidden;
+            /*多余部分显示省略号*/
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+            #zuo1tw1 > ul > li {
+                width: 345px;
+                height: 98px;
+            }
+
+                #zuo1tw1 > ul > li > img {
+                    float: left;
+                }
+
+        #zuo1tw2 > ul {
+            width: 345px;
+            height: 98px;
+            border: 0px solid black;
+            list-style-type: none;
+            float: left;
+            margin-bottom: 17px;
+            margin-left: 8px;
+             /*文字多余部分隐藏*/
+            display: inline-block;
+            overflow: hidden;
+            /*多余部分显示省略号*/
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        #zuo1tw2 {
+            width: 710px;
+            height: 334px;
+            border: 0px solid red;
+            margin-top: 60px;
+
+        }
+
+            #zuo1tw2 > ul > li {
+                width: 345px;
+                height: 98px;
+            }
+
+                #zuo1tw2 > ul > li > img {
+                    float: left;
+                }
+
+        #zuo1tw3 > ul {
+            width: 345px;
+            height: 98px;
+            border: 0px solid black;
+            list-style-type: none;
+            float: left;
+            margin-bottom: 17px;
+            margin-left: 8px;
+             /*文字多余部分隐藏*/
+            display: inline-block;
+            overflow: hidden;
+            /*多余部分显示省略号*/
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+            #zuo1tw3 > ul > li {
+                width: 345px;
+                height: 98px;
+            }
+
+                #zuo1tw3 > ul > li > img {
+                    float: left;
+                }
+
+        #zuo1tw4 > ul {
+            width: 345px;
+            height: 98px;
+            border: 0px solid black;
+            list-style-type: none;
+            float: left;
+            margin-bottom: 17px;
+            margin-left: 8px;
+             /*文字多余部分隐藏*/
+            display: inline-block;
+            overflow: hidden;
+            /*多余部分显示省略号*/
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+            #zuo1tw4 > ul > li {
+                width: 345px;
+                height: 98px;
+            }
+
+                #zuo1tw4 > ul > li > img {
+                    float: left;
+                }
+
+        #zuo1tw5 > ul {
+            width: 345px;
+            height: 98px;
+            border: 0px solid black;
+            list-style-type: none;
+            float: left;
+            margin-bottom: 17px;
+            margin-left: 8px;
+             /*文字多余部分隐藏*/
+            display: inline-block;
+            overflow: hidden;
+            /*多余部分显示省略号*/
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+            #zuo1tw5 > ul > li {
+                width: 345px;
+                height: 98px;
+            }
+
+                #zuo1tw5 > ul > li > img {
+                    float: left;
+                }
+
+        .li_p1 {
+            width: 240px;
+            height: 22px;
+            line-height: 22px;
+            padding-left: 98px;
+        }
+
+        .li_p {
+            width: 240px;
+            height: 40px;
+            color: #666666;
+            font-size: 12px;
+            line-height: 14px;
+        }
+
+        .bian:hover {
+            color: red;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .li_p1_color {
+            color: #0F820C;
+        }
+
+        .li_p1_font {
+            font-size: 12px;
+            color: #999999;
+        }
+
+        #zuo2tw > ul {
+            height: 220px;
+            width: 155px;
+            border: 0px solid black;
+            list-style-type: none;
+            float: left;
+            margin-bottom: 17px;
+            margin-left: 17px;
+        }
+
+            #zuo2tw > ul > li {
+                width: 345px;
+                height: 98px;
+                margin-right: 10px;
+            }
+
+        .zuo2twys {
+            width: 155px;
+            height: 20px;
+            color: #0F820C;
+            border: 0px solid #dcd6d9;
+            /*文字多余部分隐藏*/
+            overflow: hidden;
+            /*多余部分显示省略号*/
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 13px;
+        }
+
+            .zuo2twys:hover {
+                color: red;
+                text-decoration: underline;
+                cursor: pointer;
+            }
+
+        .zuo2twjz {
+            font-size: 13px;
+            width: 155px;
+            height: 20px;
+            text-decoration: none;
+            border: 0px solid green;
+            margin-top: 10px;
+            text-align: center;
+            color: #666666;
+        }
+
+        .tuchu {
+            background-color:#6BBA05;
+            color :white;
+        }
+
+
+
+        #bottom {
+            width: 100%;
+            height: 116px;
+            background-color: #333333;
+            margin-top :100px;
+        }
+
+        #bottom_zhong {
+            width: 1004px;
+            height: 116px;
+            margin: 0 auto;
+        }
+
+            #bottom_zhong > ul {
+                padding-top: 15px;
+                width: 1004px;
+                height: 25px;
+            }
+
+                #bottom_zhong > ul > li {
+                    width: 120px;
+                    height: 25px;
+                    text-align: center;
+                    line-height: 25px;
+                    float: left;
+                    font-size: 12px;
+                    list-style-type: none;
+                    color: white;
+                    font-family: 'Microsoft YaHei';
+                }
+
+        .text {
+            text-align: left;
+        }
+
+        .bottom_xia {
+            width: 1000px;
+            height: 20px;
+            margin-top: 6px;
+            font-size: 12px;
+            color: #939393;
+            line-height: 20px;
+            padding-left: 4px;
+        }
+
+        #bottom_zhong > ul > li:hover {
+            color: #62B71F;
+            cursor: pointer;
+        }
+
+        #jiaweixin {
+            width: 200px;
+            height: 220px;
+            position: absolute;
+            margin-top: -388px;
+            margin-left: 1160px;
+            background-image: url('../../首页/中国原创音乐基地 5SING_files/foot_sprite.png');
+            background-position: -24px 0px;
+            display: none;
+        }
+
+        #guding {
+            width: 50px;
+            height: 162px;
+            position: fixed;
+            top: 220px;
+            left: 1280px;
+        }
+
+        #erwei {
+            width: 50px;
+            height: 53px;
+            background-image: url('../../首页/中国原创音乐基地 5SING_files/side_sprite.png');
+            background-position: -50px 0px;
+            cursor: pointer;
+        }
+
+        #fankui {
+            width: 50px;
+            height: 54px;
+            background-image: url('../../首页/中国原创音乐基地 5SING_files/side_sprite.png');
+            background-position: -50px -54px;
+            cursor: pointer;
+        }
+
+        #dingbu {
+            width: 50px;
+            height: 53px;
+            background-image: url('../../首页/中国原创音乐基地 5SING_files/side_sprite.png');
+            background-position: -50px -109px;
+            display: none;
+            cursor: pointer;
+        }
+
+        #erwei_ma {
+            width: 170px;
+            height: 200px;
+            position: fixed;
+            top: 220px;
+            left: 1105px;
+            background-image: url('../../首页/中国原创音乐基地 5SING_files/side_sprite.png');
+            background-position: -100px 0px;
+            background-repeat: no-repeat;
+            display: none;
+        }
+    </style>
+    <script type="text/javascript" >
+        $(function () {
+
+
+            $("#qizi1").hover(function () {
+                $(this).children("ul").show();
+            }, function () {
+                $(this).children("ul").hide();
+            });
+            $("#qizi2").hover(function () {
+                $(this).children("ul").show();
+            }, function () {
+                $(this).children("ul").hide();
+            });
+
+
+            var arr = ["a1", "a2", "a3", "a4", "a5"];
+            $(".zuo1ho").hover(function () {
+                $(this).addClass("tuchu");
+                var index=$(this).index();
+                $(this).siblings().removeClass("tuchu");
+                for (var i = 0; i < arr.length; i++) {
+                    if ($(this).attr("id") == arr[i]) {
+                        $(".qie:eq(" + i + ")").show();
+                        $(".qie:eq(" + i + ")").siblings().hide();
+                    }
+                }
+
+            }, function () {
+
+            });
+
+
+            function myfunction() {
+                var xin_lis = $("<li><a class='yin1' href='#' title='hikari'>&nbsp;hikari</a> <a class='yin2' href='#' title='-森谷moriya-'>-森谷moriya-</a></li><li><a class='yin1' href='#' title='[向日葵]夜は眠れるかい？[亚人OP]'>&nbsp;[向日葵]夜は眠れるかい？[亚人OP]</a> <a class='yin2' href='#' title='阿八酱的向日葵'>阿八酱的向日葵</a></li><li><a class='yin1' href='#' title='我多么羡慕你'>&nbsp;我多么羡慕你</a> <a class='yin2' href='#' title='Evan浩'>Evan浩</a></li><li><a class='yin1' href='#' title='【怀旧】Little Dragon （小龙人之歌）'>&nbsp;【怀旧】Little Dragon （小龙人之歌）</a> <a class='yin2' href='#' title='坠落中的飞翔'>坠落中的飞翔</a></li><li><a class='yin1' href='#' title='【猪】其实都没有'>&nbsp;【猪】其实都没有</a> <a class='yin2' href='#' title='金猪﹏冰镇哈啤'>金猪﹏冰镇哈啤</a></li><li><a class='yin1' href='#' title='Last Christmas - 最后半分钟打鸡血版'>&nbsp;Last Christmas - 最后半分钟打鸡血版</a> <a class='yin2' href='#' title='CrystalButterfly'>CrystalButterfly</a></li><li><a class='yin1' href='#' title='LIFE - 银之匙第二季OP - 【HB to 毛毛！！！】'>&nbsp;LIFE - 银之匙第二季OP - 【HB to 毛毛！！！】</a> <a class='yin2' href='#' title='西瓜Kune'>西瓜Kune</a></li><li><a class='yin1' href='#' title='『太阳』Ringa Linga（Full.Ver）'>&nbsp;『太阳』Ringa Linga（Full.Ver）</a> <a class='yin2' href='#' title='┃SPY┃◆＂苮'>┃SPY┃◆＂苮</a></li><li><a class='yin1' href='#' title='Do What U Want[Duet with Amy Chanrich]'>&nbsp;Do What U Want[Duet with Amy Chanrich]</a> <a class='yin2' href='#' title='猴纸君Kyler'>猴纸君Kyler</a></li><li><a class='yin1' href='#' title='一眼瞬间 （Ft.CICI）'>&nbsp;一眼瞬间 （Ft.CICI）</a> <a class='yin2' href='#' title='SH1N'>SH1N</a></li><li><a class='yin1' href='#' title='【●.ｍoＭO】 我怀念的'>&nbsp;【●.ｍoＭO】 我怀念的</a> <a class='yin2' href='#' title='MOMO习习'>MOMO习习</a></li>");
+                
+
+
+                $("#xsgd").animate({
+                    "top": parseInt($("#xsgd").css("top")) - 75 + "px",
+                    "height":parseInt($("#xsgd").css("height"))+75+"px"
+                }, 800);
+                $("#xsgd").children("ul").append(xin_lis);
+
+                setTimeout(myfunction, 4000);
+            }
+            myfunction();
+
+
+
+
+            //固定栏
+            $(document).scroll(function () {
+                if ($(document).scrollTop() > 150) {
+                    $("#dingbu").stop(true, false);
+                    $("#dingbu").fadeIn(400);
+                }
+                else {
+                    $("#dingbu").stop(true, false);
+                    $("#dingbu").fadeOut(400);
+                }
+            });
+            //
+            $("#erwei").hover(function () {
+                $(this).css({
+                    "background-position": "0px 0px"
+                });
+                $("#erwei_ma").show();
+            }, function () {
+                $(this).css({
+                    "background-position": "-50px 0px"
+                });
+                $("#erwei_ma").hide();
+            });
+            //
+            $("#fankui").hover(function () {
+                $(this).css({
+                    "background-position": "0px -54px"
+                });
+            }, function () {
+                $(this).css({
+                    "background-position": "-50px -54px"
+                });
+            });
+            //
+            $("#dingbu").hover(function () {
+                $(this).css({
+                    "background-position": "0px -109px"
+                });
+            }, function () {
+                $(this).css({
+                    "background-position": "-50px -109px"
+                });
+            });
+
+            //回家
+            $("#dingbu").click(function () {
+                var time = setInterval(function () {
+                    window.scrollBy(0, -50);
+                    if (document.documentElement.scrollTop <= 0) {
+                        clearInterval(time);
+                    }
+                }, 10);
+            });
+
+            $("#shouye").click(function () {
+                window.location("../../首页/index.html");
+            });
+
+            $("#huodong").click(function () {
+                window.location("../../活动/新建文件夹 (2)/WebApplication1/WebApplication1/HtmlPage1.html");
+            });
+
+            $("#zhuce").click(function () {
+                window.location("../../注册/注册/shoujihao.html");
+            });
+            $("#banzou").click(function () {
+                window.location("../../伴奏/卢美琳/伴奏/WebApplication1/WebApplication1/HtmlPage1.html");
+            });
+
+        })
+    </script>
+</head>
+<body>
+    <div id="top">
+        <div id="top_zhong">
+            <img src="../../首页/中国原创音乐基地 5SING_files/logo.png" />
+            <input type="text" style="border-radius: 25px 0px 0px 25px; padding-left: 15px; width: 180px; height: 25px; background-color: rgba(225,225,225,0); border: 1px solid #32B351; position: absolute; top: 16px; line-height: 25px; border-right: 0px; " placeholder="歌曲/歌单/会员" />
+            <a href="javascript:;" style="display: inline-block; width: 30px; height: 25px; border: 1px solid #32B351; border-left: 0px; position: relative; top: -4px; left: 196px; text-align: left; line-height: 25px; text-decoration: none; color: #32B351; border-radius: 0px 25px 25px 0px; ">|<span style="color :white;">🔎</span></a>
+            <ul>
+                <li>登录</li>
+                <li id="zhuce">注册</li>
+                <li id="qizi1" style="position :relative  ; z-index:10;">
+                    上传
+                    <ul style="display :none ;">
+                        <li>上传原创</li>
+                        <li>上传翻唱</li>
+                        <li>上传伴奏</li>
+                        <li>歌曲管理</li>
+                    </ul>
+                </li>
+                <li id="qizi2" style="z-index :10;position :relative ;">
+                    APP
+                    <ul style="display :none ;border :0px;height :20px;">
+                        <li style="height :0;"><img style="border: 1px solid #DDDDDD;" src="../../首页/中国原创音乐基地 5SING_files/5singcode.png" /></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="top_xia">
+            <div id="top_xia_zhong">
+                <ul>
+                    <li class="daohang">
+                        <a id="shouye" href="javascript:;" style="color :white;">首页</a>
+                    </li>
+                    <li class="daohang">
+                        <a>原创</a>
+                    </li>
+                    <li class="daohang" style="width: 62px; border-bottom: 4px solid #32B150; ">
+                        <a style="font-size: 16px; color: white;" href="javascript:;">翻唱</a>
+                    </li>
+                    <li class="daohang">
+                        <a id="banzou">伴奏</a>
+                    </li>
+                    <li class="daohang">
+                        <a>榜单</a>
+                    </li>
+                    <li class="daohang">
+                        <a>歌单</a>
+                    </li>
+                    <li class="daohang" style="width :4.31px;">
+                        <a>|</a>
+                    </li>
+                    <li class="daohang" style="width :72px;">
+                        <a>音乐人</a>
+                    </li>
+                    <li class="daohang">
+                        <a id="huodong">活动</a>
+                    </li>
+                    <li class="daohang">
+                        <a>圈子</a>
+                    </li>
+                    <li class="daohang" style="width :86px;">
+                        <a>音乐现场</a>
+                    </li>
+                    <li class="daohang">
+                        <a>众筹</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="zt">
+        <div id="znr" style="border :1px solid white;">
+            <div id="zuo1">
+                <div id="ld"><a href="#">优质翻唱</a></div>
+                <div id="zuo1dh">
+                    <a id="a1" class="zuo1ho  tuchu" style="display: inline-block; font-size: 12px; width: 40px; height: 20px; top: -4px; position: relative; text-align: center; line-height: 20px;" href="#" title="华语">华语</a>
+                    <a id="a2" class="zuo1ho  " style="display: inline-block; font-size: 12px; width: 40px; height: 20px; top: -4px; position: relative; text-align: center; line-height: 20px;" href="#" title="古风">古风</a>
+                    <a id="a3" class="zuo1ho  " style="display: inline-block; font-size: 12px; width: 40px; height: 20px; top: -4px; position: relative; text-align: center; line-height: 20px;" href="#" title="欧美">欧美</a>
+                    <a id="a4" class="zuo1ho  " style="display: inline-block; font-size: 12px; width: 40px; height: 20px; top: -4px; position: relative; text-align: center; line-height: 20px;" href="#" title="日语">日语</a>
+                    <a id="a5" class="zuo1ho  " style="display: inline-block; font-size: 12px; width: 40px; height: 20px; top: -4px; position: relative; text-align: center; line-height: 20px;" href="#" title="韩语">韩语</a>
+                    <a class="zuo2ho " href="#" title="更多" style="color: #ff6a00;">更多</a>
+                </div>
+                <div>
+                <div id="zuo1tw1" class="qie">
+                    <ul>
+                        <li>
+                            <img title="-顾时笙-" src="63e1920ce9e167ac8e96edf1529e8eca.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="噩梦·裂 w.肆霁">噩梦·裂 w.肆霁</p>
+                            <p class="li_p1 bian li_p1_font" title="-顾时笙-">音乐人：-顾时笙-</p>
+                            <p class="li_p li_p1">
+                                终于跟我的阿霁合唱了哇呜呜！！！！
+                                认识
+                                这么久终于约了第一发哈哈哈！
+                                炒鸡爱你的！
+                                跟阿霁祝我们的傻柳柳生日哈皮啦ww
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-晓熊大人-" src="735b703731b41733a1ae3062e180456e.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="【后期】（花毒）骨簪">【后期】（花毒）骨簪</p>
+                            <p class="li_p1 bian li_p1_font" title="-晓熊大人-">音乐人：晓熊大人</p>
+                            <p>
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-十七玄-" src="42955db939023f90126ced0818066525.jpg_90x90.jpg" />
+
+                            <p class="li_p1 bian li_p1_color" title="山外小楼夜听雨">山外小楼夜听雨</p>
+                            <p class="li_p1 bian li_p1_font" title="-十七玄-">音乐人：十七玄</p>
+
+                            <p class="li_p li_p1">
+                                TO 小天天 生贺终于发了~爱你的话不多说<br />
+                                了，希望你喜欢~
+                                 非常感谢我丝儿，海报美的不像话~
+                             辛苦帮主后期~~
+                             还有么...
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-枳川-" src="af9eb08ec3b26c1f9b082c847be32b9f.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="【策】在缄默之后">【策】在缄默之后</p>
+                            <p class="li_p1 bian li_p1_font" title="-枳川-">音乐人：枳川</p>
+
+                            <p class="li_p li_p1">
+                                六月的歌一直到今天终于出来了!
+                                 考虑到歌词<br />
+                                稍有些晦涩 词作还特意写了注释 可以说是很用心了 
+                                歌词我个人真的特别喜欢 有时候会想究竟...
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-弦亦默-" src="3ab9a4a1c697de611025ccca0b5760d2.png_90x90.png" />
+                            <p class="li_p1 bian li_p1_color" title="像我这样的人">像我这样的人</p>
+                            <p class="li_p1 bian li_p1_font" title="-弦亦默-">音乐人：弦亦默</p>
+
+                            <p class="li_p li_p1">
+                                像我这样莫名其妙的人
+                                 会不会有人心疼
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-上河Lin-" src="2a3efa1d7364872d7cf570b7c5687bd8.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="逐浪飞花 ft.小二郎">逐浪飞花 ft.小二郎</p>
+                            <p class="li_p1 bian li_p1_font" title="-上河Lin-">音乐人：上河Lin</p>
+
+                            <p class="li_p li_p1">
+                                逐浪飞花是一首一直想唱但生怕驾驭不了毕竟<br />
+                                这么攻的歌，好在有二郎助攻，连带着我也帅了点233333还有谢谢后期美容刀以及红尘小天使么么哒！...
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div id="zuo1tw2" class="qie" style="display: none;">
+                    <ul>
+                        <li>
+                            <img title="-晓熊大人-" src="735b703731b41733a1ae3062e180456e.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="【后期】（花毒）骨簪">【后期】（花毒）骨簪</p>
+                            <p class="li_p1 bian li_p1_font" title="-晓熊大人-">音乐人：晓熊大人</p>
+                            <p>
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-十七玄-" src="42955db939023f90126ced0818066525.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="山外小楼夜听雨">山外小楼夜听雨</p>
+                            <p class="li_p1 bian li_p1_font" title="-十七玄-">音乐人：十七玄</p>
+                            <p>
+                                TO 小天天 生贺终于发了~爱你的话不多说了，希望你喜欢~
+
+非常感谢我丝儿，海报美的不像话~
+
+辛苦帮主后期~~
+
+还有么...
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-上河Lin-" src="2a3efa1d7364872d7cf570b7c5687bd8.jpg_90x90.jpg" />
+
+                            <p class="li_p1 bian li_p1_color" title="逐浪飞花 ft.小二郎">逐浪飞花 ft.小二郎</p>
+                            <p class="li_p1 bian li_p1_font" title="-上河Lin-">音乐人：上河Lin</p>
+
+                            <p class="li_p li_p1">
+                                逐浪飞花是一首一直想唱但生怕驾驭不了毕竟这么攻的歌，好在有二郎助攻，连带着我也帅了点233333还有谢谢后期美容刀以及红尘小天使么么哒！...
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-白黎z-" src="aba5b215a609c4562aa59fb24a6461a6.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="松烟入墨">松烟入墨</p>
+                            <p class="li_p1 bian li_p1_font" title="-枳川-">音乐人：白黎z</p>
+
+                            <p>
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-听说是涵十六°-" src="8d9243dddda873092d6479591ff2d2e4.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="【策划/脚本】将军坟-剧情版">【策划/脚本】将军坟-剧情版</p>
+                            <p class="li_p1 bian li_p1_font" title="-听说是涵十六°-">音乐人：听说是涵十六°</p>
+
+                            <p class="li_p li_p1">
+                                感恩组里的每个人陪我一起做完了这个作品！尤其是后期们和美工，改了N版修了N版最终才将最精彩的呈现发布！爱你们！遇之我幸！
+
+STAF...
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-向剑林-" src="77efdc51c6fb2329fe62f1df43bb73a0.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="卷珠帘（中英双语版）">卷珠帘（中英双语版）</p>
+                            <p class="li_p1 bian li_p1_font" title="-向剑林-">音乐人：上河Lin</p>
+
+                            <p class="li_p li_p1">
+                                卷珠帘跟Scarborough Fair 无缝融合，除了霍尊的第一版初稿，最爱的就是这个版本。卷珠帘这首歌自从问世以来被各种改编，就看着它从...
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div id="zuo1tw3" class="qie" style="display: none;">
+                    <ul>
+                        <li>
+                            <img title="- 泠安-" src="ac2181b0072f758325577233b052f7bf.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="Love Me Harder ft.佐佐子">Love Me Harder ft.佐佐子</p>
+                            <p class="li_p1 bian li_p1_font" title="-泠安-">音乐人：-泠安-</p>
+                            <p class="li_p li_p1">
+                                迷妹今天终于完成了心愿！全员辛苦！
+                                 录音师：亦乐/向往
+                                 录音棚：杭州异新
+                                 混音：tora
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-黛米-Dymi-" src="321e1f21826fb1f90057ca17f1ff77c2.png_90x90.png" />
+                            <p class="li_p1 bian li_p1_color" title="Something Just Like This中英版（Cover）">Something Just Like This中英版（Cover）</p>
+                            <p class="li_p1 bian li_p1_font" title="-黛米-Dymi-">音乐人：黛米-Dymi</p>
+                            <p class="li_p li_p1">
+                                很久没出歌了，刷个存在！
+                               很喜欢这首歌，所以和苏琛一起制作的版本希望大家喜欢
+                               微博/网易/Q音/全民搜索：黛米Dymi
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-小诚酱-" src="124230da10eb46940414ffac893b1ce3.jpg_90x90.jpg" />
+
+                            <p class="li_p1 bian li_p1_color" title="Gorgeous">Gorgeous</p>
+                            <p class="li_p1 bian li_p1_font" title="-小诚酱-">音乐人：小诚酱</p>
+
+                            <p class="li_p li_p1">
+                                作为忠实粉丝一直都很想翻唱霉霉的歌，结果想了很久都没录，加上低产懒惰综合症就完全没然后了……当我感慨叶子都长满杂草的时候，Gorgeous出...
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-镜Lea-" src="85bba8edeba8f113cbe6695c1e228883.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="Look What You Made Me Do">Look What You Made Me Do</p>
+                            <p class="li_p1 bian li_p1_font" title="-镜Lea-">音乐人：镜Lea</p>
+
+                            <p class="li_p li_p1">
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-Huela周静-" src="88928fa85d6a54caafcded77b414e69b.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="Never Be Like you">Never Be Like you</p>
+                            <p class="li_p1 bian li_p1_font" title="-Huela周静-">音乐人：Huela周静</p>
+
+                            <p class="li_p li_p1">
+                                略略略
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-音乐剧演员刘璐-" src="92e6af8c8ad8e5fe02ebf1b55712284b.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="Hit Me With A Hot Note And Watch Me Bounce">Hit Me With A Hot Note And Watch Me Bounce</p>
+                            <p class="li_p1 bian li_p1_font" title="-音乐剧演员刘璐-">音乐人：音乐剧演员刘璐</p>
+
+                            <p class="li_p li_p1">
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div id="zuo1tw4" class="qie" style="display: none;">
+                    <ul>
+                        <li>
+                            <img title="-Shymieeeee-" src="e3d5796eec5a8a4dd4423399625d295c.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="ラプンツェル">ラプンツェル</p>
+                            <p class="li_p1 bian li_p1_font" title="-Shymieeeee-">音乐人：-Shymieeeee-</p>
+                            <p class="li_p li_p1">
+                                这歌真好听！！！
+                             我也希望有人能把高塔上的我带走啊qeq
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-泰莎星人-" src="9e7e9c8fb21d392ea25333627f537d69.png_90x90.png" />
+                            <p class="li_p1 bian li_p1_color" title="蜜月Un・Deux・Trois">蜜月Un・Deux・Trois</p>
+                            <p class="li_p1 bian li_p1_font" title="-泰莎星人-">音乐人：泰莎星人</p>
+                            <p class="li_p li_p1">
+                                Vocal：泰莎星人
+Mix：三星堆工作室
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-音乐人：电波攻击！-" src="85809b14598f50d783cecd3d54d8bff2.jpg_90x90.jpg" />
+
+                            <p class="li_p1 bian li_p1_color" title="拟剧论">拟剧论</p>
+                            <p class="li_p1 bian li_p1_font" title="-音乐人：电波攻击！-">音乐人：音乐人：电波攻击！</p>
+
+                            <p class="li_p li_p1">
+                                原唱: 初音ミク 
+原曲出处: sm32076378 
+作词: Eve 
+作曲: Eve 
+后期/混音: 小神
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-雛葉たん-" src="26929d9f7a914e2bc9d9212b21b497a3.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="慕情春海～愛染篇～">慕情春海～愛染篇～</p>
+                            <p class="li_p1 bian li_p1_font" title="-雛葉たん-">音乐人：雛葉たん</p>
+
+                            <p class="li_p li_p1">
+                                大家好我是雪姐的女人！这是我给雪姐生的猴子！wwwwwwww 
+                                   喜欢这歌很久了唱起来是真的爽啊虽然听起来有点肾虚（？） 
+                                   mach...
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-是蕊蕊呀-" src="5ead9eb67dee41c93a9b1dbd011679f8.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="『鏡音リン ， 鏡音レン°』病名は愛だった(病名为爱)">『鏡音リン ， 鏡音レン°』病名は愛だった(病名为爱)</p>
+                            <p class="li_p1 bian li_p1_font" title="-是蕊蕊呀-">音乐人：是蕊蕊呀</p>
+
+                            <p class="li_p li_p1">
+                                Mix:三星堆工作室
+                                Post：X.YA
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-小缘喵-" src="e853385b0bc12b53b67204e3c802f394.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="【小缘翻唱】shØut">【小缘翻唱】shØut</p>
+                            <p class="li_p1 bian li_p1_font" title="-小缘喵-">音乐人：小缘喵</p>
+
+                            <p class="li_p li_p1">
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div id="zuo1tw5" class="qie" style="display: none;">
+                    <ul>
+                        <li>
+                            <img title="-Daisy白白-" src="f19ea0c13a5da55956194bd3162cc1dc.png_90x90.png" />
+                            <p class="li_p1 bian li_p1_color" title="「Basick & Inkii」幻想中的你（Feat.凡仔）W.OST">「Basick & Inkii」幻想中的你（Feat.凡仔）W.OST</p>
+                            <p class="li_p1 bian li_p1_font" title="-Daisy白白-">音乐人：-fanhua╯ε╰-</p>
+                            <p class="li_p li_p1">
+                                我只想说wuli凡太帅！！！！男神这个称号就是你的了！！！
+                               之前问怎么唱好拉普，wuli凡是这么回答的：“只要把自己想象成全世界最屌的...
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-fanhua╯ε╰-" src="8ded521919f60ea21286db543e957831.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="【Rookie】redvelvet(完整版)元宵节快乐！">【Rookie】redvelvet(完整版)元宵节快乐！</p>
+                            <p class="li_p1 bian li_p1_font" title="-fanhua╯ε╰-">音乐人：fanhua╯ε╰</p>
+                            <p class="li_p li_p1">
+                                后期来自三星堆小神  以及感谢七安精美的海报
+各位元宵节快乐嘻嘻
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="＾Roada＾！-" src="436f604df0c6f2a4f38e8dea5ba135f7.jpg_90x90.jpg" />
+
+                            <p class="li_p1 bian li_p1_color" title=" §韩§Rookie_R_">§韩§Rookie_R_</p>
+                            <p class="li_p1 bian li_p1_font" title="-＾Roada＾！-">音乐人：＾Roada＾</p>
+
+                            <p class="li_p li_p1">
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-呱呱超级女王音～-" src="1286f377bfd7b7a9897370e7077c8eb3.png_90x90.png" />
+                            <p class="li_p1 bian li_p1_color" title="【防弹】血汗泪 ft.凡凡">【防弹】血汗泪 ft.凡凡</p>
+                            <p class="li_p1 bian li_p1_font" title="-呱呱超级女王音～-">音乐人：呱呱超级女王音～</p>
+
+                            <p class="li_p li_p1">
+                                天呐终于能翻出一首防弹的主打歌惹！！！！今晚又要出新歌惹好激动，会一直爱你们的宝宝们！！！啵啵啵哦波波！！
+
+这次跟我超喜欢的凡凡一...
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-〓 Z-ERO 〓-" src="055d9926e17aa86cf9a021842d6c9c27.png_90x90.png" />
+                            <p class="li_p1 bian li_p1_color" title="╰Z-ero╮┣Tiamo┫5.ver（五周年快乐）">╰Z-ero╮┣Tiamo┫5.ver（五周年快乐）</p>
+                            <p class="li_p1 bian li_p1_font" title="-〓 Z-ERO 〓-">音乐人：〓 Z-ERO 〓</p>
+
+                            <p class="li_p li_p1">
+                                丢丢：
+2012.02.10-2017.02.10，厉害了我们居然五周年了！从高中到我大三，起初这个团建于我的一时兴起，没想到...
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="-T-ARA BAR COVER -" src="7fd4784478cf317101cf4eb11a4ead22.jpg_90x90.jpg" />
+                            <p class="li_p1 bian li_p1_color" title="只痛到今天为止---T-ARA吧翻唱团">只痛到今天为止---T-ARA吧翻唱团</p>
+                            <p class="li_p1 bian li_p1_font" title="-T-ARA BAR COVER -">音乐人：T-ARA BAR COVER </p>
+
+                            <p class="li_p li_p1">
+                                痛
+我很痛
+止痛药
+只痛到今天为止
+每首“痛”，都让人随着音乐陷入那忧伤的世界
+心疼，感动，流泪
+虽说这种情绪很伤感
+我却爱惨...
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                    </div>
+            </div>
+            <div id="you1">
+                <div id="ld"><a href="#">音乐乐翻天</a></div>
+                <div id="you1li">
+                    <ul>
+                        <li><a class="yin1" href="#" title="哎哟单身狗">1.&nbsp;唉哟单身狗</a> <a class="yin2" href="#" title="南偿">南偿</a></li>
+                        <li><a class="yin1" href="#" title="【填词】修仙吧，文科生！">2.&nbsp;【填词】修仙吧，文科生！</a><a class="yin2" href="#" title="手冢潍娇">手冢潍娇</a></li>
+                        <li><a class="yin1" href="#" title="【浙江高考】一锅散发诡异光的汤">3.&nbsp;【浙江高考】一锅散发诡异光的汤</a><a class="yin2" href="#" title="-有匪-">-有匪-</a></li>
+                        <li><a class="yin1" href="#" title="『词』《咕去来》by：阡陌＆呆呆Akuma【阴阳师同人】">4.&nbsp;『词』《咕去来》by：阡陌＆呆呆Akuma【阴阳师同人】</a><a class="yin2" href="#" title="千月兔">千月兔</a></li>
+                        <li><a class="yin1" href="#" title="『后期』PPAP(最大值胖达)-音乐猫后期混音">5.&nbsp;『后期』PPAP(最大值胖达)-音乐猫后期混音</a><a class="yin2" href="#" title="音乐猫-后期混音">音乐猫-后期混音</a></li>
+                        <li><a class="yin1" href="#" title="【马戏屯儿】新闻屯儿播 HB2夕柠">6.&nbsp;【马戏屯儿】新闻屯儿播 HB2夕柠</a><a class="yin2" href="#" title="铜板板～">铜板板～</a></li>
+                        <li><a class="yin1" href="#" title="我今天没吃药！感觉自己萌萌哒！">7.&nbsp;我今天没吃药！感觉自己萌萌哒！</a><a class="yin2" href="#" title="一字糖【叫花七】">一字糖【叫花七】</a></li>
+                        <li><a class="yin1" href="#" title="【翻唱】六一智障大礼包">8.&nbsp;【翻唱】六一智障大礼包</a><a class="yin2" href="#" title="三娃sizuka">三娃sizuka</a></li>
+                        <li><a class="yin1" href="#" title="Style 2~">9.&nbsp;Style 2~</a><a class="yin2" href="#" title="Neva_J">Neva_J</a></li>
+                        <li><a class="yin1" href="#" title="剑心派我来拜年【剑网3来贺岁】">10.&nbsp;剑心派我来拜年【剑网3来贺岁】</a><a class="yin2" href="#" title="剑网3官方主页">剑网3官方主页</a></li>
+                        <li><a class="yin1" href="#" title="【情人节献礼】骚年，单身是美德啊">11.&nbsp;【情人节献礼】骚年，单身是美德啊</a><a class="yin2" href="#" title="Lian梨安">Lian梨安</a></li>
+                        <li><a class="yin1" href="#" title="洛天依你到底把我家钥匙放在哪里了 remix">12.&nbsp;洛天依你到底把我家钥匙放在哪里了 remix</a><a class="yin2" href="#" title="litterzy">litterzy</a></li>
+                        <li><a class="yin1" href="#" title="康康之歌">13.&nbsp;康康之歌</a><a class="yin2" href="#" title="纱朵[平纱落雁]">纱朵[平纱落雁]</a></li>
+                        <li><a class="yin1" href="#" title="单身狗的圣诞礼物 ">14.&nbsp;单身狗的圣诞礼物 </a><a class="yin2" href="#" title="小哭●﹏●">小哭●﹏●</a></li>
+                        <li><a class="yin1" href="#" title="【黑遍基三】长歌篇-老琴爹带带我">15.&nbsp;【黑遍基三】长歌篇-老琴爹带带我</a><a class="yin2" href="#" title="乄狩觞">乄狩觞</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="zuo2">
+                <div id="ld"><a href="#">最热广播剧</a></div>
+                <div id="zuo2tw">
+                    <ul>
+                        <li>
+                            <img title="【有声漫画】《两不疑》第六话-墨璃轩出品（音频版）" style="width: 155px; height: 220px;" src="60b75a691534a0c7b00be7b529c70fea.jpg" />
+                            <p class="zuo2twys" title="【有声漫画】《两不疑》第六话-墨璃轩出品（音频版）">【有声漫画】《两不疑》第六话-墨璃轩出品（音频版）</p>
+                            <p class="zuo2twjz" title="墨璃轩广播剧社">墨璃轩广播剧社</p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="缘聚心然 VOL.2：慕喊寒的正确打开方式" style="width: 155px; height: 220px;" src="da3da6554b7b2a8603e5df69f9d93888.jpg" />
+                            <p class="zuo2twys" title="缘聚心然 VOL.2：慕喊寒的正确打开方式">缘聚心然 VOL.2：慕喊寒的正确打开方式</p>
+                            <p class="zuo2twjz" title="妖凰影音工作室">妖凰影音工作室</p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="都市里的白日梦" style="width: 155px; height: 220px;" src="defaultYYJPhoto.jpg" />
+                            <p class="zuo2twys" title="都市里的白日梦">都市里的白日梦</p>
+                            <p class="zuo2twjz" title="highindeed">highindeed</p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img title="【八一短剧】抗战群像·中华天威" style="width: 155px; height: 220px;" src="7ee5b54080855436b5f16705f236a1d0.jpg" />
+                            <p class="zuo2twys" title="【八一短剧】抗战群像·中华天威">【八一短剧】抗战群像·中华天威</p>
+                            <p class="zuo2twjz" title="我叫司徒羽">我叫司徒羽</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="you2">
+                <div id="ld"><a href="#">网友自荐</a></div>
+                <div id="you2li">
+                    <div id="xsgd">
+                        <ul>
+                            <li><a class="yin1" href="#" title="hikari">&nbsp;hikari</a> <a class="yin2" href="#" title="-森谷moriya-">-森谷moriya-</a></li>
+                            <li><a class="yin1" href="#" title="[向日葵]夜は眠れるかい？[亚人OP]">&nbsp;[向日葵]夜は眠れるかい？[亚人OP]</a> <a class="yin2" href="#" title="阿八酱的向日葵">阿八酱的向日葵</a></li>
+                            <li><a class="yin1" href="#" title="我多么羡慕你">&nbsp;我多么羡慕你</a> <a class="yin2" href="#" title="Evan浩">Evan浩</a></li>
+                            <li><a class="yin1" href="#" title="【怀旧】Little Dragon （小龙人之歌）">&nbsp;【怀旧】Little Dragon （小龙人之歌）</a> <a class="yin2" href="#" title="坠落中的飞翔">坠落中的飞翔</a></li>
+                            <li><a class="yin1" href="#" title="【猪】其实都没有">&nbsp;【猪】其实都没有</a> <a class="yin2" href="#" title="金猪﹏冰镇哈啤">金猪﹏冰镇哈啤</a></li>
+                            <li><a class="yin1" href="#" title="Last Christmas - 最后半分钟打鸡血版">&nbsp;Last Christmas - 最后半分钟打鸡血版</a> <a class="yin2" href="#" title="CrystalButterfly">CrystalButterfly</a></li>
+                            <li><a class="yin1" href="#" title="LIFE - 银之匙第二季OP - 【HB to 毛毛！！！】">&nbsp;LIFE - 银之匙第二季OP - 【HB to 毛毛！！！】</a> <a class="yin2" href="#" title="西瓜Kune">西瓜Kune</a></li>
+                            <li><a class="yin1" href="#" title="『太阳』Ringa Linga（Full.Ver）">&nbsp;『太阳』Ringa Linga（Full.Ver）</a> <a class="yin2" href="#" title="┃SPY┃◆＂苮">┃SPY┃◆＂苮</a></li>
+                            <li><a class="yin1" href="#" title="Do What U Want[Duet with Amy Chanrich]">&nbsp;Do What U Want[Duet with Amy Chanrich]</a> <a class="yin2" href="#" title="猴纸君Kyler">猴纸君Kyler</a></li>
+                            <li><a class="yin1" href="#" title="一眼瞬间 （Ft.CICI）">&nbsp;一眼瞬间 （Ft.CICI）</a> <a class="yin2" href="#" title="SH1N">SH1N</a></li>
+                            <li><a class="yin1" href="#" title="【●.ｍoＭO】 我怀念的">&nbsp;【●.ｍoＭO】 我怀念的</a> <a class="yin2" href="#" title="MOMO习习">MOMO习习</a></li>
+                            <li><a class="yin1" href="#" title="hikari">&nbsp;hikari</a> <a class="yin2" href="#" title="-森谷moriya-">-森谷moriya-</a></li>
+                            <li><a class="yin1" href="#" title="[向日葵]夜は眠れるかい？[亚人OP]">&nbsp;[向日葵]夜は眠れるかい？[亚人OP]</a> <a class="yin2" href="#" title="阿八酱的向日葵">阿八酱的向日葵</a></li>
+                            <li><a class="yin1" href="#" title="我多么羡慕你">&nbsp;我多么羡慕你</a> <a class="yin2" href="#" title="Evan浩">Evan浩</a></li>
+                            <li><a class="yin1" href="#" title="【怀旧】Little Dragon （小龙人之歌）">&nbsp;【怀旧】Little Dragon （小龙人之歌）</a> <a class="yin2" href="#" title="坠落中的飞翔">坠落中的飞翔</a></li>
+                            <li><a class="yin1" href="#" title="【猪】其实都没有">&nbsp;【猪】其实都没有</a> <a class="yin2" href="#" title="金猪﹏冰镇哈啤">金猪﹏冰镇哈啤</a></li>
+                            <li><a class="yin1" href="#" title="Last Christmas - 最后半分钟打鸡血版">&nbsp;Last Christmas - 最后半分钟打鸡血版</a> <a class="yin2" href="#" title="CrystalButterfly">CrystalButterfly</a></li>
+                            <li><a class="yin1" href="#" title="LIFE - 银之匙第二季OP - 【HB to 毛毛！！！】">&nbsp;LIFE - 银之匙第二季OP - 【HB to 毛毛！！！】</a> <a class="yin2" href="#" title="西瓜Kune">西瓜Kune</a></li>
+                            <li><a class="yin1" href="#" title="『太阳』Ringa Linga（Full.Ver）">&nbsp;『太阳』Ringa Linga（Full.Ver）</a> <a class="yin2" href="#" title="┃SPY┃◆＂苮">┃SPY┃◆＂苮</a></li>
+                            <li><a class="yin1" href="#" title="Do What U Want[Duet with Amy Chanrich]">&nbsp;Do What U Want[Duet with Amy Chanrich]</a> <a class="yin2" href="#" title="猴纸君Kyler">猴纸君Kyler</a></li>
+                            <li><a class="yin1" href="#" title="一眼瞬间 （Ft.CICI）">&nbsp;一眼瞬间 （Ft.CICI）</a> <a class="yin2" href="#" title="SH1N">SH1N</a></li>
+                            <li><a class="yin1" href="#" title="【●.ｍoＭO】 我怀念的">&nbsp;【●.ｍoＭO】 我怀念的</a> <a class="yin2" href="#" title="MOMO习习">MOMO习习</a></li>
+                            <li><a class="yin1" href="#" title="hikari">&nbsp;hikari</a> <a class="yin2" href="#" title="-森谷moriya-">-森谷moriya-</a></li>
+                            <li><a class="yin1" href="#" title="[向日葵]夜は眠れるかい？[亚人OP]">&nbsp;[向日葵]夜は眠れるかい？[亚人OP]</a> <a class="yin2" href="#" title="阿八酱的向日葵">阿八酱的向日葵</a></li>
+                            <li><a class="yin1" href="#" title="我多么羡慕你">&nbsp;我多么羡慕你</a> <a class="yin2" href="#" title="Evan浩">Evan浩</a></li>
+                            <li><a class="yin1" href="#" title="【怀旧】Little Dragon （小龙人之歌）">&nbsp;【怀旧】Little Dragon （小龙人之歌）</a> <a class="yin2" href="#" title="坠落中的飞翔">坠落中的飞翔</a></li>
+                            <li><a class="yin1" href="#" title="【猪】其实都没有">&nbsp;【猪】其实都没有</a> <a class="yin2" href="#" title="金猪﹏冰镇哈啤">金猪﹏冰镇哈啤</a></li>
+                            <li><a class="yin1" href="#" title="Last Christmas - 最后半分钟打鸡血版">&nbsp;Last Christmas - 最后半分钟打鸡血版</a> <a class="yin2" href="#" title="CrystalButterfly">CrystalButterfly</a></li>
+                            <li><a class="yin1" href="#" title="LIFE - 银之匙第二季OP - 【HB to 毛毛！！！】">&nbsp;LIFE - 银之匙第二季OP - 【HB to 毛毛！！！】</a> <a class="yin2" href="#" title="西瓜Kune">西瓜Kune</a></li>
+                            <li><a class="yin1" href="#" title="『太阳』Ringa Linga（Full.Ver）">&nbsp;『太阳』Ringa Linga（Full.Ver）</a> <a class="yin2" href="#" title="┃SPY┃◆＂苮">┃SPY┃◆＂苮</a></li>
+                            <li><a class="yin1" href="#" title="Do What U Want[Duet with Amy Chanrich]">&nbsp;Do What U Want[Duet with Amy Chanrich]</a> <a class="yin2" href="#" title="猴纸君Kyler">猴纸君Kyler</a></li>
+                            <li><a class="yin1" href="#" title="一眼瞬间 （Ft.CICI）">&nbsp;一眼瞬间 （Ft.CICI）</a> <a class="yin2" href="#" title="SH1N">SH1N</a></li>
+                            <li><a class="yin1" href="#" title="【●.ｍoＭO】 我怀念的">&nbsp;【●.ｍoＭO】 我怀念的</a> <a class="yin2" href="#" title="MOMO习习">MOMO习习</a></li>
+                            <li><a class="yin1" href="#" title="hikari">&nbsp;hikari</a> <a class="yin2" href="#" title="-森谷moriya-">-森谷moriya-</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+            <div id="zuo3">
+
+                <div id="ld"><a href="#">24小时最热</a></div>
+                <div id="zuo3li">
+                    <ul>
+                        <li><a class="yin1" href="#" title="病名は爱だった">&nbsp;病名は爱だった</a> <a class="yin2" href="#" title="傲娇少年_Vk">傲娇少年_Vk</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="夢灯籠">&nbsp;夢灯籠</a> <a class="yin2" href="#" title="纸杯君">纸杯君</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="小半">&nbsp;小半</a> <a class="yin2" href="#" title="Babystop_山竹">Babystop_山竹</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="天造地设">&nbsp;天造地设</a> <a class="yin2" href="#" title="萧忆情Alex">萧忆情Alex</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="追光者">&nbsp;追光者</a> <a class="yin2" href="#" title="诺言Jason">诺言Jason</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="追光者">&nbsp;追光者</a> <a class="yin2" href="#" title="傲娇少年_Vk">傲娇少年_Vk</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="【成品】真相是假">&nbsp;【成品】真相是假</a> <a class="yin2" href="#" title="_小驴_">_小驴_</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="君临天下×《代嫁丞相》——雌雄莫辨无需再明断">&nbsp;君临天下×《代嫁丞相》——雌雄莫辨无需再明断</a> <a class="yin2" href="#" title="傲娇少年_Vk">傲娇少年_Vk</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="我的一个道姑朋友">&nbsp;我的一个道姑朋友</a> <a class="yin2" href="#" title="萧忆情Alex">萧忆情Alex</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="九张机">&nbsp;九张机</a> <a class="yin2" href="#" title="五音Jw">五音Jw</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                    </ul>
+                </div>
+                <div id="zuo3li2">
+                    <ul>
+                        <li><a class="yin1" href="#" title="樱花樱花想见你">&nbsp;樱花樱花想见你</a> <a class="yin2" href="#" title="傲娇少年_Vk">傲娇少年_Vk</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="消愁">&nbsp;消愁</a> <a class="yin2" href="#" title="_小魂_">_小魂_</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="『Choice』大鱼">&nbsp;『Choice』大鱼</a> <a class="yin2" href="#" title="坠啦啦">坠啦啦</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="带你去旅行">&nbsp;带你去旅行</a> <a class="yin2" href="#" title="萧忆情Alex">萧忆情Alex</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="小嫦娥 feat.叶洛洛">&nbsp;小嫦娥 feat.叶洛洛</a> <a class="yin2" href="#" title="Babystop_山竹">Babystop_山竹</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="病名は愛だった">&nbsp;病名は愛だった</a> <a class="yin2" href="#" title="三无Marblue">三无Marblue</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="溺爱">&nbsp;溺爱</a> <a class="yin2" href="#" title="洛少爷">洛少爷</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="【白石溪】">&nbsp;【白石溪】</a> <a class="yin2" href="#" title="西瓜JUN">西瓜JUN</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="消愁">&nbsp;消愁</a> <a class="yin2" href="#" title="萧忆情Alex">萧忆情Alex</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                        <li><a class="yin1" href="#" title="天地有灵-《捉妖记2》推广曲">&nbsp;天地有灵-《捉妖记2》推广曲</a> <a class="yin2" href="#" title="伦桑.[平纱落雁]">伦桑.[平纱落雁]</a><a style="display: inline-block; width: 25px; height: 20px; background-image: url('icons.png');background-position :-62px -2px;left :30px;position :relative   ;cursor :pointer ;"></a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div id="you3">
+                <div id="ld"><a href="#">最新上传</a></div>
+                <div id="you3li">
+                    <ul>
+                        <li><a class="yin1" href="#" title="后来的后来">&nbsp;后来的后来</a> <a class="yin2" href="#" title="   JL-X">JL-X</a></li>
+                        <li><a class="yin1" href="#" title="磁针-- 阿康">&nbsp;磁针-- 阿康</a> <a class="yin2" href="#" title="月儿青青_lyh">月儿青青_lyh</a></li>
+                        <li><a class="yin1" href="#" title="喷嚏">&nbsp;喷嚏</a> <a class="yin2" href="#" title="Evan浩">Evan浩</a></li>
+                        <li><a class="yin1" href="#" title="Zg0DAFX5lXWAGvkuADxTN2kfGw4311">&nbsp;Zg0DAFX5lXWAGvkuADxTN2kfGw4311</a> <a class="yin2" href="#" title="微笑的h好多鱼1">微笑的h好多鱼1</a></li>
+                        <li><a class="yin1" href="#" title="南山南Remix">&nbsp;南山南Remix</a> <a class="yin2" href="#" title="国产懒鬼">国产懒鬼</a></li>
+                        <li><a class="yin1" href="#" title="桃花凉 - 艾辰">&nbsp;桃花凉 - 艾辰</a> <a class="yin2" href="#" title="小丸子_x">小丸子_x</a></li>
+                        <li><a class="yin1" href="#" title="小鱼自白">&nbsp;小鱼自白</a> <a class="yin2" href="#" title="最攻幕家d小哲">最攻幕家d小哲</a></li>
+                        <li><a class="yin1" href="#" title="金不换 豫剧《七品知县卖红薯》2">&nbsp;金不换 豫剧《七品知县卖红薯》2</a> <a class="yin2" href="#" title="牛派弟子刘战立">牛派弟子刘战立</a></li>
+                        <li><a class="yin1" href="#" title="金不换 豫剧《七品知县卖红薯》1">&nbsp;金不换 豫剧《七品知县卖红薯》1</a> <a class="yin2" href="#" title="牛派弟子刘战立">牛派弟子刘战立</a></li>
+                        <li><a class="yin1" href="#" title="回忆（寻梦）">&nbsp;回忆（寻梦）</a> <a class="yin2" href="#" title="禤汉城">禤汉城</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="bottom">
+        <div id="bottom_zhong">
+            <ul>
+                <li>5sing用户服务协议</li>
+                <li>版权指引</li>
+                <li style="width:60px;margin-right:25px;">授权协议</li>
+                <li style="width:60px;margin-right:25px;">隐私政策</li>
+                <li style="width:60px;margin-right:25px;">关于我们</li>
+                <li style="width:60px;margin-right:25px;">商务合作</li>
+                <li style="width:60px;margin-right:25px;">诚聘英才</li>
+                <li style="width:60px;margin-right:25px;">联系我们</li>
+                <li style="width:60px;margin-right:25px;">帮助中心</li>
+            </ul>
+            <p class="bottom_xia">
+                <a>粤ICP备09017694号-2</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                信息网络传播视听节目许可证：1910564号　
+                增值电信业务经营许可证：粤B2-20060339号　
+                营业性演出许可证：穗天演440106120029　
+                <img src="../../首页/中国原创音乐基地 5SING_files/wen_icon.png" />
+            </p>
+            <p class="bottom_xia">
+                Copyright © 2004-2017 KuGou.All Rights Reserved　
+                违法和不良信息举报：www.12377.cn 举报电话：12377　
+                粤公网安备 44010602000141号　&nbsp;&nbsp;&nbsp;&nbsp;
+                <a>12318 全国文化市场举报网站</a>
+            </p>
+        </div>
+        <div id="jiaweixin">
+        </div>
+        <div id="guding">
+            <div id="erwei"></div>
+            <div id="fankui"></div>
+            <div id="dingbu"></div>
+        </div>
+        <div id="erwei_ma"></div>
+    </div>
+</body>
+</html>

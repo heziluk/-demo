@@ -1,0 +1,419 @@
+/* 扩展indexOf方法 */
+if (!Array.indexOf) {
+    Array.prototype.indexOf = function(obj) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i] == obj) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+
+(function($) {
+    /* 幻灯片插件 */
+    $.fn.SlideBanner = function(options) {
+        return this.each(function() {
+            $obj = $(this);
+            var defaults = {
+                box: $obj,
+                item: 'li',
+                itembox: 'ul',
+                page: true,
+                dir: 'up',
+                timer: 3000
+            }
+            var opt   	  = $.extend({}, defaults, options);
+            var oItem     = opt.box.find(opt.item),
+                countitem = oItem.length,
+                oItembox  = opt.box.find(opt.itembox),
+                dirlist   = ['up', 'left'],
+                num       = 0,
+                movelen,
+                s;
+
+            var methods = {
+                init: function() {
+                    isDir = dirlist.indexOf(opt.dir);
+                    if (isDir == -1) {
+                        opt.dir = 'up';
+                    }
+
+                    if (opt.dir == dirlist[1]) {
+                        movelen = oItem.outerWidth();
+                        oItembox.width(movelen * countitem);
+                    } else {
+                        movelen = oItem.outerHeight();
+                    }
+                    opt.page == true ? this.setNum() : '';
+                    if (countitem > 1) {
+                        opt.box.hover(function() {
+                            methods.stopInterval();
+                        }, function() {
+                            methods.resetInterval();
+                        });
+                        methods.resetInterval();
+                    }
+                },
+                setNum: function() {
+                    var numCode = '<div class="imgnum">';
+                    for (var i = 1; i <= countitem; i++) {
+                        if (i == 1) {
+                            numCode += ('<span class="curr">' + i + '</span>');
+                        } else {
+                            numCode += ('<span>' + i + '</span>');
+                        }
+                    }
+                    numCode += '</div>';
+                    opt.box.append(numCode);
+                    opt.box.find('.imgnum').find('span').mouseenter(function() {
+                        num = $(this).index() - 1;
+                        methods.slide();
+                    });
+                },
+                slide: function() {
+                    (num < (countitem - 1)) ? num++ : num = 0;
+                    switch (opt.dir) {
+                        case 'left':
+                            oItembox.stop().animate({
+                                'margin-left': -(num * movelen) + 'px'
+                            }, 500);
+                            break;
+                        case 'up':
+                            oItembox.stop().animate({
+                                'margin-top': -(num * movelen) + 'px'
+                            }, 500);
+                            break;
+                    }
+                    opt.page == true ? methods.currpage() : '';
+                },
+                currpage: function() {
+                    opt.box.find('.imgnum').find('span:eq(' + num + ')').addClass('curr').siblings('span').removeClass('curr');
+                },
+                stopInterval: function() {
+                    clearInterval(s);
+                },
+                resetInterval: function() {
+                    s = setInterval(methods.slide, opt.timer);
+                }
+            }
+            methods.init();
+        });
+    }
+
+    /* 滑动插件 */
+    $.fn.SlideBar = function(options){
+        return this.each(function() {
+            $obj = $(this);
+            var defaults = {
+                box: $obj,
+                item: 'li',
+                itembox: 'ul',
+                dir:'left',
+                nextbtn:'.nextbtn',
+                prevbtn:'.prevbtn',
+                timer:250
+            }
+            var opt   	  = $.extend({}, defaults, options);
+            var oItem     = opt.box.find(opt.item),
+                countitem = oItem.length,
+                oItembox  = opt.box.find(opt.itembox),
+                framenum  = Math.round($obj.width()/oItem.outerWidth()),
+                prevbtn	  = opt.box.find(opt.prevbtn),
+                nextbtn	  = opt.box.find(opt.nextbtn),
+                dirlist   = ['up', 'left'],
+                maxnum	  = countitem-framenum,
+                num       = 0,
+                movelen;
+            var methods = {
+                init: function() {
+                    isDir = dirlist.indexOf(opt.dir);
+                    if (isDir == -1) {opt.dir = 'up';}
+
+                    if (opt.dir == dirlist[1]) {
+                        movelen = oItem.outerWidth();
+                        oItembox.width(movelen * countitem);
+                    } else {
+                        movelen = oItem.outerHeight();
+                    }
+                    this.event();
+                },
+                slideLeft:function(num){
+                    oItembox.stop().animate({
+                        'margin-left': -(num * movelen) + 'px'
+                    }, opt.timer);
+                },
+                slideTop:function(num){
+                    oItembox.stop().animate({
+                        'margin-top': -(num * movelen) + 'px'
+                    }, opt.timer);
+                },
+                event:function(){
+                    nextbtn.click(function() {
+                        if(num < maxnum){
+                            num++;
+                            (opt.dir=='left')?methods.slideLeft(num):methods.slideTop(num);
+                        }else{
+                            return false;
+                        }
+                    });
+                    prevbtn.click(function() {
+                        if(num > 0){
+                            num--
+                            (opt.dir=='left')?methods.slideLeft(num):methods.slideTop(num);
+                        }else{
+                            return false;
+                        }
+                    });
+                }
+            }
+            methods.init();
+        });
+    }
+
+    // 返回顶部
+    $.fn.goTop = function(options) {
+        return this.each(function() {
+            var $obj = $(this);
+            var defaults = {
+                min: 300,
+                fadeSpeed: 200,
+                scrollSpeed: 200
+            }
+            var settings = $.extend({}, defaults, options);
+            methods = {
+                init: function() {
+                    $obj.hide();
+                    methods.event();
+                },
+                event: function() {
+                    $(window).scroll(function() {
+                        if ($(window).scrollTop() >= settings.min) {
+                            $obj.fadeIn(settings.fadeSpeed);
+                        } else {
+                            $obj.fadeOut(settings.fadeSpeed);
+                        }
+                    });
+                    $obj.on('click', function(e) {
+                        e.preventDefault();
+                        $('html,body').animate({
+                            scrollTop: 0
+                        }, settings.scrollSpeed);
+                    });
+                }
+            }
+            methods.init();
+        });
+    }
+
+    // 首页幻灯片
+    $.fn.foucs = function(options) {
+        var defaults = {
+            interval: 4000,
+            animateTime: 300,
+            direction: 'right'
+        }
+        var
+            config      = $.extend(true, defaults, options),
+            $container  = $(this),
+            $box        = $container.find('.ban_wrap'),
+            $imgs       = $container.find('.ban_item'),
+            $leftcover  = $container.find('.prevcover'),
+            $rightcover = $container.find('.nextcover'),
+            $leftBtn    = $container.find('a.prevbtn'),
+            $rightBtn   = $container.find('a.nextbtn'),
+            _imgLen     = $imgs.length,
+            _movelength = 700,
+            s,
+            num = 0;
+        var method = {
+            init: function() {
+                if (_imgLen<2) {return false;}
+                this.setItems();
+                this.setNum();
+                this.event();
+                s = setInterval(method.slideNext,config.interval);
+            },
+            setItems:function(){
+                $imgs.each(function(i) {
+                    var thisnum = i-num;
+                    if (thisnum>2) {
+                        thisnum -= _imgLen;
+                    }
+                    if (thisnum>0) {
+                        $(this).css('left', (_movelength*thisnum+300)+'px');
+                    }else{
+                        $(this).css('left', (_movelength*thisnum)+'px');
+                    }
+                });
+            },
+            setNum: function() {
+                var numCode = '<div class="imgnum">';
+                for (var i = 1; i <= _imgLen; i++) {
+                    if (i == 1) {
+                        numCode += ('<span class="curr">' + i + '</span>');
+                    } else {
+                        numCode += ('<span>' + i + '</span>');
+                    }
+                }
+                numCode += '</div>';
+                $box.append(numCode);
+
+                $('.imgnum span').click(function() {
+                    num = $(this).index();
+                    method.currentPage();
+                    method.slide(true);
+                });
+            },
+            currentPage:function(){
+                $('.imgnum span').eq(num).addClass('curr').siblings('span').removeClass('curr');
+            },
+            slide:function(d){
+                $imgs.each(function(i) {
+                    var thisnum = i-num;
+                    if (thisnum<-2) {
+                        thisnum += _imgLen;
+                    }else if(thisnum>2){
+                        thisnum -= _imgLen;
+                    }
+                    if (!d&&thisnum==-2) {
+                        $(this).stop().css('left', (_movelength*thisnum)+'px');
+                    }else if(d&&thisnum==2){
+                        $(this).stop().css('left', (_movelength*thisnum+300)+'px');
+                    }else if(thisnum>0){
+                        $(this).stop().animate({'left': (_movelength*thisnum+300)+'px'},config.animateTime);
+                    }else{
+                        $(this).stop().animate({'left': (_movelength*thisnum)+'px'},config.animateTime);
+                    }
+                });
+                method.currentPage();
+            },
+            slideNext:function(){
+                (num<(_imgLen-1))?num++:num=0;
+                method.slide(true);
+            },
+            slidePrev:function(){
+                (num>0)?num--:num=_imgLen-1;
+                method.slide(false);
+            },
+            stopInterval:function() {
+                clearInterval(s);
+            },
+            resetInterval: function() {
+                s = setInterval(method.slideNext,config.interval);
+            },
+            event:function() {
+                $rightBtn.click(method.slideNext);
+                $leftBtn.click(method.slidePrev);
+                $container.hover(function() {
+                    clearInterval(s);
+                    $leftBtn.add($rightBtn).show();
+                }, function() {
+                    $leftBtn.add($rightBtn).hide();
+                    s = setInterval(method.slideNext,config.interval);
+                });
+            }
+        }
+        return method.init();
+    }
+})(jQuery);
+
+// 页头
+$('.seh_list').hover(function() {
+    $('.seh_sort').show();
+}, function() {
+    $('.seh_sort').hide();
+});
+
+$('.seh_sort a').click(function() {
+    $('.seh_list_a').html($(this).text() + '<b class="icon icon_ser_arr"></b>');
+    $('.seh_sort').hide();
+});
+
+// 页脚微信
+$('#addweixin').click(function() {
+    $('.weixinqr').toggle();
+});
+
+
+// 顶部下拉菜单.
+$('.top_nav>ul>li').each(function(index, domEle) {
+    var mouseoverTimer = null,
+        mouseoutTimer = null,
+        delay = 200;
+
+    $(domEle).hover(function() {
+        mouseoutTimer && clearTimeout(mouseoutTimer);
+
+        var $self = $(this);
+        mouseoverTimer = setTimeout(function () {
+            $self.find('ul').show();
+        }, delay);
+    }, function() {
+        mouseoverTimer && clearTimeout(mouseoverTimer);
+
+        var $self = $(this);
+        mouseoutTimer = setTimeout(function() {
+            $self.find('ul').hide();
+        }, delay);
+    });
+});
+
+
+// 二级导航菜单
+(function() {
+    var eTimer = null,
+        lTimer = null,
+        $navBtn = $('.jsNavBtn'),
+        $sNavMenu = $('.jsSNavMenu');
+
+    $navBtn.hover(function() {
+        if (lTimer) clearTimeout(lTimer);
+
+        eTimer = setTimeout(function () {
+            $sNavMenu.show();
+        }, 100);
+    }, function() {
+        if (eTimer) clearTimeout(eTimer);
+
+        lTimer = setTimeout(function () {
+            $sNavMenu.hide();
+        }, 100)
+    });
+
+    $sNavMenu.hover(function() {
+        if (lTimer) clearTimeout(lTimer);
+
+        $(this).show();
+    }, function() {
+        $(this).hide();
+    });
+})();
+
+//不允许进入相册
+$('.new_icon a').eq(2).off().on('click', function(e){
+    if ($(this).text() == '相册') {
+        e.preventDefault();
+        e.stopPropagation();
+        $.ajax({
+            url: 'http://service.5sing.kugou.com/user/isAuthentication',
+            dataType: 'jsonp',
+            jsonp: 'jsoncallback'
+        }).done(function(data){
+            if (data.res === false) {
+                $.ksPlugin.confirm({yes: '实名认证', no:'关闭', content: '为配合网络信息安全工作，请您在实名认证后使用相册，敬请谅解！'}, function(){
+                    window.location.href = 'http://5sing.kugou.com/my/set/cert';
+                });
+            } else {
+                location.href = 'http://5sing.kugou.com/my/writing/photo';
+            }                
+        });
+        return false;
+    }
+});
+
+//去除歌曲详情页的顶部标签
+var locationHref = location.href;
+if (/[yc|fc|bz]\/\d+\.html/.test(locationHref)) {
+    $('.nav_bg .w1000 li').removeClass('curr');
+}

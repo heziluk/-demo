@@ -1,0 +1,958 @@
+;((function(plugins) {
+        var statsOptions = {
+        "stats":{
+            "disable":"true",
+            "host": "shuoba.wesay.me",
+            "wrapper": "http://static.5sing.kugou.com/release/js/modules/static/stats.html"
+        },
+        "urlPrefix": {
+            "host":     "5sing.kugou.com",
+            "home":     "http://5sing.kugou.com/",
+            "yc":       "http://5sing.kugou.com/yc/",
+            "fc":       "http://5sing.kugou.com/fc/",
+            "bz":       "http://5sing.kugou.com/bz/",
+            "hd":       "http://5sing.kugou.com/hd/",
+            "service": "http://service.5sing.kugou.com/",
+            "fm":       "http://5sing.kugou.com/fm/",
+            "zc":       "http://5sing.kugou.com/zc/",
+            "shop":     "http://5sing.kugou.com/shop/",
+            "top":      "http://5sing.kugou.com/top/",
+            "static":   "http://static.5sing.kugou.com/",
+            "stat":     "http://stat.5sing.kugou.com/",
+            "search":   "http://sou.5sing.kugou.com/",
+            "member":   "http://member.5sing.kugou.com/",
+            "sou":      "http://search.5sing.kugou.com/"
+        }
+    };
+    var globals = $.extend(true, {}, statsOptions, window.globals);
+    if(typeof globals.UserStatusCallback != "function" )
+        globals.UserStatusCallback = function(){};
+    globals.currentUserId = 0;
+    globals.open = function(url){
+        if(!!url){
+            var a = document.getElementById("NewWindowLink");
+            if(!a){
+                a = document.createElement("a");
+                a.setAttribute("href", url);
+                a.setAttribute("target", "_blank");
+                a.setAttribute("style", "display:none")
+                a.setAttribute("id", "NewWindowLink");
+                document.body.appendChild(a);
+            }
+            try{
+                a.click();
+            } catch (e) {
+                var e = document.createEvent('MouseEvent');
+                e.initEvent('click', false, false);
+                setTimeout(document.getElementById("NewWindowLink").dispatchEvent(e),2000);
+            }
+        }
+    };
+    globals.cookies = {
+        get: function(name){
+            var search = name + "=";
+            if (document.cookie.length > 0) {
+                var offset = document.cookie.indexOf(search);
+                if (offset != -1) {
+                    offset += search.length;
+                    var end = document.cookie.indexOf(";", offset);
+                    if (end == -1) end = document.cookie.length;
+                    return unescape(document.cookie.substring(offset, end));
+                }
+            }
+            return "";
+        },
+        set: function(name, value, domain, path, exp){
+            if(!!name){
+                domain = !!domain ? domain : window.location.host;
+                path = !!path ? path : "/";
+                exp = parseInt(exp);
+                exp = isNaN(exp) ? null : exp;
+                var cookie = "";
+                cookie = name + "=" + value + "; ";
+                if(exp != null){
+                    var now = new Date();
+                    exp = now.getTime() + exp;
+                    now.setTime(exp);
+                    cookie += "expires=" + now.toGMTString() + "; ";
+                }
+                cookie += "domain=" + domain + "; " + "path=" + path + "; ";
+                document.cookie = cookie;
+            }
+        },
+        remove: function(name, domain, path){
+            if(!!name){
+                var exp = -1000;
+                globals.cookies.set(name, "", domain, path, exp);
+            }
+        }
+    };
+    globals.SubString = function (str, len) {
+        if (!str || !len) return '';
+        var a = 0;
+        var i = 0;
+        var temp = '';
+
+        for (i = 0; i < str.length; i++) {
+            if (str.charCodeAt(i) > 255)
+                a += 2;
+            else
+                a++;
+            if (a > len) return temp + "...";
+            temp += str.charAt(i);
+        }
+        return str;
+    };
+    globals.UserStatus = function(){
+        if(!globals.disableUserStatus){
+            var reffer = window.location.href;
+            var targ = typeof(globals.target) == "undefined" ? "target=\"_blank\"" : ("target=\"" + globals.target + "\"");
+            $.getJSON(globals.urlPrefix.service + "user/checkStatus?jsoncallback=?", { url: reffer }, function (obj) {
+                if (obj.isLogin) {
+                    if(typeof  TempID != "undefined" && TempID > 23){
+
+                        var html = '';
+                        html += '<a href="http://5sing.kugou.com/my/"><span class="headpic_s"><img width="36" height="36" alt="' + obj.nickname + '" src="' + obj.img + '"></span>' + Interceptstring(obj.nickname,10) + '</a>';
+                        html += '<ul class="head_box">';
+
+                        html += '<li class="head_box_top">';
+                        html += '<div class="item">';
+                        //html += '<div class="sign_box">';
+                        if ('已签到' == obj.checkstatus) {
+                            html += '<div class="sign_box">已签到<span class="day">'+obj.checkdays +'</span>天<a class="signBtn signBtned clock_in_txt">签到</a></div>';
+                        } else {
+                            html += '<div class="sign_box">已签到<span class="day">'+obj.checkdays +'</span>天<a href="javascript:;" class="signBtn clock_in_txt">签到</a></div>';
+                        }
+
+                        html += '<div class="coin_box"><i></i>金豆<span class="coin">'+obj.gd +'</span>颗</div>';
+                        html += '</div></div>';
+                        html += '<div class="item clearfix" id="usertags">';
+                        html += obj.usertags;
+                        html += '</div></li>';
+
+                        html += '<li class="head_box_ct"><ul class="clearfix">';
+                        html += '<li><a href="'+statsOptions['urlPrefix']['home']+'my/" class="grzx"><i class="icon_grzx"></i>个人中心</a></li>';
+                        html += '<li><a href="'+statsOptions['urlPrefix']['home']+obj.id+'" class="home"><i class="icon_wdzy"></i>我的主页</a></li>';
+                        html += '<li><a href="'+statsOptions['urlPrefix']['home']+'my/writing/yc" class="gqgl"><i class="icon_gqgl"></i>作品管理</a></li>';
+                        html += '<li><a href="'+statsOptions['urlPrefix']['home']+'my/pay/vip" class="wdhy"><i class="icon_wdhy"></i>我的会员</a></li>';
+                        html += '<li><a href="'+statsOptions['urlPrefix']['home']+'my/wealth" class="wdcf"><i class="icon_wdcf"></i>我的财富</a></li>';
+                        html += '<li><a href="'+statsOptions['urlPrefix']['home']+'my/set/info" class="zhsz"><i class="icon_zhsz"></i>账号设置</a></li>';
+                        html += '<li><a href="'+statsOptions['urlPrefix']['home']+'my/set/artists" class="yyr"><i class="icon_yyr"></i>申请音乐人</a></li>';
+                        html += '<li><a href="'+statsOptions['urlPrefix']['home']+'my/set/cert" class="cert"><i class="icon_cert"></i>实名认证</a></li>';
+                        html += '<li><a target="_blank" href="'+statsOptions['urlPrefix']['home']+'fm/m/" class="box"><i class="icon_box"></i>我的音乐盒</a></li>';
+                        html += '</ul></li><li><a href="http://5sing.kugou.com/logout" class="logout">退出登录</a></li><li class="arr"></li></ul>';
+
+
+                        $(".user").html(html);
+                        //$("#userinfoshow").html(html);
+                        $("#usertags").children('a').addClass('icon');
+                        $(".top_nav_login").hide();
+                        globals.InitMessage();
+                    }
+                    globals.currentUserId = obj.id;
+                    globals.UserStatusCallback(obj);
+                    globals.initMessage();
+                    setInterval(function(){
+                        globals.initMessage();
+                    }, 60000);
+                }
+                else{
+                    globals.currentUserId = 0;
+                    globals.UserStatusCallback(false);
+                }
+            });
+        }
+    };
+
+    var Interceptstring = function (str, len) {
+        if (!str || !len) return '';
+        var a = 0;
+        var i = 0;
+        var temp = '';
+
+        for (i = 0; i < str.length; i++) {
+            if (str.charCodeAt(i) > 255)
+                a += 2;
+            else
+                a++;
+            if (a > len){
+                string = temp + '...';
+                return string;
+            }
+            temp += str.charAt(i);
+        }
+        return str;
+    };
+
+    globals.InitMessage = function() {
+        $.getJSON('http://service.5sing.kugou.com/message/tips?jsoncallback=?',function(data){
+            var totalmsg = data.Comment + data.LeaveWord + data.Likes + data.Collects + data.SiteMsg + data.SysMsg +data.Fans;
+            var list = '';
+            list += '<a class="nav_msg_til" href="javascript:;"><i class="icon icon_msg">';
+            if(totalmsg >0)
+            {
+                list += '<span class="msgcount">'+ (totalmsg >= 100 ? "99+" : totalmsg) +'</span>';
+            }
+            list += '</i>消息</a><ul class="msg_box"><li><a href="http://5sing.kugou.com/my/related#comment">';
+            if(data.Comment>0)
+            {
+                list += '<span class="count">'+ (data.Comment >= 100 ? "99+" : data.Comment) +'</span>' ;
+            }
+            list += '评论</a></li><li><a href="http://5sing.kugou.com/my/related#leaveword">';
+            if(data.LeaveWord>0)
+            {
+                list += ' <span class="count">'+ (data.LeaveWord >= 100 ? "99+" : data.LeaveWord) +'</span>';
+            }
+            list += '留言</a></li><li><a href="http://5sing.kugou.com/my/related#like">' ;
+            if(data.Likes>0)
+            {
+                list +='<span class="count">'+ (data.Likes >= 100 ? "99+" : data.Likes) +'</span>';
+            }
+            list += '赞</a></li><li><a href="http://5sing.kugou.com/my/related#collect">' ;
+            if(data.Collects>0)
+            {
+                list +='<span class="count">'+ (data.Collects >= 100 ? "99+" : data.Collects) +'</span>';
+            }
+            list += '收藏</a></li><li><a href="http://5sing.kugou.com/' + data.id + '/fans/1.html">' ;
+            if(data.Fans>0)
+            {
+                list +='<span class="count">'+ (data.Fans >= 100 ? "99+" : data.Fans) +'</span>';
+            }
+            list += '粉丝</a></li><li><a href="http://5sing.kugou.com/my/message/note">' ;
+            if(data.SiteMsg>0)
+            {
+                list +='<span class="count">'+ (data.SiteMsg >= 100 ? "99+" : data.SiteMsg) +'</span>';
+            }
+            list += '站内信</a></li><li><a href="http://5sing.kugou.com/my/message/sys">';
+            if(data.SysMsg>0)
+            {
+                list +='<span class="count">'+ (data.SysMsg >= 100 ? "99+" : data.SysMsg) +'</span>';
+            }
+            list += '系统消息</a></li></ul>';
+            $(".message").html(list);
+            $('.top_nav>ul>li').each(function(index, domEle) {
+                var mouseoverTimer = null,
+                    mouseoutTimer = null,
+                    delay = 200;
+
+                $(domEle).hover(function() {
+                    mouseoutTimer && clearTimeout(mouseoutTimer);
+
+                    var $self = $(this);
+                    mouseoverTimer = setTimeout(function () {
+                        $self.find('ul').show();
+                    }, delay);
+                }, function() {
+                    mouseoverTimer && clearTimeout(mouseoverTimer);
+
+                    var $self = $(this);
+                    mouseoutTimer = setTimeout(function() {
+                        $self.find('ul').hide();
+                    }, delay);
+                });
+            });
+            $('.msg_box>li').each(function(index, domEle) {
+                $(domEle).click(function() {
+                    ClearHeadMsg(index,data.id);
+                });
+            });
+        });
+    };
+
+    function ClearHeadMsg(index,userID) {
+        switch (index) {
+            case 0:
+            {
+                GetJSON('http://service.5sing.kugou.com/message/clearFansTip?jsoncallback=?', 'key=Comment&uid=' + userID);
+                break;
+            }
+            case 1:
+            {
+                GetJSON('http://service.5sing.kugou.com/message/clearFansTip?jsoncallback=?', 'key=LeaveWord&uid=' + userID);
+                break;
+            }
+            case 2:
+            {
+                GetJSON('http://service.5sing.kugou.com/message/clearFansTip?jsoncallback=?', 'key=Likes&uid=' + userID);
+                break;
+            }
+            case 3:
+            {
+                GetJSON('http://service.5sing.kugou.com/message/clearFansTip?jsoncallback=?', 'key=Collects&uid=' + userID);
+                break;
+            }
+            case 4:
+            {
+                GetJSON('http://service.5sing.kugou.com/message/clearFansTip?jsoncallback=?', 'key=Fans&uid=' + userID);
+                break;
+            }
+            case 5:
+            {
+                GetJSON('http://service.5sing.kugou.com/message/clearFansTip?jsoncallback=?', 'key=SiteMsg&uid=' + userID);
+                break;
+            }
+            case 6:
+            {
+                GetJSON('http://service.5sing.kugou.com/message/clearFansTip?jsoncallback=?', 'key=SysMsg&uid=' + userID);
+                break;
+            }
+        }
+
+    }
+    globals.AddFriend = function(userId, callback){
+        userId = parseInt(userId);
+        if(isNaN(userId) || userId <= 0){
+            plugins.ksPlugin.faild("参数错误", 1000);
+            return;
+        }
+        if(typeof callback != "function"){
+            callback = function (o) {
+                if(!o.isLogin)
+                    plugins.login(function(){
+                        window.location.reload();
+                    });
+                else
+                {
+                    if(o.isSuccess)
+                        plugins.ksPlugin.success("关注成功", 1000);
+                    else
+                        plugins.ksPlugin.faild(o.message, 1000);
+                }
+            };
+        }
+        $.getJSON(globals.urlPrefix.service + "relation/addFriend?jsoncallback=?", { UserID: userId }, callback);
+    };
+    globals.RemoveFriend = function(userId, callback){
+        userId = parseInt(userId);
+        if(isNaN(userId) || userId <= 0){
+            plugins.ksPlugin.faild("参数错误", 1000);
+            return;
+        }
+        if(typeof callback != "function"){
+            callback = function (o) {
+                if(o.isSuccess)
+                    plugins.ksPlugin.success("取消关注成功", 1000);
+                else
+                    plugins.ksPlugin.faild(o.message, 1000);
+            };
+        }
+        $.getJSON(globals.urlPrefix.service +"relation/removeFriend?jsoncallback=?", { UserID: userId }, callback);
+    };
+    globals.love = function(songId, songType, callback){
+        if(typeof callback != "function"){
+            callback = function (isSuccess) {
+            };
+        }
+        $.getJSON(globals.urlPrefix.service + "song/love?jsoncallback=?", { songId: songId, songType: songType }, function(res){
+            if(typeof callback == "function")
+                callback(res);
+            else{
+                if(!res.isLogin){
+                    $.login(function(obj){
+                        window.location.reload();
+                    });
+                }
+            }
+        });
+    };
+    globals.unLove = function(songId, songType, callback){
+        if(typeof callback != "function"){
+            callback = function (isSuccess) {
+            };
+        }
+        $.getJSON(globals.urlPrefix.service + "song/unLove?jsoncallback=?", { songId: songId, songType: songType }, function(res){
+            if(typeof callback == "function")
+                callback(res);
+            else{
+                if(!res.isLogin){
+                    $.login(function(obj){
+                        window.location.reload();
+                    });
+                }
+            }
+        });
+    };
+    globals.collectSong = function(songId, songType, callback){
+        var selfFun = arguments.callee;
+        if(typeof callback != "function"){
+            callback = function (isSuccess) {
+            };
+        }
+        $.getJSON(globals.urlPrefix.service + "song/collect?jsoncallback=?", { songId: songId, songType: songType }, function(res){
+            var isSuccess = res.code == 0 ||  res.code == 4;
+            if(res.code == 2){
+                plugins.login(function(){
+                    window.location.reload();
+                    //selfFun(songId, songType, callback);
+                });
+            }
+            else{
+                if(!isSuccess)
+                    plugins.ksPlugin.faild(res.msg);
+                callback(isSuccess);
+            }
+        });
+    };
+    globals.deleteCollectSong = function(songId, songType, callback){
+        var selfFun = arguments.callee;
+        if(typeof callback != "function"){
+            callback = function (isSuccess) {
+            };
+        }
+        $.getJSON(globals.urlPrefix.service + "song/deleteCollect?jsoncallback=?", { songId: songId, songType: songType }, function(res){
+            var isSuccess = res.code == 0;
+            if(res.code == 2){
+                plugins.login(function(){
+                    window.location.reload();
+                    //selfFun(songId, songType, callback);
+                });
+            }
+            else{
+                if(!isSuccess)
+                    plugins.ksPlugin.faild(res.msg);
+                callback(isSuccess);
+            }
+        });
+    };
+    globals.deleteCollectSongs = function(songInfos, callback){
+        var selfFun = arguments.callee;
+        if(typeof callback != "function"){
+            callback = function (res) {
+            };
+        }
+        $.getJSON(globals.urlPrefix.service + "song/deleteCollects?jsoncallback=?", { songInfos: songInfos }, function(res){
+            if(res.code == 2){
+                plugins.login(function(){
+                    window.location.reload();
+                    //selfFun(songInfos, callback);
+                });
+            }
+            else{
+                callback(res);
+            }
+        });
+    };
+    globals.collectSongList = function(songListId,callback){
+        var selfFun = arguments.callee;
+        if(typeof callback != "function"){
+            callback = function (isSuccess) {
+            };
+        }
+        $.getJSON(globals.urlPrefix.service + "songlist/collect?jsoncallback=?", { songListId: songListId}, function(res){
+            var isSuccess = res.code == 0 ||  res.code == 4;
+            if(res.code == 2){
+                plugins.login(function(){
+                    window.location.reload();
+                });
+            }
+            else{
+                if(!isSuccess)
+                    plugins.ksPlugin.faild(res.msg);
+                callback(res);
+            }
+        });
+    };
+    globals.deleteCollectSongList = function(songListId,callback){
+        var selfFun = arguments.callee;
+        if(typeof callback != "function"){
+            callback = function (isSuccess) {
+            };
+        }
+        $.getJSON(globals.urlPrefix.service + "songlist/deleteCollect?jsoncallback=?", { songListId: songListId }, function(res){
+            var isSuccess = res.code == 0;
+            if(res.code == 2){
+                plugins.login(function(){
+                    window.location.reload();
+                });
+            }
+            else{
+                if(!isSuccess)
+                    plugins.ksPlugin.faild(res.msg);
+                callback(isSuccess);
+            }
+        });
+    };
+    globals.getAvatar = function(src, width, height, model){
+        if(!src || !width)
+            return src;
+        if(!height)
+            height = width;
+        if(!!model){
+            if(model == "force")
+                src = src.replace("/m/", "/force/");
+            else if(model == "m")
+                src = src.replace("/force/", "/m/");
+        }
+        if(src.match(/_\d+_\d+\.(jpg|png|gif|bmp)/i))
+            return src.replace(/_\d+_\d+\.(jpg|png|gif|bmp)/i, "_" + width + "_" + height + ".$1");
+        else
+            return src.replace(/\.(jpg|png|gif|bmp)/i,  "_" + width + "_" + height + ".$1");
+    };
+    globals.initMessage = function (){
+        var hasClosedTips = document.cookie.match(/msg_tips_closed=1/);
+        var targ = typeof(globals.target) == "undefined" ? "" : globals.target;
+        $.getJSON(globals.urlPrefix.service + 'message/tips?jsoncallback=?',function(data){
+            var list = '';
+            var total = data.SiteMsg + data.SysMsg;
+            if(total>0){
+                document.title = '【新消息】中国原创音乐基地 5SING';
+            }
+            if(data.RelatedMe > 0  || (data.Collects + data.Likes) > 0){
+                $('.header_bg > .header > .top_nav > .top_nav_join a.myspace').find(".top_nav_new").remove();
+                $('<b class="top_nav_new"></b>').appendTo('.header_bg > .header > .top_nav > .top_nav_join a.myspace');
+            }
+            if(data.Fans > 0 && typeof OwnerUserID  != "undefined" && OwnerUserID == globals.currentUserId){
+                var djTFS = $(".dj_content #totalfans");
+                var commonTFS = $(".banner #totalfans");
+                if(commonTFS.length > 0){
+                    commonTFS.find(".p_abs").remove();
+                    if(typeof Channel != "undefined" && Channel != "fans")
+                        $('<cite class="p_abs b_new">' + (data.Fans >= 100 ? "99+" : data.Fans) + '</cite>').appendTo(".banner #totalfans")
+                }
+                else if(djTFS.length > 0){
+                    djTFS.find(".p_abs").remove();
+                    if(typeof Channel != "undefined" && Channel != "fans")
+                        $('<em class="p_abs f_new">' + (data.Fans >= 100 ? "99+" : data.Fans) + '</em>').appendTo(".dj_content #totalfans");
+
+                }
+            }
+            else{
+                $(".banner #totalfans").find(".p_abs").remove();
+                $(".dj_content #totalfans").find(".p_abs").remove();
+            }
+           /* if(data.SiteMsg>0)
+            {
+                list += '<li>' + data.SiteMsg + '条站内信息，<a ' + targ + ' href="' + globals.urlPrefix.home + 'my/message/note">查看</a></li>';
+                $('.note_nav ul li').eq(0).find('a').find('em').removeClass('note_null').addClass('note_new').text(data.SiteMsg+'条新');
+            }
+            if(data.SysMsg>0)
+            {
+                list += '<li>' + data.SysMsg + '条系统消息，<a ' + targ + ' href="' + globals.urlPrefix.home + 'my/message/view?uid=100000">查看</a></li>';
+                $('.note_nav ul li').eq(4).find('a').find('em').removeClass('note_null').addClass('note_new').text(data.SysMsg+'条新');
+            }*/
+
+            if($('.note_tips_list').length == 0)
+                $('.header').append('<div class="note_tips_list" style="display: none;"></div>');
+            if(typeof sinaExpires != 'undefined')
+                list += '<li>新浪微博绑定已过期，<a href="' + globals.urlPrefix.home + 'login?do=1">重绑</a></li>';
+            if(typeof tencentExpires != 'undefined')
+                list += '<li>腾讯微博绑定已过期，<a href="' + globals.urlPrefix.home + 'login?do=4">重绑</a></li>';
+            if(list.length > 0 && !hasClosedTips)
+            {
+                list = '<a href="###" class="note_close">关闭</a><ul>' + list + '</ul>';
+                $(".note_tips_list").html(list).show().find(".note_close").click(function(){
+                    document.cookie = "msg_tips_closed=1; domain=" + globals.urlPrefix.host + "; path=/";
+                    $(".note_tips_list").hide();
+                });
+            }
+            else
+                $(".note_tips_list").html('').hide();
+            if(data.RelatedMe > 0)
+                $(".l_about").find("span").text(data.RelatedMe);
+        });
+    };
+    var getLogIframe = function (type) {
+        var logIframe = document.getElementById("wsing_stats_log_iframe_" + type);
+        if (!logIframe) {
+            logIframe = document.createElement("iframe");
+            logIframe.style.display = "none";
+            logIframe.id = "wsing_stats_log_iframe_" + type;
+            document.body.appendChild(logIframe);
+        }
+        return logIframe;
+    };
+    globals.logSpaceVisit = function(singerId, userId) {
+        var logIframe = getLogIframe("spacevisit");
+        logIframe.src = globals.stats.wrapper + "?host=" + encodeURIComponent(globals.stats.host) + "&type=spacevisit&singerId=" + encodeURIComponent(singerId)
+            + "&userId=" + encodeURIComponent(userId) + "&_" + new Date().getTime();
+    };
+    globals.logListenPageVisit = function (songid, songtype, singerId, userId) {
+        var logIframe = getLogIframe("listenpagevisit");
+        logIframe.src = globals.stats.wrapper + "?host=" + encodeURIComponent(globals.stats.host) + "&type=listenpagevisit&singerId=" + encodeURIComponent(singerId)
+            + "&userId=" + encodeURIComponent(userId) + "&songid=" + encodeURIComponent(songid)
+            + "&songtype=" + encodeURIComponent(songtype) + "&_" + new Date().getTime();
+    };
+    globals.logListen = function (songid, songtype, singerId, userId) {
+        var logIframe = getLogIframe("listen");
+        logIframe.src = globals.stats.wrapper + "?host=" + encodeURIComponent(globals.stats.host) + "&type=listen&singerId=" + encodeURIComponent(singerId)
+            + "&userId=" + encodeURIComponent(userId) + "&songid=" + encodeURIComponent(songid)
+            + "&songtype=" + encodeURIComponent(songtype) + "&_" + new Date().getTime();
+    };
+    globals.logKugouVisitor = function(){
+        var logFun = function(){
+            var operate = globals.cookies.get("ref_operate");
+            var track = globals.cookies.get("ref_track");
+            var ref = globals.cookies.get("ref");
+            if(!!track && (operate == "00" || operate == "01") ){
+                operate = operate == "00" ? "10" : "11";
+                globals.cookies.set("ref_operate", operate, "5sing.kugou.com", "/");
+                $.getJSON("http://service.5sing.kugou.com/stats/operationLog?jsoncallback=?", { "track": track, "ref": ref }, function(res){
+                });
+            }
+        };
+        $("a").live("click", function(){
+            logFun();
+        });
+        $("input[type=button]").live("click", function(){
+            logFun();
+        });
+    };
+    globals.base64 = {
+        _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+        encode:function(input){
+            var output = "";
+            var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+            var i = 0;
+            input = globals.base64._utf8_encode(input);
+            while (i < input.length) {
+                chr1 = input.charCodeAt(i++);
+                chr2 = input.charCodeAt(i++);
+                chr3 = input.charCodeAt(i++);
+                enc1 = chr1 >> 2;
+                enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+                enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+                enc4 = chr3 & 63;
+                if (isNaN(chr2)) {
+                    enc3 = enc4 = 64;
+                } else if (isNaN(chr3)) {
+                    enc4 = 64;
+                }
+                output = output +
+                    globals.base64._keyStr.charAt(enc1) + globals.base64._keyStr.charAt(enc2) +
+                    globals.base64._keyStr.charAt(enc3) + globals.base64._keyStr.charAt(enc4);
+            }
+            return output;
+        },
+        decode:function(input){
+            var output = "";
+            var chr1, chr2, chr3;
+            var enc1, enc2, enc3, enc4;
+            var i = 0;
+            input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+            while (i < input.length) {
+                enc1 = globals.base64._keyStr.indexOf(input.charAt(i++));
+                enc2 = globals.base64._keyStr.indexOf(input.charAt(i++));
+                enc3 = globals.base64._keyStr.indexOf(input.charAt(i++));
+                enc4 = globals.base64._keyStr.indexOf(input.charAt(i++));
+                chr1 = (enc1 << 2) | (enc2 >> 4);
+                chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+                chr3 = ((enc3 & 3) << 6) | enc4;
+                output = output + String.fromCharCode(chr1);
+                if (enc3 != 64) {
+                    output = output + String.fromCharCode(chr2);
+                }
+                if (enc4 != 64) {
+                    output = output + String.fromCharCode(chr3);
+                }
+            }
+            output = globals.base64._utf8_decode(output);
+            return output;
+        },
+        _utf8_encode: function (input) {
+            input = input.replace(/\r\n/g,"\n");
+            var utftext = "";
+            for (var n = 0; n < input.length; n++) {
+                var c = input.charCodeAt(n);
+                if (c < 128) {
+                    utftext += String.fromCharCode(c);
+                } else if((c > 127) && (c < 2048)) {
+                    utftext += String.fromCharCode((c >> 6) | 192);
+                    utftext += String.fromCharCode((c & 63) | 128);
+                } else {
+                    utftext += String.fromCharCode((c >> 12) | 224);
+                    utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                    utftext += String.fromCharCode((c & 63) | 128);
+                }
+
+            }
+            return utftext;
+        },
+        _utf8_decode: function (input) {
+            var string = "";
+            var i = 0;
+            var c = c1 = c2 = 0;
+            while ( i < input.length ) {
+                c = input.charCodeAt(i);
+                if (c < 128) {
+                    string += String.fromCharCode(c);
+                    i++;
+                } else if((c > 191) && (c < 224)) {
+                    c2 = input.charCodeAt(i+1);
+                    string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                    i += 2;
+                } else {
+                    c2 = input.charCodeAt(i+1);
+                    c3 = input.charCodeAt(i+2);
+                    string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                    i += 3;
+                }
+            }
+            return string;
+        }
+    };
+    var SearchForm = function () {
+        var keyword = $('#txtKey').val();
+        window.open(globals.urlPrefix.sou  +  (keyword ? '?keyword=' + encodeURIComponent(keyword) : ''));
+        //window.location.href = globals.urlPrefix.sou + 'home/index' +  (keyword ? '?keyword=' + encodeURIComponent(keyword) : '');
+        return;
+    };
+
+    var newSearch = function(){
+        var replaceTmpl = function(str, data) {
+            return str.replace(/\{\$([\w\d-_]+)\}/ig, function(a, b) {
+                return typeof data[b] !== 'undefined' ? data[b] : a;
+            });
+        }
+        var clearOthers = function(name){
+            var boxs = ['ser_res_box', 'ser_history_box'];
+            for(var i = 0; i < boxs.length; i++){
+                if(!name || name != boxs[i]){
+                    $('.' + boxs[i]).remove();
+                }
+            }
+        };
+
+        $('body').on('click', function(){
+            $('.ser_tips').hide();
+        });
+        //获取最近搜索词
+        var status = true;
+        /*
+        $('#txtKey').live('click', function(){
+            if($(this).val() == ''){
+                $tips = $('.ser_tips');
+                $tips.show();
+                clearOthers('ser_history_box');
+                if($('.ser_history_box').length > 0){
+                    $tips.show();
+                }else{
+                    if(status == false && $('.ser_history_box').length > 0){
+                        return false;
+                    }
+                    $.ajax({
+                        url: globals.urlPrefix.sou + 'home/GetRecentSearch'
+                    }).done(function(res){
+                        if(res){
+                            //显示最近搜索词
+                            var html = '<dl class="ser_history_box"><dt><i class="ico lt"></i>搜索历史</dt>';
+                            for(var i = 0; i < res.length; i++){
+                                html += '<dd><a class="a_btn" href="' + globals.urlPrefix.sou +'home/index?keyword='+encodeURIComponent(res[i])+'">' + res[i] + '</a></dd>';
+                            }
+                            html += '</dl>';
+                            $tips.append(html);
+                            $tips.show();
+                        }
+                    });
+                    status = false;
+                }
+            }else{
+                $('.ser_tips').show();
+            }
+        });
+        */
+
+        /**
+         * 搜索每次输入时去查询相关数据
+         * 为了防止用户未输完和输完后响应过快的问题
+         * 添加了150毫秒的延时
+         */
+        var t = '';
+        
+        $('#txtKey').on('keyup', function(event) {
+            clearTimeout(t);
+
+            var $this = $(this),
+                key = $.trim($this.val());
+
+            t = setTimeout(function(){
+                if(key.length > 0){
+                    $.ajax({
+                        url: globals.urlPrefix.sou + 'home/QuickSearch',
+                        type: 'GET',
+                        dataType: 'jsonp',
+                        jsonp: 'callback',
+                        data: {keyword: $this.val()}
+                    }).done(function(res) {
+                            if(res == ''){
+                                $('.ser_res_box').remove();
+                                return;
+                            }
+                            //删除历史搜索框
+                            clearOthers();
+                            if ($('.serach').find('.ser_tips').length == 0) {
+                                $('.serach').append('<div class="abs ser_tips"></div>');
+                            }
+                            $('.ser_tips').append('<div class="ser_res_box c_wap c_zm"><table cellpadding="0" cellspacing="0" border="0" width="100%"></table></div>');
+                            var template = '<tr><th width="18%">{$type}</th><td width="82%">{$list}</td></tr>';
+
+                            //歌曲
+                            var temp = [], list = '', picture = '';
+                            var changePic = function(picUrl){
+                                return picUrl ? (picUrl.indexOf('static.5sing') > 0 ? picUrl : picUrl.replace('5sing.com','5sing.kgimg.com').replace('.jpg', '_24_24.jpg')) : '';
+                            }
+                            if(res.songs){
+                                for (var i = 0; i < res.songs.length; i++) {
+                                    list += '<a href="http://5sing.kugou.com/'+res.songs[i].type+'/'+res.songs[i].songId+'.html" class="a_btn ellipsis"><i class="ico rt"></i>'
+                                    + res.songs[i].songName;
+                                    if(res.songs[i].singer){
+                                        list += ' - ' + res.songs[i].singer;
+                                    }
+                                    list += '</a>';
+                                };
+                                temp['type'] = '歌曲';
+                                temp['list'] = list;
+                                $('.ser_res_box table').append(replaceTmpl(template, temp));
+                            }
+                            //歌单
+                            if(res.songlists){
+                                temp = [];
+                                list = '';
+                                for (var i = 0; i < res.songlists.length; i++) {
+                                    if(res.songlists[i].pictureUrl){
+                                        picture = changePic(res.songlists[i].pictureUrl);
+                                        picture = '<span class="lt u_head_img"><img alt="" src="'+ picture +'" width="24" height="24"></span>';
+                                    }
+                                    list += '<a href="http://5sing.kugou.com/' + res.songlists[i].userId + '/gd/'+ res.songlists[i].songListId +'.html" class="a_btn"><i class="ico rt"></i>'
+                                    + picture + res.songlists[i].title + '</a>';
+                                    picture = '';
+                                };
+                                temp['type'] = '歌单';
+                                temp['list'] = list;
+                                $('.ser_res_box table').append(replaceTmpl(template, temp));
+                            }
+                            //会员
+                            if(res.member){
+                                temp = [];
+                                var list = '';
+                                picture = '';
+                                for (var i = 0; i < res.member.length; i++) {
+                                    picture = res.member[i].pictureUrl ? changePic(res.member[i].pictureUrl) : 'http://static.5sing.kugou.com/images/nan.jpg';
+                                    picture = '<span class="lt u_head_img"><img alt="" src="'+ picture +'" width="24" height="24"></span>';
+                                    list += '<a href="http://5sing.kugou.com/'+ res.member[i].userId +'/default.html" class="a_btn">'
+                                        + picture + res.member[i].nickName + '</a>';
+                                    picture = '';
+                                };
+                                temp['type'] = '会员';
+                                temp['list'] = list;
+                                $('.ser_res_box table').append(replaceTmpl(template, temp));
+                            }
+                            $('.ser_tips').show();
+                        });
+                }else{
+                    $('.ser_res_box').remove();
+                }
+            }, 150);
+        });
+        
+    };
+
+    var pageInit  = function(){
+
+        $(".top_nav .top_help").hover(function(){
+            $(this).find(".help_btn").addClass("h_nav_pull");
+            $(this).find(".menu_help").show();
+        }, function(){
+            $(this).find(".menu_help").hide();
+            $(this).find(".help_btn").removeClass("h_nav_pull");
+        });
+        var timeOut1024;
+        $(".header_bg > .header > .h_nav > ul > li").hover(function(){
+            clearTimeout(timeOut1024);
+            $(this).find(".h_nav_clo").addClass("h_nav_pull").parent().find(".nav_box").show();
+        }, function(){
+            var obj = this;
+            timeOut1024 = setTimeout(function(){
+                $(obj).find(".h_nav_clo").removeClass("h_nav_pull").parent().find(".nav_box").hide();
+            },500);
+        });
+
+        $('.top_nav>ul>li').each(function(index, domEle) {
+            var mouseoverTimer = null,
+                mouseoutTimer = null,
+                delay = 200;
+
+            $(domEle).hover(function() {
+                mouseoutTimer && clearTimeout(mouseoutTimer);
+
+                var $self = $(this);
+                mouseoverTimer = setTimeout(function () {
+                    $self.find('ul').show();
+                }, delay);
+            }, function() {
+                mouseoverTimer && clearTimeout(mouseoverTimer);
+
+                var $self = $(this);
+                mouseoutTimer = setTimeout(function() {
+                    $self.find('ul').hide();
+                }, delay);
+            });
+        });
+
+        globals.UserStatus();
+        plugins.userCard(".show_userCard_link");
+        $(".song_share_link").die().live("click", function(){
+            var href = $(this).attr("link");
+            if(!!href){
+                require.async("fancybox", function(fancybox){
+                    fancybox.open({
+                        href: href,
+                        type: 'iframe',
+                        padding: 0,
+                        scrolling: "no",
+                        width: 490,
+                        height: 180,
+                        title: "分享"
+                    });
+                });
+            }
+        });
+        /*$(".seh_list").bind("mousemove", function () {
+            $(".seh_sort").show();
+        }).bind("mouseleave", function () {
+                $(".seh_sort").hide();
+            });
+        $(".seh_sort").find("a").each(function (index) {
+            $(this).bind("click", function () {
+                $(this).parent().hide();
+                $(".seh_list_a").html($(this).text() + '<b class="arrow"></b>')
+            });
+        });*/
+        newSearch();
+        $("#txtKey").bind("keydown", function (e) {
+            if (e.keyCode == 13)  SearchForm();
+        });
+
+        $(".seh_b").bind("click", function () { SearchForm(); });
+
+        $(".ws_head_wrap").delegate(".signBtn", "click", function() {
+            var obj = this;
+
+            $.getJSON(globals.urlPrefix.service + 'user/sign?jsoncallback=?',function(data){
+                if(data[0]==0)
+                {
+                    $(obj).removeAttr('href').removeAttr('onclick');
+                    var result = eval("("+data[1]+")");
+                    var day = $('.day').text();
+                    $('.day').text(parseInt(day) + 1);
+                    $(obj).addClass('signBtned');
+                    $.ksPlugin.success('签到成功，获得' + result.dd + '颗豆豆！');
+                }
+                else if(data[0]==36033)
+                {
+                    $(obj).removeAttr('href').removeAttr('onclick');
+                    var result = eval("("+data[1]+")");
+                    var day = $('.day').text();
+                    $('.day').text(parseInt(day) + 1);
+                    $(obj).addClass('signBtned');
+                    $.ksPlugin.success('签到成功，获得' + result.dd + '颗豆豆！');
+                }
+                else
+                    $.ksPlugin.tips('您已签到！');
+            })
+        });
+    };
+
+    $(function() {
+        pageInit();
+    });
+})(plugins));

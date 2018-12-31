@@ -1,0 +1,10 @@
+C:\Users\Administrator\Desktop\新建文件夹 (2)\WebApplication1\WebApplication1\bin\WebApplication1.dll
+C:\Users\Administrator\Desktop\新建文件夹 (2)\WebApplication1\WebApplication1\bin\WebApplication1.pdb
+C:\Users\Administrator\Desktop\新建文件夹 (2)\WebApplication1\WebApplication1\obj\Debug\WebApplication1.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\新建文件夹 (2)\WebApplication1\WebApplication1\obj\Debug\WebApplication1.dll
+C:\Users\Administrator\Desktop\新建文件夹 (2)\WebApplication1\WebApplication1\obj\Debug\WebApplication1.pdb
+D:\5sing\新建文件夹 (2)\WebApplication1\WebApplication1\bin\WebApplication1.dll
+D:\5sing\新建文件夹 (2)\WebApplication1\WebApplication1\bin\WebApplication1.pdb
+D:\5sing\新建文件夹 (2)\WebApplication1\WebApplication1\obj\Debug\WebApplication1.csprojResolveAssemblyReference.cache
+D:\5sing\新建文件夹 (2)\WebApplication1\WebApplication1\obj\Debug\WebApplication1.dll
+D:\5sing\新建文件夹 (2)\WebApplication1\WebApplication1\obj\Debug\WebApplication1.pdb
